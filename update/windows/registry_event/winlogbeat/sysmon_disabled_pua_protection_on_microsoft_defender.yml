@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling Windows Defender PUA protection
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.EventType:"SetValue" AND winlog.event_data.TargetObject.keyword:*HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\ Defender\\PUAProtection* AND winlog.event_data.Details:"DWORD\ \(0x00000000\)")
+index: winlogbeat-*
+name: 8ffc5407-52e3-478f-9596-0a7371eafe13-Disable-PUA-Protection-on-Windows-Defender
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

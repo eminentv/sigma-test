@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the addition of office test registry that allows a user to specify an arbitrary DLL that will be executed every time an Office application is started
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject:("HKCU\\Software\\Microsoft\\Office\ test\\Special\\Perf" OR "HKLM\\Software\\Microsoft\\Office\ test\\Special\\Perf")
+index: winlogbeat-*
+name: 3d27f6dd-1c74-4687-b4fa-ca849d128d1c-Office-Application-Startup---Office-Test
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -4,8 +4,8 @@ description: Detects a new and suspicious printer port creation in Registry that
 filter:
 - query:
     query_string:
-      query: (TargetObject.keyword:HKLM\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion\\Ports* AND Details.keyword:(*.dll* OR *.exe* OR *.bat* OR *.com* OR *C\:*))
-index: filebeat-*
+      query: (winlog.event_data.TargetObject.keyword:HKLM\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion\\Ports* AND winlog.event_data.Details.keyword:(*.dll* OR *.exe* OR *.bat* OR *.com* OR *C\:*))
+index: winlogbeat-*
 name: 7ec912f2-5175-4868-b811-ec13ad0f8567-Suspicious-New-Printer-Ports-in-Registry-CVE-2020-1048
 priority: 2
 realert:

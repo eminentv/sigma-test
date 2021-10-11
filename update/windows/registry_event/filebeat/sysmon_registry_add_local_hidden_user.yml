@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Sysmon registry detection of a local hidden user account.
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:HKLM\\SAM\\SAM\\Domains\\Account\\Users\\Names\\* AND TargetObject.keyword:*$ AND Image.keyword:*lsass.exe)
+index: filebeat-*
+name: 460479f3-80b7-42da-9c43-2cc1d54dbccd-Creation-of-a-Local-Hidden-User-Account-by-Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

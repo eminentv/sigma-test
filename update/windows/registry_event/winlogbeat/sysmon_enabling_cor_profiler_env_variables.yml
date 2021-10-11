@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule detects cor_enable_profiling and cor_profiler environment variables being set and configured.
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:(*\\COR_ENABLE_PROFILING OR *\\COR_PROFILER)
+index: winlogbeat-*
+name: ad89044a-8f49-4673-9a55-cbd88a1b374f-Enabling-COR-Profiler-Environment-Variables
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

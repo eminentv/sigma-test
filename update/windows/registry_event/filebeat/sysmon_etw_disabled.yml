@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Potential adversaries stopping ETW providers recording loaded .NET assemblies.
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*SOFTWARE\\Microsoft\\.NETFramework\\ETWEnabled AND Details:"DWORD\ \(0x00000000\)")
+index: filebeat-*
+name: bf4fc428-dcc3-4bbd-99fe-2422aeee2544-COMPlus_ETWEnabled-Registry-Modification
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects changes to RDP terminal service sensitive settings
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:(*\\services\\TermService\\Parameters\\ServiceDll* OR *\\Control\\Terminal\ Server\\fSingleSessionPerUser* OR *\\Control\\Terminal\ Server\\fDenyTSConnections*)
+index: winlogbeat-*
+name: 171b67e1-74b4-460e-8d55-b331f3e32d67-RDP-Sensitive-Settings-Changed
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

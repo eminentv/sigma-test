@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects that a powershell code is written to the registry as a service.
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*\\Services\\* AND TargetObject.keyword:*\\ImagePath AND Details.keyword:(*powershell* OR *pwsh*))
+index: filebeat-*
+name: 4a5f5a5e-ac01-474b-9b4e-d61298c9df1d-PowerShell-as-a-Service-in-Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

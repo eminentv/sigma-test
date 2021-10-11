@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the installation of the Azure Hybrid Connection Manager service to allow remote code execution from Azure function.
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*\\Services\\HybridConnectionManager* OR Details.keyword:*Microsoft.HybridConnectionManager.Listener.exe*)
+index: filebeat-*
+name: ac8866c7-ce44-46fd-8c17-b24acff96ca8-HybridConnectionManager-Service-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for a new application in AppCompat. This indicates an application executing for the first time on an endpoint.
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:*\\AppCompatFlags\\Compatibility\ Assistant\\Store\\*
+index: filebeat-*
+name: 60936b49-fca0-4f32-993d-7415edcf9a5d-New-Application-in-AppCompat
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects potential malicious modification of the property value of fDenyTSConnections and UserAuthentication to enable remote desktop connections.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:(*\\CurrentControlSet\\Control\\Terminal\ Server\\WinStations\\RDP\-Tcp\\UserAuthentication OR *\\CurrentControlSet\\Control\\Terminal\ Server\\fDenyTSConnections) AND winlog.event_data.Details:"DWORD\ \(0x00000000\)")
+index: winlogbeat-*
+name: 41904ebe-d56c-4904-b9ad-7a77bdf154b3-RDP-Registry-Modification
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

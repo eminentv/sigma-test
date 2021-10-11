@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Disable Microsoft Office Security Features by registry
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.EventType:"SetValue" AND winlog.event_data.TargetObject.keyword:*\\SOFTWARE\\Microsoft\\Office\\* AND winlog.event_data.TargetObject.keyword:(*VBAWarnings OR *DisableInternetFilesInPV OR *DisableUnsafeLocationsInPV OR *DisableAttachementsInPV) AND winlog.event_data.Details:"DWORD\ \(0x00000001\)")
+index: winlogbeat-*
+name: 7c637634-c95d-4bbf-b26c-a82510874b34-Disable-Microsoft-Office-Security-Features
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

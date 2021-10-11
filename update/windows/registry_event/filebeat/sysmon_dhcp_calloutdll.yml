@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the installation of a Callout DLL via CalloutDlls and CalloutEnabled parameter in Registry, which can be used to execute code in context of the DHCP server (restart required)
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:(*\\Services\\DHCPServer\\Parameters\\CalloutDlls OR *\\Services\\DHCPServer\\Parameters\\CalloutEnabled)
+index: filebeat-*
+name: 9d3436ef-9476-4c43-acca-90ce06bdf33a-DHCP-Callout-DLL-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

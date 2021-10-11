@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects COM object hijacking via TreatAs subkey
+filter:
+- query:
+    query_string:
+      query: (EventType:"CreateKey" AND TargetObject.keyword:*HKU\\* AND TargetObject.keyword:*Classes\\CLSID\\* AND TargetObject.keyword:*\\TreatAs*)
+index: filebeat-*
+name: 9b0f8a61-91b2-464f-aceb-0527e0a45020-Windows-Registry-Persistence-COM-Key-Linking
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

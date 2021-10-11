@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects persistence via Visual Studio Tools for Office (VSTO) add-ins in Office applications.
+filter:
+- query:
+    query_string:
+      query: ((EventType:"SetValue" AND TargetObject.keyword:(*\\Software\\Microsoft\\Office\\Outlook\\Addins\\* OR *\\Software\\Microsoft\\Office\\Word\\Addins\\* OR *\\Software\\Microsoft\\Office\\Excel\\Addins\\* OR *\\Software\\Microsoft\\Office\\Powerpoint\\Addins\\* OR *\\Software\\Microsoft\\VSTO\\Security\\Inclusion\\*)) AND (NOT Image.keyword:*\\msiexec.exe))
+index: filebeat-*
+name: 9d15044a-7cfe-4d23-8085-6ebc11df7685-Stealthy-VSTO-Persistence
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

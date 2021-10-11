@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation or execution of UserInitMprLogonScript persistence method
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:*UserInitMprLogonScript*
+index: filebeat-*
+name: 9ace0707-b560-49b8-b6ca-5148b42f39fb-Logon-Scripts-UserInitMprLogonScript-Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

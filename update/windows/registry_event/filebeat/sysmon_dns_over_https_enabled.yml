@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a user enables DNS-over-HTTPS. This can be used to hide internet activity or be used to hide the process of exfiltrating data. With this enabled organization will lose visibility into data such as query type, response and originating IP that are used to determine bad actors.
+filter:
+- query:
+    query_string:
+      query: (((TargetObject.keyword:*\\SOFTWARE\\Policies\\Microsoft\\Edge\\BuiltInDnsClientEnabled AND Details:"DWORD\ \(1\)") OR (TargetObject.keyword:*\\SOFTWARE\\Google\\Chrome\\DnsOverHttpsMode AND Details:"DWORD\ \(secure\)")) OR (TargetObject.keyword:*\\SOFTWARE\\Policies\\Mozilla\\Firefox\\DNSOverHTTPS\\Enabled AND Details:"DWORD\ \(1\)"))
+index: filebeat-*
+name: 04b45a8a-d11d-49e4-9acc-4a1b524407a5-DNS-over-HTTPS-Enabled-by-Registry
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

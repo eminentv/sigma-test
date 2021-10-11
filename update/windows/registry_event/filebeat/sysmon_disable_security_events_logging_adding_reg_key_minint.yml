@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the addition of a key 'MiniNt' to the registry. Upon a reboot, Windows Event Log service will stopped write events.
+filter:
+- query:
+    query_string:
+      query: ((TargetObject:"HKLM\\SYSTEM\\CurrentControlSet\\Control\\MiniNt" AND EventType:"CreateKey") OR NewName:"HKLM\\SYSTEM\\CurrentControlSet\\Control\\MiniNt")
+index: filebeat-*
+name: 919f2ef0-be2d-4a7a-b635-eb2b41fde044-Disable-Security-Events-Logging-Adding-Reg-Key-MiniNt
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

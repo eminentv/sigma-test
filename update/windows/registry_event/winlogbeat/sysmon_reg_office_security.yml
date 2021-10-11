@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects registry changes to Office macro settings
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:(*\\Security\\Trusted\ Documents\\TrustRecords OR *\\Security\\AccessVBOM OR *\\Security\\VBAWarnings)
+index: winlogbeat-*
+name: a166f74e-bf44-409d-b9ba-ea4b2dd8b3cd-Office-Security-Settings-Changed
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

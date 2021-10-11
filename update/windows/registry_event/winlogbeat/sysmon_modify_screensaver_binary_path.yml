@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects value modification of registry key containing path to binary used as screensaver.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*\\Control\ Panel\\Desktop\\SCRNSAVE.EXE AND (NOT winlog.event_data.Image.keyword:(*\\rundll32.exe OR *\\explorer.exe)))
+index: winlogbeat-*
+name: 67a6c006-3fbe-46a7-9074-2ba3b82c3000-Path-To-Screensaver-Binary-Modified
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

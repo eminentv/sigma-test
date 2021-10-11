@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious printer driver installation with an empty Manufacturer value
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*\\Control\\Print\\Environments\\Windows\ x64\\Drivers* AND TargetObject.keyword:*\\Manufacturer* AND Details:"\(Empty\)")
+index: filebeat-*
+name: e0813366-0407-449a-9869-a2db1119dc41-Suspicious-Printer-Driver-Empty-Manufacturer
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config
