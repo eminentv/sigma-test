@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation/modification of Assisitive Technology applications and persistence with usage of ATs
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*Software\\Microsoft\\Windows\ NT\\CurrentVersion\\Accessibility\\ATs* OR TargetObject.keyword:*Software\\Microsoft\\Windows\ NT\\CurrentVersion\\Accessibility\\Configuration*)
+index: filebeat-*
+name: 9577edbb-851f-4243-8c91-1d5b50c1a39b-Atbroker-Registry-Change
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

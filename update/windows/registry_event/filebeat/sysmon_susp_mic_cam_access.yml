@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Processes accessing the camera and microphone from suspicious folder
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*\\Software\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\* AND TargetObject.keyword:*\\NonPackaged* AND TargetObject.keyword:(*microphone* OR *webcam*) AND TargetObject.keyword:(*\:#Windows#Temp#* OR *\:#$Recycle.bin#* OR *\:#Temp#* OR *\:#Users#Public#* OR *\:#Users#Default#* OR *\:#Users#Desktop#*))
+index: filebeat-*
+name: 62120148-6b7a-42be-8b91-271c04e281a3-Suspicious-Camera-and-Microphone-Access
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

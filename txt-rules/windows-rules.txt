@@ -783,3 +783,7 @@ win_outlook_registry_todaypage.yml
 win_outlook_registry_webview.yml
 win_portproxy_registry_key.yml
 win_registry_mimikatz_printernightmare.yml
+sysmon_accessing_winapi_in_powershell_credentials_dumping.yml
+sysmon_config_modification_error.yml
+sysmon_config_modification_status.yml
+sysmon_dcom_iertutil_dll_hijack.yml

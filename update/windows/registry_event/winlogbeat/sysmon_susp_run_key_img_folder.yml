@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious new RUN key element pointing to an executable in a suspicious folder
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:(*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run\\* OR *\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce\\*) AND (winlog.event_data.Details.keyword:(*C\:\\Windows\\Temp\\* OR *C\:\\$Recycle.bin\\* OR *C\:\\Temp\\* OR *C\:\\Users\\Public\\* OR *C\:\\Users\\Default\\* OR *C\:\\Users\\Desktop\\*) OR winlog.event_data.Details.keyword:(%Public%\\* OR wscript* OR cscript*)))
+index: winlogbeat-*
+name: 02ee49e2-e294-4d0f-9278-f5b3212fc588-New-RUN-Key-Pointing-to-Suspicious-Folder
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

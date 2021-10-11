@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection to trigger for the creation or modification of .*\Software\Sysinternals\SDelete registry keys. Indicators of the use of Sysinternals SDelete tool.
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:*\\Software\\Sysinternals\\SDelete*
+index: winlogbeat-*
+name: 9841b233-8df8-4ad7-9133-b0b4402a9014-Sysinternals-SDelete-Registry-Keys
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using registry key manipulation of sdclt.exe (e.g. UACMe 53)
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*Software\\Classes\\exefile\\shell\\runas\\command\\isolatedCommand OR (TargetObject.keyword:*Software\\Classes\\Folder\\shell\\open\\command\\SymbolicLinkValue AND Details.keyword:*\-1???\\Software\\Classes\\*))
+index: filebeat-*
+name: 5b872a46-3b90-45c1-8419-f675db8053aa-UAC-Bypass-via-Sdclt
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

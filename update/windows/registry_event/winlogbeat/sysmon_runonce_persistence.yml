@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Rule to detect the configuration of Run Once registry key. Configured payload can be run by runonce.exe /AlternateShellStartup
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:HKLM\\SOFTWARE\\Microsoft\\Active\ Setup\\Installed\ Components* AND winlog.event_data.TargetObject.keyword:*\\StubPath)
+index: winlogbeat-*
+name: c74d7efc-8826-45d9-b8bb-f04fac9e4eff-Run-Once-Task-Configuration-in-Registry
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

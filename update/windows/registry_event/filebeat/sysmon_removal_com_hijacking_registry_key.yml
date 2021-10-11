@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection to trigger for processes removing .*\shell\open\command registry keys. Registry keys that might have been used for COM hijacking activities.
+filter:
+- query:
+    query_string:
+      query: (EventType:"DeleteKey" AND TargetObject.keyword:*\\shell\\open\\command)
+index: filebeat-*
+name: 96f697b0-b499-4e5d-9908-a67bec11cdb6-Removal-of-Potential-COM-Hijacking-Registry-Keys
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

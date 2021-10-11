@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule detects that the path to the DLL written in the registry is different from the default one. Launched WAB.exe tries to load the DLL from Registry.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*\\Software\\Microsoft\\WAB\\DLLPath AND (NOT winlog.event_data.Details:"%CommonProgramFiles%\\System\\wab32.dll"))
+index: winlogbeat-*
+name: fc014922-5def-4da9-a0fc-28c973f41bfb-Execution-DLL-of-Choice-Using-WAB.EXE
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects potential malicious modification of run keys by winekey or team9 backdoor
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:*Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Backup\ Mgr
+index: filebeat-*
+name: b98968aa-dbc0-4a9c-ac35-108363cbf8d5-WINEKEY-Registry-Modification
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

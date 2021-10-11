@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the addition of a SSP to the registry. Upon a reboot or API call, SSP DLLs gain access to encrypted and plaintext passwords stored in Windows.
+filter:
+- query:
+    query_string:
+      query: (TargetObject:("HKLM\\System\\CurrentControlSet\\Control\\Lsa\\Security\ Packages" OR "HKLM\\System\\CurrentControlSet\\Control\\Lsa\\OSConfig\\Security\ Packages") AND (NOT (Image:"C\:\\Windows\\system32\\msiexec.exe" OR Image:"C\:\\Windows\\syswow64\\MsiExec.exe")))
+index: filebeat-*
+name: eeb30123-9fbd-4ee8-aaa0-2e545bbed6dc-Security-Support-Provider-SSP-Added-to-LSA-Configuration
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

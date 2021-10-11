@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects VBScript content stored into registry keys as seen being used by UNC2452 group
+filter:
+- query:
+    query_string:
+      query: ((TargetObject.keyword:*Software\\Microsoft\\Windows\\CurrentVersion* AND Details.keyword:(*vbscript* OR *jscript* OR *mshtml* OR *mshtml,* OR *mshtml\ * OR *RunHTMLApplication* OR *Execute\(* OR *CreateObject* OR *RegRead* OR *window.close*)) AND (NOT TargetObject.keyword:*Software\\Microsoft\\Windows\\CurrentVersion\\Run*))
+index: filebeat-*
+name: 46490193-1b22-4c29-bdd6-5bf63907216f-VBScript-Payload-Stored-in-Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects persistence method using windows telemetry
+filter:
+- query:
+    query_string:
+      query: ((TargetObject.keyword:*\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion\\AppCompatFlags\\TelemetryController\\* AND TargetObject.keyword:*\\Command* AND Details.keyword:*.exe*) AND (NOT Details.keyword:(*\\system32\\CompatTelRunner.exe* OR *\\system32\\DeviceCensus.exe*)))
+index: filebeat-*
+name: 73a883d0-0348-4be4-a8d8-51031c2564f8-Registry-Persistence-Mechanism-via-Windows-Telemetry
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

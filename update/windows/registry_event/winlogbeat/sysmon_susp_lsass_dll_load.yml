@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a method to load DLL via LSASS process using an undocumented Registry key
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:(*\\CurrentControlSet\\Services\\NTDS\\DirectoryServiceExtPt* OR *\\CurrentControlSet\\Services\\NTDS\\LsaDbExtPt*)
+index: winlogbeat-*
+name: b3503044-60ce-4bf4-bbcb-e3db98788823-DLL-Load-via-LSASS
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

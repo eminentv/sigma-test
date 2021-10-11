@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using fodhelper.exe, computerdefaults.exe, slui.exe via registry keys (e.g. UACMe 33 or 62)
+filter:
+- query:
+    query_string:
+      query: (((TargetObject.keyword:*Classes\\ms\-settings\\shell\\open\\command\\SymbolicLinkValue AND Details.keyword:*\\Software\\Classes\\\{*) OR TargetObject.keyword:*Classes\\ms\-settings\\shell\\open\\command\\DelegateExecute) OR (TargetObject.keyword:(*Classes\\ms\-settings\\shell\\open\\command\\\(Default\) OR *Classes\\exefile\\shell\\open\\command\\\(Default\)) AND (NOT Details:"\(Empty\)")))
+index: filebeat-*
+name: 152f3630-77c1-4284-bcc0-4cc68ab2f6e7-UAC-Bypass-Using-Registry-Shell-Open-Keys
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

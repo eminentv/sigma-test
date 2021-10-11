@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the manipulation of persistent URLs which can be malicious
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:(*Software\\Microsoft\\Office\\* OR *Outlook\\WebView\\*) AND TargetObject.keyword:*URL AND TargetObject.keyword:(*Calendar* OR *Inbox*))
+index: filebeat-*
+name: ddd171b5-2cc6-4975-9e78-f0eccd08cc76-Persistent-Outlook-Landing-Pages
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

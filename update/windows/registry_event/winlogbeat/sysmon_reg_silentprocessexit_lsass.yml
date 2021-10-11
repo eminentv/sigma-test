@@ -4,8 +4,8 @@ description: Detects changes to the Registry in which a monitor program gets reg
 filter:
 - query:
     query_string:
-      query: TargetObject.keyword:*Microsoft\\Windows\ NT\\CurrentVersion\\SilentProcessExit\\lsass.exe*
-index: filebeat-*
+      query: winlog.event_data.TargetObject.keyword:*Microsoft\\Windows\ NT\\CurrentVersion\\SilentProcessExit\\lsass.exe*
+index: winlogbeat-*
 name: 55e29995-75e7-451a-bef0-6225e2f13597-SilentProcessExit-Monitor-Registrytion-for-LSASS
 priority: 1
 realert:

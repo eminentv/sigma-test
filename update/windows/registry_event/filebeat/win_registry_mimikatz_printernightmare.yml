@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects static QMS 810 and mimikatz driver name used by Mimikatz as exploited in CVE-2021-1675 and CVE-2021-34527
+filter:
+- query:
+    query_string:
+      query: ((TargetObject.keyword:(*\\Control\\Print\\Environments\\Windows\ x64\\Drivers\\Version\-3\\QMS\ 810\\* OR *\\Control\\Print\\Environments\\Windows\ x64\\Drivers\\Version\-3\\mimikatz*) OR (TargetObject.keyword:*legitprinter* AND TargetObject.keyword:*\\Control\\Print\\Environments\\Windows*)) OR (TargetObject.keyword:(*\\Control\\Print\\Environments* OR *\\CurrentVersion\\Print\\Printers*) AND TargetObject.keyword:(*Gentil\ Kiwi* OR *mimikatz\ printer* OR *Kiwi\ Legit\ Printer*)))
+index: filebeat-*
+name: ba6b9e43-1d45-4d3c-a504-1043a64c8469-PrinterNightmare-Mimimkatz-Driver-Name
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

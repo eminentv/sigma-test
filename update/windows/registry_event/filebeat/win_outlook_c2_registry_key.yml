@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the modification of Outlook Security Setting to allow unprompted execution. Goes with win_outlook_c2_macro_creation.yml and is particularly interesting if both events occur near to each other.
+filter:
+- query:
+    query_string:
+      query: (TargetObject:"HKCU\\Software\\Microsoft\\Office\\16.0\\Outlook\\Security\\Level" AND Details.keyword:*0x00000001*)
+index: filebeat-*
+name: e3b50fa5-3c3f-444e-937b-0a99d33731cd-Outlook-C2-Registry-Key
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

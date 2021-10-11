@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects changes to the Registry in which a monitor program gets registered to monitor the exit of another process
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*Microsoft\\Windows\ NT\\CurrentVersion\\SilentProcessExit* AND winlog.event_data.Details.keyword:*MonitorProcess*)
+index: winlogbeat-*
+name: c81fe886-cac0-4913-a511-2822d72ff505-SilentProcessExit-Monitor-Registrytion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

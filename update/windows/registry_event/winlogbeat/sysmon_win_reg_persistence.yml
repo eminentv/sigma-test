@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects persistence registry keys
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion* AND ((winlog.event_data.TargetObject.keyword:*\\Image\ File\ Execution\ Options\\* AND winlog.event_data.TargetObject.keyword:*\\GlobalFlag*) OR (winlog.event_data.TargetObject.keyword:*SilentProcessExit\\* AND winlog.event_data.TargetObject.keyword:*\\ReportingMode*) OR (winlog.event_data.TargetObject.keyword:*SilentProcessExit\\* AND winlog.event_data.TargetObject.keyword:*\\MonitorProcess*)))
+index: winlogbeat-*
+name: 36803969-5421-41ec-b92f-8500f79c23b0-Registry-Persistence-Mechanisms
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

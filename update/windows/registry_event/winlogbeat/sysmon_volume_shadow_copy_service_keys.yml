@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the volume shadow copy service initialization and processing. Registry keys such as HKLM\\System\\CurrentControlSet\\Services\\VSS\\Diag\\VolSnap\\Volume are captured.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*System\\CurrentControlSet\\Services\\VSS* AND (NOT winlog.event_data.TargetObject.keyword:*System\\CurrentControlSet\\Services\\VSS\\Start*))
+index: winlogbeat-*
+name: 5aad0995-46ab-41bd-a9ff-724f41114971-Volume-Shadow-Copy-Service-Keys
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config
