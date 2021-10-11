@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using Windows Media Player osksupport.dll (UACMe 32)
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:*\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion\\AppCompatFlags\\Compatibility\ Assistant\\Store\\C\:\\Program\ Files\\Windows\ Media\ Player\\osk.exe AND winlog.event_data.Details:"Binary\ Data")
+index: winlogbeat-*
+name: 5f9db380-ea57-4d1e-beab-8a2d33397e93-UAC-Bypass-Using-Windows-Media-Player---Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

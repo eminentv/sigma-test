@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Windows telemetry makes use of the binary CompatTelRunner.exe to run a variety of commands and perform the actual telemetry collections. This binary was created to be easily extensible, and to that end, it relies on the registry to instruct on which commands to run. The problem is, it will run any arbitrary command without restriction of location or type.
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*HKLM\\SOFTWARE\\Microsoft\\Windows\ NT\\CurrentVersion\\AppCompatFlags\\TelemetryController\\* AND Details.keyword:(*.sh OR *.exe OR *.dll OR *.bin OR *.bat OR *.cmd OR *.js OR *.ps OR *.vb OR *.jar OR *.hta OR *.msi OR *.vbs))
+index: filebeat-*
+name: 4e8d5fd3-c959-441f-a941-f73d0cdcdca5-Abusing-Windows-Telemetry-For-Persistence
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

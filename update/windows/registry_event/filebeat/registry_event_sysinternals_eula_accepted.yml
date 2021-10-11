@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the usage of Sysinternals Tools due to accepteula key being added to Registry
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:*\\EulaAccepted
+index: filebeat-*
+name: 25ffa65d-76d8-4da5-a832-3f2b0136e133-Usage-of-Sysinternals-Tools
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

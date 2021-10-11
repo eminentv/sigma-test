@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects NetNTLM downgrade attack
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*SYSTEM\\* AND TargetObject.keyword:*ControlSet* AND TargetObject.keyword:*\\Control\\Lsa* AND TargetObject.keyword:(*\\lmcompatibilitylevel OR *\\NtlmMinClientSec OR *\\RestrictSendingNTLMTraffic))
+index: filebeat-*
+name: d67572a0-e2ec-45d6-b8db-c100d14b8ef2-NetNTLM-Downgrade-Attack
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

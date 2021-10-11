@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects various indicators of Microsoft Connection Manager Profile Installer execution
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject.keyword:*\\cmmgr32.exe*
+index: winlogbeat-*
+name: b6d235fc-1d38-4b12-adbe-325f06728f37-CMSTP-Execution-Registry-Event
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

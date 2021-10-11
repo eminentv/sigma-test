@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling Windows Defender threat protection
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Details:"DWORD\ \(0x00000001\)" AND ((winlog.event_data.EventType:"SetValue" AND winlog.event_data.TargetObject:"HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\ Defender\\DisableAntiSpyware") OR winlog.event_data.TargetObject:("HKLM\\SYSTEM\\CurrentControlSet\\Services\\WinDefend" OR "HKLM\\SOFTWARE\\Microsoft\\Windows\ Defender" OR "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\ Defender")))
+index: winlogbeat-*
+name: a64e4198-c1c8-46a5-bc9c-324c86455fd4-Windows-Defender-Threat-Detection-Disabled
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects UAC bypass method using Windows event viewer
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:HKCU\\* AND winlog.event_data.TargetObject.keyword:*\\mscfile\\shell\\open\\command)
+index: winlogbeat-*
+name: 7c81fec3-1c1d-43b0-996a-46753041b1b6-UAC-Bypass-via-Event-Viewer
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using a path parsing issue in winsat.exe (UACMe 52)
+filter:
+- query:
+    query_string:
+      query: (TargetObject.keyword:*\\Root\\InventoryApplicationFile\\winsat.exe|* AND TargetObject.keyword:*\\LowerCaseLongPath AND Details.keyword:c\:\\users\\* AND Details.keyword:*\\appdata\\local\\temp\\system32\\winsat.exe)
+index: filebeat-*
+name: 6597be7b-ac61-4ac8-bef4-d3ec88174853-UAC-Bypass-Abusing-Winsat-Path-Parsing---Registry
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

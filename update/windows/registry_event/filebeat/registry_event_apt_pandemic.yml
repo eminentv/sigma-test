@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Pandemic Windows Implant
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:*\\SYSTEM\\CurrentControlSet\\services\\null\\Instance*
+index: filebeat-*
+name: 47e0852a-cf81-4494-a8e6-31864f8c86ed-Pandemic-Registry-Key
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

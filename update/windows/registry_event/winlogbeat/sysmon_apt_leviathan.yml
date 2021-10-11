@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects registry key used by Leviathan APT in Malaysian focused campaign
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.TargetObject:"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\ntkd"
+index: winlogbeat-*
+name: 70d43542-cd2d-483c-8f30-f16b436fd7db-Leviathan-Registry-Key-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

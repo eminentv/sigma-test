@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects javaw.exe in AppData folder as used by Adwind / JRAT
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetObject.keyword:HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run* AND winlog.event_data.Details.keyword:%AppData%\\Roaming\\Oracle\\bin\\*)
+index: winlogbeat-*
+name: 42f0e038-767e-4b85-9d96-2c6335bad0b5-Adwind-RAT-/-JRAT
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

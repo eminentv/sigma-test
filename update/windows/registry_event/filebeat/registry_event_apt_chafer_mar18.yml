@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Chafer activity attributed to OilRig as reported in Nyotron report in March 2018
+filter:
+- query:
+    query_string:
+      query: TargetObject.keyword:(*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\UMe OR *SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\UT)
+index: filebeat-*
+name: 7bdf2a7c-3acc-4091-9581-0a77dad1c5b5-Chafer-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config
