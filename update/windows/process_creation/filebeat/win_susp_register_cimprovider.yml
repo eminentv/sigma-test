@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects using register-cimprovider.exe to execute arbitrary dll file.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\register\-cimprovider.exe AND CommandLine.keyword:*\-path* AND CommandLine.keyword:*dll*)
+index: filebeat-*
+name: a2910908-e86f-4687-aeba-76a5f996e652-DLL-Execution-Via-Register-cimprovider.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

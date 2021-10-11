@@ -1,0 +1,7 @@
+sysmon_cactustorch.yml
+sysmon_cobaltstrike_process_injection.yml
+sysmon_createremotethread_loadlibrary.yml
+sysmon_password_dumper_lsass.yml
+sysmon_powershell_code_injection.yml
+sysmon_suspicious_remote_thread.yml
+sysmon_susp_powershell_rundll32.yml

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may disable security tools to avoid possible detection of their tools and activities by stopping antivirus service
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*Stop\-Service\ * OR *Remove\-Service\ *) AND CommandLine.keyword:(*\ McAfeeDLPAgentService* OR *\ Trend\ Micro\ Deep\ Security\ Manager* OR *\ TMBMServer*))
+index: filebeat-*
+name: 6783aa9e-0dc3-49d4-a94a-8b39c5fd700b-Stop-Or-Remove-Antivirus-Service
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

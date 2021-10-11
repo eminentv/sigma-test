@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects alternate PowerShell hosts potentially bypassing detections looking for powershell.exe
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.PipeName.keyword:\\PSHost* AND (NOT winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\powershell_ise.exe)))
+index: winlogbeat-*
+name: 58cb02d5-78ce-4692-b3e1-dce850aae41a-Alternate-PowerShell-Hosts-Pipe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

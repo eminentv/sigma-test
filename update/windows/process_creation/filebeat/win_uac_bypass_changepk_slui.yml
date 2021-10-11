@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an UAC bypass that uses changepk.exe and slui.exe (UACMe 61)
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\changepk.exe AND ParentImage.keyword:*\\slui.exe AND IntegrityLevel:("High" OR "System"))
+index: filebeat-*
+name: 503d581c-7df0-4bbe-b9be-5840c0ecc1fc-UAC-Bypass-Using-ChangePK-and-SLUI
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

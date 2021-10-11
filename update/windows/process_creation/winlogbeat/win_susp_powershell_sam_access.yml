@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious PowerShell scripts accessing SAM hives
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\\HarddiskVolumeShadowCopy* AND winlog.event_data.CommandLine.keyword:*ystem32\\config\\sam* AND winlog.event_data.CommandLine.keyword:(*Copy\-Item* OR *cp\ $_.* OR *cpi\ $_.* OR *copy\ $_.* OR *.File\]\:\:Copy\(*))
+index: winlogbeat-*
+name: 1af57a4b-460a-4738-9034-db68b880c665-PowerShell-SAM-Copy
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

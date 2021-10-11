@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious aged finger.exe tool execution often used in malware attacks nowadays
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:*\\finger.exe
+index: winlogbeat-*
+name: af491bca-e752-4b44-9c86-df5680533dbc-Finger.exe-Suspicious-Invocation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

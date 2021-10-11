@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects known sensitive file extensions accessed on a network share
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.RelativeTargetName.keyword:(*.pst OR *.ost OR *.msg OR *.nst OR *.oab OR *.edb OR *.nsf OR *.bak OR *.dmp OR *.kirbi OR *\\groups.xml OR *.rdp))
+index: winlogbeat-*
+name: 91c945bc-2ad1-4799-a591-4d00198a1215-Suspicious-Access-to-Sensitive-File-Extensions
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

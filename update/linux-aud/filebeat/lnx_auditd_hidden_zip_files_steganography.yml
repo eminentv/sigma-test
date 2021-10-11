@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects appending of zip file to image
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"cat" AND a1.keyword:(*.jpg OR *.png) AND a2.keyword:*.zip)
+index: filebeat-*
+name: 45810b50-7edc-42ca-813b-bdac02fb946b-Steganography-Hide-Zip-Information-in-Picture-File
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

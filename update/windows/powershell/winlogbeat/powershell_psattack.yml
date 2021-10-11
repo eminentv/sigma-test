@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of PSAttack PowerShell hack tool
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*PS\ ATTACK\!\!\!*)
+index: winlogbeat-*
+name: b7ec41a4-042c-4f31-a5db-d0fcde9fa5c5-PowerShell-PSAttack
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

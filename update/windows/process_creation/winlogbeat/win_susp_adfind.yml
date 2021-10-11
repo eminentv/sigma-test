@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of a AdFind for Active Directory enumeration
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*objectcategory* OR *trustdmp* OR *dcmodes* OR *dclist* OR *computers_pwdnotreqd*) AND winlog.event_data.Image.keyword:*\\adfind.exe)
+index: winlogbeat-*
+name: 75df3b17-8bcc-4565-b89b-c9898acef911-Suspicious-AdFind-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

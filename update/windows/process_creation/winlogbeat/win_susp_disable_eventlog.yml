@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command that is used to disable or delete Windows eventlog via logman Windows utility
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*logman\ * AND winlog.event_data.CommandLine.keyword:(*stop\ * OR *delete\ *) AND winlog.event_data.CommandLine.keyword:*EventLog\-System*)
+index: winlogbeat-*
+name: cd1f961e-0b96-436b-b7c6-38da4583ec00-Disable-or-Delete-Windows-Eventlog
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

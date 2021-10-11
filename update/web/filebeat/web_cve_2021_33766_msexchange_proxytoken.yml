@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the exploitation of Microsoft Exchange ProxyToken vulnerability as described in CVE-2021-33766
+filter:
+- query:
+    query_string:
+      query: (sc-status:"500" AND c-uri.keyword:*\/ecp\/* AND ((cs-method:"POST" AND c-uri.keyword:*\/RulesEditor\/InboxRules.svc\/NewObject*) OR c-uri.keyword:*SecurityToken\=*))
+index: filebeat-*
+name: 56973b50-3382-4b56-bdf5-f51a3183797a-CVE-2021-33766-Exchange-ProxyToken-Exploitation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

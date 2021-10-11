@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Executes arbitrary PowerShell code using SyncAppvPublishingServer.vbs
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*\\SyncAppvPublishingServer.vbs* AND CommandLine.keyword:*\"n;*)
+index: filebeat-*
+name: 36475a7d-0f6d-4dce-9b01-6aeb473bbaf1-SyncAppvPublishingServer-VBS-Execute-Arbitrary-PowerShell-Code
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

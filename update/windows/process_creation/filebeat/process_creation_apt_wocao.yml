@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects activity mentioned in Operation Wocao report
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:(*checkadmin.exe\ 127.0.0.1\ \-all* OR *netsh\ advfirewall\ firewall\ add\ rule\ name\=powershell\ dir\=in* OR *cmd\ \/c\ powershell.exe\ \-ep\ bypass\ \-file\ c\:\\s.ps1* OR *\/tn\ win32times\ \/f* OR *create\ win32times\ binPath\=* OR *\\c$\\windows\\system32\\devmgr.dll* OR *\ \-exec\ bypass\ \-enc\ JgAg* OR *type\ *keepass\\KeePass.config.xml* OR *iie.exe\ iie.txt* OR *reg\ query\ HKEY_CURRENT_USER\\Software\\*\\PuTTY\\Sessions\\*)
+index: filebeat-*
+name: 1cfac73c-be78-4f9a-9b08-5bde0c3953ab-Operation-Wocao-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

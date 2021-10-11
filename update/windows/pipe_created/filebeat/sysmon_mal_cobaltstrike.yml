@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a named pipe as used by CobaltStrike
+filter:
+- query:
+    query_string:
+      query: ((PipeName.keyword:*\\MSSE\-* AND PipeName.keyword:*\-server*) OR PipeName.keyword:\\postex_* OR PipeName.keyword:\\postex_ssh_* OR PipeName.keyword:\\status_* OR PipeName.keyword:\\msagent_*)
+index: filebeat-*
+name: d5601f8c-b26f-4ab0-9035-69e11a8d4ad2-CobaltStrike-Named-Pipe
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

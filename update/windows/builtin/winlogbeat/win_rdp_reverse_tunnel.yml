@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects svchost hosting RDP termsvcs communicating with the loopback address
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5156" AND ((winlog.event_data.SourcePort:"3389" AND winlog.event_data.DestAddress.keyword:(127.* OR \:\:1)) OR (winlog.event_data.DestPort:"3389" AND winlog.event_data.SourceAddress.keyword:(127.* OR \:\:1))))
+index: winlogbeat-*
+name: 5bed80b6-b3e8-428e-a3ae-d3c757589e41-RDP-over-Reverse-SSH-Tunnel-WFP
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

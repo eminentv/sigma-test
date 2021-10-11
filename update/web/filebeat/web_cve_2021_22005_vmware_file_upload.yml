@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects exploitation attempts using file upload vulnerability CVE-2021-22005 in the VMWare vCenter Server.
+filter:
+- query:
+    query_string:
+      query: (cs-method:"POST" AND c-uri.keyword:*\/analytics\/telemetry\/ph\/api\/hyper\/send?*)
+index: filebeat-*
+name: b014ea07-8ea0-4859-b517-50a4e5b7ecec-VMware-vCenter-Server-File-Upload-CVE-2021-22005
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

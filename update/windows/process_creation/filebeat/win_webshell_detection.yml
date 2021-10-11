@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects certain command line parameters often used during reconnaissance activity via web shells
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:(*\\w3wp.exe OR *\\php\-cgi.exe OR *\\nginx.exe OR *\\httpd.exe) OR ParentImage.keyword:(*\\apache* OR *\\tomcat*)) AND (((Image.keyword:(*\\net.exe OR *\\net1.exe) AND CommandLine.keyword:(*\ user\ * OR *\ use\ * OR *\ group\ *)) OR (Image.keyword:*\\ping.exe AND CommandLine.keyword:*\ \-n\ *) OR CommandLine.keyword:(*&cd&echo* OR *cd\ \/d\ *)) OR (Image.keyword:*\\wmic.exe AND CommandLine.keyword:*\ \/node\:*) OR Image.keyword:(*\\whoami.exe OR *\\systeminfo.exe OR *\\quser.exe OR *\\ipconfig.exe OR *\\pathping.exe OR *\\tracert.exe OR *\\netstat.exe OR *\\schtasks.exe OR *\\vssadmin.exe OR *\\wevtutil.exe OR *\\tasklist.exe) OR CommandLine.keyword:(*\ Test\-NetConnection\ * OR *dir\ \\*)))
+index: filebeat-*
+name: bed2a484-9348-4143-8a8a-b801c979301c-Webshell-Detection-With-Command-Line-Keywords
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

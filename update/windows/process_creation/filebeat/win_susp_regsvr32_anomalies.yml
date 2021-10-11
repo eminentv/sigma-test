@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects various anomalies in relation to regsvr32.exe
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\regsvr32.exe AND CommandLine.keyword:*\\Temp\\*) OR (Image.keyword:*\\regsvr32.exe AND ParentImage.keyword:*\\powershell.exe) OR (Image.keyword:*\\regsvr32.exe AND ParentImage.keyword:*\\cmd.exe) OR (Image.keyword:*\\regsvr32.exe AND CommandLine.keyword:*\/i\:* AND CommandLine.keyword:(*http* OR *ftp*) AND CommandLine.keyword:*scrobj.dll) OR (Image.keyword:*\\wscript.exe AND ParentImage.keyword:*\\regsvr32.exe) OR (Image.keyword:*\\EXCEL.EXE AND CommandLine.keyword:*..\\..\\..\\Windows\\System32\\regsvr32.exe\ *) OR (ParentImage.keyword:*\\mshta.exe AND Image.keyword:*\\regsvr32.exe) OR (Image.keyword:*\\regsvr32.exe AND CommandLine.keyword:(*\\AppData\\Local* OR *C\:\\Users\\Public*)))
+index: filebeat-*
+name: 8e2b24c9-4add-46a0-b4bb-0057b4e6187d-Regsvr32-Anomaly
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

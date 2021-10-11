@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of Xwizard tool with specific arguments which utilized to run custom class properties.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\xwizard.exe AND winlog.event_data.CommandLine.keyword:/{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}}/)
+index: winlogbeat-*
+name: 53d4bb30-3f36-4e8a-b078-69d36c4a79ff-Custom-Class-Execution-via-Xwizard
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

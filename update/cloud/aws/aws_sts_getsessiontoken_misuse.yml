@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies the suspicious use of GetSessionToken. Tokens could be created and used by attackers to move laterally and escalate privileges.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"sts.amazonaws.com" AND event.action:"GetSessionToken" AND aws.cloudtrail.user_identity.type:"IAMUser")
+index: filebeat-*
+name: b45ab1d2-712f-4f01-a751-df3826969807-AWS-STS-GetSessionToken-Misuse
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

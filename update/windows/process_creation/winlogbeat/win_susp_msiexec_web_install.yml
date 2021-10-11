@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious msiexec process starts with web addresses as parameter
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\ msiexec* AND winlog.event_data.CommandLine.keyword:*\:\/\/*)
+index: winlogbeat-*
+name: f7b5f842-a6af-4da5-9e95-e32478f3cd2f-MsiExec-Web-Install
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

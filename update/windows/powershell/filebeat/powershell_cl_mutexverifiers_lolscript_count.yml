@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 30
+description: Detects Execution via runAfterCancelProcess in CL_Mutexverifiers.ps1 module
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:(*CL_Mutexverifiers.ps1* OR *runAfterCancelProcess*))
+index: filebeat-*
+max_threshold: 2
+metric_agg_key: ScriptBlockText.keyword
+metric_agg_type: cardinality
+name: 6609c444-9670-4eab-9636-fe4755a851ce-Execution-via-CL_Mutexverifiers.ps1-2-Lines
+priority: 2
+query_key: Computer.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

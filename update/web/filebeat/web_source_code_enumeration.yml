@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects source code enumeration that use GET requests by keyword searches in URL strings
+filter:
+- query:
+    query_string:
+      query: '*.git\/*'
+index: filebeat-*
+name: 953d460b-f810-420a-97a2-cfca4c98e602-Source-Code-Enumeration-Detection-by-Keyword
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

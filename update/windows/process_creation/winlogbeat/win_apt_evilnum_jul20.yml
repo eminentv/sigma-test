@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Golden Chickens deployment method as used by Evilnum in report published in July 2020
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*regsvr32* AND winlog.event_data.CommandLine.keyword:*\/s* AND winlog.event_data.CommandLine.keyword:*\/i* AND winlog.event_data.CommandLine.keyword:*\\AppData\\Roaming\\* AND winlog.event_data.CommandLine.keyword:*.ocx*)
+index: winlogbeat-*
+name: 8acf3cfa-1e8c-4099-83de-a0c4038e18f0-EvilNum-Golden-Chickens-Deployment-via-OCX-Files
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

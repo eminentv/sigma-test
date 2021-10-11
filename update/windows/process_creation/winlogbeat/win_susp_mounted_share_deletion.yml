@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when when a mounted share is removed. Adversaries may remove share connections that are no longer useful in order to clean up traces of their operation
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*\\net.exe AND winlog.event_data.Image.keyword:*\\net1.exe AND winlog.event_data.CommandLine.keyword:*share* AND winlog.event_data.CommandLine.keyword:*\/delete*)
+index: winlogbeat-*
+name: cb7c4a03-2871-43c0-9bbb-18bbdb079896-Mounted-Share-Deleted
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

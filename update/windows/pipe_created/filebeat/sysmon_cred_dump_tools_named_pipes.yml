@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects well-known credential dumping tools execution via specific named pipes
+filter:
+- query:
+    query_string:
+      query: PipeName.keyword:(*\\lsadump* OR *\\cachedump* OR *\\wceservicepipe*)
+index: filebeat-*
+name: 961d0ba2-3eea-4303-a930-2cf78bbfcc5e-Cred-Dump-Tools-Named-Pipes
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

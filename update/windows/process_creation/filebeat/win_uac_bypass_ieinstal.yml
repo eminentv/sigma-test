@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using IEInstal.exe (UACMe 64)
+filter:
+- query:
+    query_string:
+      query: (IntegrityLevel:("High" OR "System") AND ParentImage.keyword:*\\ieinstal.exe AND Image.keyword:*\\AppData\\Local\\Temp\\* AND Image.keyword:*consent.exe)
+index: filebeat-*
+name: 80fc36aa-945e-4181-89f2-2f907ab6775d-UAC-Bypass-Using-IEInstal---Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may log user keystrokes to intercept credentials as the user types them.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND (ScriptBlockText.keyword:*Get\-Keystrokes* OR (ScriptBlockText.keyword:*Get\-ProcAddress\ user32.dll\ GetAsyncKeyState* AND ScriptBlockText.keyword:*Get\-ProcAddress\ user32.dll\ GetForegroundWindow*)))
+index: filebeat-*
+name: 34f90d3c-c297-49e9-b26d-911b05a4866c-Powershell-Keylogging
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

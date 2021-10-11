@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects buffer overflow attempts in Unix system log files
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*attempt\ to\ execute\ code\ on\ stack\ by* OR *FTP\ LOGIN\ FROM\ .*\ 0bin0sh* OR *rpc.statd\[\\d\+\]\:\ gethostbyname\ error\ for* OR *AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*)
+index: filebeat-*
+name: 18b042f0-2ecd-4b6e-9f8d-aa7a7e7de781-Buffer-Overflow-Attempts
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using a msconfig GUI hack (UACMe 55)
+filter:
+- query:
+    query_string:
+      query: (IntegrityLevel:("High" OR "System") AND ParentImage.keyword:*\\AppData\\Local\\Temp\\pkgmgr.exe AND CommandLine:"\"C\:\\Windows\\system32\\msconfig.exe\"\ \-5")
+index: filebeat-*
+name: ad92e3f9-7eb6-460e-96b1-582b0ccbb980-UAC-Bypass-Using-MSConfig-Token-Modification---Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

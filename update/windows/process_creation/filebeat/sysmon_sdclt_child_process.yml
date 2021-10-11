@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for sdclt spawning new processes. This could be an indicator of sdclt being used for bypass UAC techniques.
+filter:
+- query:
+    query_string:
+      query: ParentImage.keyword:*\\sdclt.exe
+index: filebeat-*
+name: da2738f2-fadb-4394-afa7-0a0674885afa-Sdclt-Child-Processes
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects DLL image load activity as used by FoggyWeb backdoor loader
+filter:
+- query:
+    query_string:
+      query: Image:"C\:\\Windows\\ADFS\\version.dll"
+index: filebeat-*
+name: 640dc51c-7713-4faa-8a0e-e7c0d9d4654c-FoggyWeb-Backdoor-DLL-Loading
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

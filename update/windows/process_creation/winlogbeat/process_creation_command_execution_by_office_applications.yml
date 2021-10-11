@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Initial execution of malicious document calls wmic Win32_Process::Create to execute the file with regsvr32
+filter:
+- query:
+    query_string:
+      query: (EventLog:"EDR" AND winlog.event_data.EventType:"WMIExecution" AND WMIcommand.keyword:*Win32_Process\\\:\\\:Create* AND winlog.event_data.Image.keyword:(*\\winword.exe OR *\\excel.exe OR *\\powerpnt.exe))
+index: winlogbeat-*
+name: 3ee1bba8-b9e2-4e35-bec5-7fb66b6b3815-WMI-Command-Execution-by-Office-Applications
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Chafer activity attributed to OilRig as reported in Nyotron report in March 2018
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*\\Service.exe* AND winlog.event_data.CommandLine.keyword:(*i OR *u)) OR (winlog.event_data.CommandLine.keyword:*\\microsoft\\Taskbar\\autoit3.exe OR winlog.event_data.CommandLine.keyword:C\:\\wsc.exe*) OR (winlog.event_data.Image.keyword:*\\Windows\\Temp\\DB\\* AND winlog.event_data.Image.keyword:*.exe) OR (winlog.event_data.CommandLine.keyword:*\\nslookup.exe* AND winlog.event_data.CommandLine.keyword:*\-q\=TXT* AND winlog.event_data.ParentImage.keyword:*\\Autoit*))
+index: winlogbeat-*
+name: ce6e34ca-966d-41c9-8d93-5b06c8b97a06-Chafer-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

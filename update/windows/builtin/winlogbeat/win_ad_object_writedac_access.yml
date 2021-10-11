@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WRITE_DAC access to a domain object
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4662" AND winlog.event_data.ObjectServer:"DS" AND winlog.event_data.AccessMask:"0x40000" AND winlog.event_data.ObjectType:("19195a5b\-6da0\-11d0\-afd3\-00c04fd930c9" OR "domainDNS"))
+index: winlogbeat-*
+name: 028c7842-4243-41cd-be6f-12f3cf1a26c7-AD-Object-WriteDAC-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

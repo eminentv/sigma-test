@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects UAC Bypass Attempt Using Microsoft Connection Manager Profile Installer Autoelevate-capable COM Objects (e.g. UACMe ID of 41, 43, 58 or 65)
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\DllHost.exe AND IntegrityLevel:("High" OR "System") AND ParentCommandLine.keyword:(*\ \/Processid\:\{3E5FC7F9\-9A51\-4367\-9063\-A120244FBEC7\}* OR *\ \/Processid\:\{3E000D72\-A845\-4CD9\-BD83\-80C07C3B881F\}* OR *\ \/Processid\:\{BD54C901\-076B\-434E\-B6C7\-17C531F4AB41\}* OR *\ \/Processid\:\{D2E7041B\-2927\-42FB\-8E9F\-7CE93B6DC937\}* OR *\ \/Processid\:\{E9495B87\-D950\-4AB5\-87A5\-FF6D70BF3E90\}*))
+index: filebeat-*
+name: 4b60e6f2-bf39-47b4-b4ea-398e33cfe253-CMSTP-UAC-Bypass-via-COM-Object-Access
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

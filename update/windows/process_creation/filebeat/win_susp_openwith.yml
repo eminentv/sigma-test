@@ -1,0 +1,17 @@
+alert:
+- debug
+description: The OpenWith.exe executes other binary
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\OpenWith.exe AND CommandLine.keyword:*\/c*)
+index: filebeat-*
+name: cec8e918-30f7-4e2d-9bfa-a59cc97ae60f-OpenWith.exe-Executes-Specified-Binary
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

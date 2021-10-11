@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Commandlet name for PrintNightmare exploitation.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*Invoke\-Nightmare*)
+index: winlogbeat-*
+name: 6d3f1399-a81c-4409-aff3-1ecfe9330baf-PrintNightmare-Powershell-Exploitation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 30
+description: Detects suspicious shell commands indicating the information gathering phase as preparation for the Privilege Escalation.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*cat\ \/etc\/issue* OR *cat\ \/etc\/*\-release* OR *cat\ \/proc\/version* OR *uname\ \-a* OR *uname\ \-mrs* OR *rpm\ \-q\ kernel* OR *dmesg\ |\ grep\ Linux* OR *ls\ \/boot\ |\ grep\ vmlinuz\-* OR *cat\ \/etc\/profile* OR *cat\ \/etc\/bashrc* OR *cat\ \~\/.bash_profile* OR *cat\ \~\/.bashrc* OR *cat\ \~\/.bash_logout* OR *ps\ \-aux\ |\ grep\ root* OR *ps\ \-ef\ |\ grep\ root* OR *crontab\ \-l* OR *cat\ \/etc\/cron* OR *cat\ \/etc\/cron.allow* OR *cat\ \/etc\/cron.deny* OR *cat\ \/etc\/crontab* OR *grep\ \-i\ user\ * OR *grep\ \-i\ pass\ * OR *ifconfig* OR *cat\ \/etc\/network\/interfaces* OR *cat\ \/etc\/sysconfig\/network* OR *cat\ \/etc\/resolv.conf* OR *cat\ \/etc\/networks* OR *iptables\ \-L* OR *lsof\ \-i* OR *netstat\ \-antup* OR *netstat\ \-antpx* OR *netstat\ \-tulpn* OR *arp\ \-e* OR *route* OR *cat\ \/etc\/passwd* OR *cat\ \/etc\/group* OR *cat\ \/etc\/shadow* OR *find\ \/\ \-perm\ \-u\=s* OR *find\ \/\ \-perm\ \-g\=s* OR *find\ \/\ \-perm\ \-4000* OR *find\ \/\ \-perm\ \-2000*)
+index: filebeat-*
+max_threshold: 6
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 444ade84-c362-4260-b1f3-e45e20e1a905-Privilege-Escalation-Preparation
+priority: 3
+query_key: host.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

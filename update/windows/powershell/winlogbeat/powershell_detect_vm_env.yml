@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may employ various system checks to detect and avoid virtualization and analysis environments. This may include changing behaviors based on the results of checks for the presence of artifacts indicative of a virtual machine environment (VME) or sandbox
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*Get\-WmiObject* AND winlog.event_data.ScriptBlockText.keyword:(*MSAcpi_ThermalZoneTemperature* OR *Win32_ComputerSystem*))
+index: winlogbeat-*
+name: d93129cd-1ee0-479f-bc03-ca6f129882e3-Powershell-Detect-Virtualization-Environment
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

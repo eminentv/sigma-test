@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 1
+description: Extremely high rate of TXT record type DNS requests from host per short period of time. Possible result of Do-exfiltration tool execution
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: dns.type:"TXT"
+index: filebeat-*
+max_threshold: 50
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: f0a8cedc-1d22-4453-9c44-8d9f4ebd5d35-High-TXT-Records-Requests-Rate
+priority: 3
+query_key: source.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious session with two users present
+filter:
+- query:
+    query_string:
+      query: \(2\ users\ now\ present\)
+index: filebeat-*
+name: 1edd77db-0669-4fef-9598-165bda82826d-Guacamole-Two-Users-Sharing-Session-Anomaly
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

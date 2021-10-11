@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect suspicious error on protocol RDP, potential CVE-2019-0708
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:("56" OR "50") AND winlog.event_data.Source:"TermDD")
+index: winlogbeat-*
+name: aaa5b30d-f418-420b-83a0-299cb6024885-Potential-RDP-Exploit-CVE-2019-0708
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

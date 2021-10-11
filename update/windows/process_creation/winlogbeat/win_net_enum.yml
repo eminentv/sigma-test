@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies attempts to enumerate hosts in a network using the built-in Windows net.exe tool.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:(*\\net.exe OR *\\net1.exe) AND winlog.event_data.CommandLine.keyword:*view*) AND (NOT winlog.event_data.CommandLine.keyword:*\\\\*))
+index: winlogbeat-*
+name: 62510e69-616b-4078-b371-847da438cc03-Windows-Network-Enumeration
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

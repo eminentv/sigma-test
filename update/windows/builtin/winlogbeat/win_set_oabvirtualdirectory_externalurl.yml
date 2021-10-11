@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Rule to detect an adversary setting OabVirtualDirectory External URL property to a script
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*Set\-OabVirtualDirectory* AND *ExternalUrl* AND *Page_Load* AND *script*)
+index: winlogbeat-*
+name: 9db37458-4df2-46a5-95ab-307e7f29e675-Set-OabVirtualDirectory-ExternalUrl-Property
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

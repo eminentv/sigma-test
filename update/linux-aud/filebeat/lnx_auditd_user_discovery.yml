@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may use the information from System Owner/User Discovery during automated discovery to shape follow-on behaviors, including whether or not the adversary fully infects the target and/or attempts specific actions.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:("users" OR "w" OR "who"))
+index: filebeat-*
+name: 9a0d8ca0-2385-4020-b6c6-cb6153ca56f3-System-Owner-or-User-Discovery
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

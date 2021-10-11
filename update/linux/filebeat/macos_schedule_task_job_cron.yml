@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects abuse of the cron utility to perform task scheduling for initial or recurring execution of malicious code. Detection will focus on crontab jobs uploaded from the tmp folder.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/crontab AND CommandLine.keyword:*\/tmp\/*)
+index: filebeat-*
+name: 7c3b43d8-d794-47d2-800a-d277715aa460-Scheduled-Cron-Task/Job
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

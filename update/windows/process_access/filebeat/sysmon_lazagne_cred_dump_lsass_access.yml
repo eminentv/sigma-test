@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects LSASS process access by LaZagne for credential dumping.
+filter:
+- query:
+    query_string:
+      query: (TargetImage.keyword:*\\lsass.exe AND CallTrace.keyword:*C\:\\Windows\\SYSTEM32\\ntdll.dll\+* AND CallTrace.keyword:*|C\:\\Windows\\System32\\KERNELBASE.dll\+* AND CallTrace.keyword:*_ctypes.pyd\+* AND CallTrace.keyword:*python27.dll\+* AND GrantedAccess:"0x1FFFFF")
+index: filebeat-*
+name: 4b9a8556-99c4-470b-a40c-9c8d02c77ed0-Credential-Dumping-by-LaZagne
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Well-known DNS Exfiltration tools execution
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\iodine.exe OR Image.keyword:*\\dnscat2*)
+index: filebeat-*
+name: 98a96a5a-64a0-4c42-92c5-489da3866cb0-DNS-Exfiltration-and-Tunneling-Tools-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

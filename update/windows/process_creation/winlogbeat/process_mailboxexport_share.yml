@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a PowerShell New-MailboxExportRequest that exports a mailbox to a local share, as used in ProxyShell exploitations
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*New\-MailboxExport* AND winlog.event_data.CommandLine.keyword:*\ \-Mailbox\ * AND winlog.event_data.CommandLine.keyword:*\ \-FilePath\ \\127.0.0.1\\C$*)
+index: winlogbeat-*
+name: 889719ef-dd62-43df-86c3-768fb08dc7c0-Suspicious-PowerShell-Mailbox-Export-to-Share
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

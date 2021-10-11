@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect priv users or groups recon based on 4661 eventid and known privileged users or groups SIDs
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4661" AND ObjectType:("SAM_USER" OR "SAM_GROUP")) AND (ObjectName.keyword:(*\-512 OR *\-502 OR *\-500 OR *\-505 OR *\-519 OR *\-520 OR *\-544 OR *\-551 OR *\-555) OR ObjectName.keyword:*admin*))
+index: filebeat-*
+name: 35ba1d85-724d-42a3-889f-2e2362bcaf23-AD-Privileged-Users-or-Groups-Reconnaissance
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

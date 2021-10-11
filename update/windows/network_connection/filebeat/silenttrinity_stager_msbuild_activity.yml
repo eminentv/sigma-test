@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a possible remote connections to Silenttrinity c2
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\msbuild.exe AND DestinationPort:("80" OR "443") AND Initiated:"true")
+index: filebeat-*
+name: 50e54b8d-ad73-43f8-96a1-5191685b17a4-Silenttrinity-Stager-Msbuild-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

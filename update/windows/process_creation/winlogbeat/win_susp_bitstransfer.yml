@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects transferring files from system on a server bitstransfer Powershell cmdlets
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\powershell_ise.exe OR *\\pwsh.exe) AND winlog.event_data.CommandLine.keyword:(*Get\-BitsTransfer* OR *Add\-BitsFile*))
+index: winlogbeat-*
+name: cd5c8085-4070-4e22-908d-a5b3342deb74-Suspicious-Bitstransfer-via-PowerShell
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

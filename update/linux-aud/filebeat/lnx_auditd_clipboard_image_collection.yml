@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attempts to collect image data stored in the clipboard from users with the usage of xclip tool. Xclip has to be installed. Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"xclip" AND a1:("\-selection" OR "\-sel") AND a2:("clipboard" OR "clip") AND a3:"\-t" AND a4.keyword:image\/* AND a5:"\-o")
+index: filebeat-*
+name: f200dc3f-b219-425d-a17e-c38467364816-Clipboard-Collection-of-Image-Data-with-Xclip-Tool
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

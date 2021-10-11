@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects handles requested to SAM registry hive
+filter:
+- query:
+    query_string:
+      query: (EventID:"4656" AND ObjectType:"Key" AND ObjectName.keyword:*\\SAM)
+index: filebeat-*
+name: f8748f2c-89dc-4d95-afb0-5a2dfdbad332-SAM-Registry-Hive-Handle-Request
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

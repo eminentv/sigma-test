@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local network configuration
+filter:
+- query:
+    query_string:
+      query: (Image:("\/usr\/sbin\/netstat" OR "\/sbin\/ifconfig" OR "\/usr\/sbin\/ipconfig" OR "\/usr\/libexec\/ApplicationFirewall\/socketfilterfw" OR "\/usr\/sbin\/networksetup" OR "\/usr\/sbin\/arp") OR (Image:"\/usr\/bin\/defaults" AND Commandline.keyword:*read* AND Commandline.keyword:*\/Library\/Preferences\/com.apple.alf*))
+index: filebeat-*
+name: 58800443-f9fc-4d55-ae0c-98a3966dfb97-System-Network-Discovery---macOS
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

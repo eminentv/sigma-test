@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Malleable (OCSP) Profile with Typo (OSCP) in URL
+filter:
+- query:
+    query_string:
+      query: (c-uri.keyword:*\/oscp\/* AND cs-host:"ocsp.verisign.com")
+index: filebeat-*
+name: 37325383-740a-403d-b1a2-b2b4ab7992e7-CobaltStrike-Malleable-OCSP-Profile
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

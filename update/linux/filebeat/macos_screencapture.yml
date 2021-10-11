@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attempts to use screencapture to collect macOS screenshots
+filter:
+- query:
+    query_string:
+      query: Image:"\/usr\/sbin\/screencapture"
+index: filebeat-*
+name: 0877ed01-da46-4c49-8476-d49cdd80dfa7-Screen-Capture---macOS
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

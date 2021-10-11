@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command sequence that JexBoss
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*bash\ \-c\ \/bin\/bash* AND *&\/dev\/tcp\/*)
+index: filebeat-*
+name: 8ec2c8b4-557a-4121-b87c-5dfb3a602fae-JexBoss-Command-Sequence
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

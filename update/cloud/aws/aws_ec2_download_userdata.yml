@@ -1,0 +1,23 @@
+alert:
+- debug
+buffer_time:
+  minutes: 30
+description: Detects bulk downloading of User Data associated with AWS EC2 instances. Instance User Data may include installation scripts and hard-coded secrets for deployment.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (event.provider:"ec2.amazonaws.com" AND requestParameters.attribute:"userData" AND event.action:"DescribeInstanceAttribute")
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 26ff4080-194e-47e7-9889-ef7602efed0c-AWS-EC2-Download-Userdata
+priority: 3
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

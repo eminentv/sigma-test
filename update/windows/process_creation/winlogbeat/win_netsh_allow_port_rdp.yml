@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects netsh commands that opens the port 3389 used for RDP, used in Sarwent Malware
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*netsh* AND ((winlog.event_data.CommandLine.keyword:*firewall\ add\ portopening* AND winlog.event_data.CommandLine.keyword:*tcp\ 3389*) OR (winlog.event_data.CommandLine.keyword:*advfirewall\ firewall\ add\ rule* AND winlog.event_data.CommandLine.keyword:*action\=allow* AND winlog.event_data.CommandLine.keyword:*protocol\=TCP* AND winlog.event_data.CommandLine.keyword:*localport\=3389*)))
+index: winlogbeat-*
+name: 01aeb693-138d-49d2-9403-c4f52d7d3d62-Netsh-RDP-Port-Opening
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

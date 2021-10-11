@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported users were active from an IP address identified as risky by Microsoft Threat Intelligence. These IP addresses are involved in malicious activities, such as Botnet C&C, and may indicate compromised account.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Activity\ from\ suspicious\ IP\ addresses" AND status:"success")
+index: winlogbeat-*
+name: a3501e8e-af9e-43c6-8cd6-9360bdaae498-Activity-from-Suspicious-IP-Addresses
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Excel called wmic to finally proxy execute regsvr32 with the payload. An attacker wanted to break suspicious parent-child chain (Office app spawns LOLBin).But we have command-line in the event which allow us to "restore" this suspicious parent-child chain and detect it. Monitor process creation with "wmic process call create" and LOLBins in command-line with parent Office application processes.
+filter:
+- query:
+    query_string:
+      query: (ProcessCommandLine.keyword:(*regsvr32* OR *rundll32* OR *msiexec* OR *mshta* OR *verclsid*) AND (Image.keyword:*\\wbem\\WMIC.exe OR ProcessCommandLine.keyword:*wmic\ *) AND ParentImage.keyword:(*winword.exe OR *excel.exe OR *powerpnt.exe) AND processCommandLine.keyword:*process* AND processCommandLine.keyword:*create* AND processCommandLine.keyword:*call*)
+index: filebeat-*
+name: c0e1c3d5-4381-4f18-8145-2583f06a1fe5-Excel-Proxy-Executing-Regsvr32-With-Payload
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

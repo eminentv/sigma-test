@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects wmiprvse spawning processes
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.ParentImage.keyword:*\\WmiPrvSe.exe AND (NOT (winlog.event_data.LogonId:("0x3e7" OR "null") OR winlog.event_data.SubjectLogonId:("0x3e7" OR "null") OR winlog.event_data.User.keyword:(NT\ AUTHORITY\\SYSTEM* OR AUTORITE\ NT\\Sys*) OR winlog.event_data.Image.keyword:(*\\WmiPrvSE.exe OR *\\WerFault.exe)))) AND (NOT NOT _exists_:winlog.event_data.LogonId)) AND (NOT NOT _exists_:winlog.event_data.SubjectLogonId))
+index: winlogbeat-*
+name: d21374ff-f574-44a7-9998-4a8c8bf33d7d-Wmiprvse-Spawning-Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

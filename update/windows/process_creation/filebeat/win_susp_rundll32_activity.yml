@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process related to rundll32 based on arguments
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*javascript\:* OR *.RegisterXLL*) OR (CommandLine.keyword:*url.dll* AND CommandLine.keyword:*OpenURL*) OR (CommandLine.keyword:*url.dll* AND CommandLine.keyword:*OpenURLA*) OR (CommandLine.keyword:*url.dll* AND CommandLine.keyword:*FileProtocolHandler*) OR (CommandLine.keyword:*zipfldr.dll* AND CommandLine.keyword:*RouteTheCall*) OR (CommandLine.keyword:*shell32.dll* AND CommandLine.keyword:*Control_RunDLL*) OR (CommandLine.keyword:*shell32.dll* AND CommandLine.keyword:*ShellExec_RunDLL*) OR (CommandLine.keyword:*mshtml.dll* AND CommandLine.keyword:*PrintHTML*) OR (CommandLine.keyword:*advpack.dll* AND CommandLine.keyword:*LaunchINFSection*) OR (CommandLine.keyword:*advpack.dll* AND CommandLine.keyword:*RegisterOCX*) OR (CommandLine.keyword:*ieadvpack.dll* AND CommandLine.keyword:*LaunchINFSection*) OR (CommandLine.keyword:*ieadvpack.dll* AND CommandLine.keyword:*RegisterOCX*) OR (CommandLine.keyword:*ieframe.dll* AND CommandLine.keyword:*OpenURL*) OR (CommandLine.keyword:*shdocvw.dll* AND CommandLine.keyword:*OpenURL*) OR (CommandLine.keyword:*syssetup.dll* AND CommandLine.keyword:*SetupInfObjectInstallAction'*) OR (CommandLine.keyword:*setupapi.dll* AND CommandLine.keyword:*InstallHinfSection*) OR (CommandLine.keyword:*pcwutl.dll* AND CommandLine.keyword:*LaunchApplication*) OR (CommandLine.keyword:*dfshim.dll* AND CommandLine.keyword:*ShOpenVerbApplication*))
+index: filebeat-*
+name: e593cf51-88db-4ee1-b920-37e89012a3c9-Suspicious-Rundll32-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

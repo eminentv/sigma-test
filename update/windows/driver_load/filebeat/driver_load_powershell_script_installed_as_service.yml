@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects powershell script installed as a Service
+filter:
+- query:
+    query_string:
+      query: ImageLoaded.keyword:(*powershell* OR *pwsh*)
+index: filebeat-*
+name: 46deb5e1-28c9-4905-b2df-51cdcc9e6073-PowerShell-Scripts-Run-by-a-Services
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

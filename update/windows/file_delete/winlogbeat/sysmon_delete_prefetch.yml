@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the deletion of a prefetch file (AntiForensic)
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.TargetFilename.keyword:C\:\\Windows\\Prefetch\\* AND winlog.event_data.TargetFilename.keyword:*.pf) AND (NOT (winlog.event_data.Image:"C\:\\windows\\system32\\svchost.exe" AND winlog.event_data.User:"NT\ AUTHORITY\\SYSTEM")))
+index: winlogbeat-*
+name: 0a1f9d29-6465-4776-b091-7f43b26e4c89-Prefetch-File-Deletion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

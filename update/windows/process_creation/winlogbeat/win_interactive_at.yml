@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect an interactive AT job, which may be used as a form of privilege escalation.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\at.exe AND winlog.event_data.CommandLine.keyword:*interactive*)
+index: winlogbeat-*
+name: 60fc936d-2eb0-4543-8a13-911c750a1dfc-Interactive-AT-Job
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

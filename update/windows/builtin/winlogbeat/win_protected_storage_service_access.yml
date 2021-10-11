@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects access to a protected_storage service over the network. Potential abuse of DPAPI to extract domain backup keys from Domain Controllers
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:*IPC* AND winlog.event_data.RelativeTargetName:"protected_storage")
+index: winlogbeat-*
+name: 45545954-4016-43c6-855e-eae8f1c369dc-Protected-Storage-Service-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

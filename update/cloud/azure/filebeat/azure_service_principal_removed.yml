@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a service principal was removed in Azure.
+filter:
+- query:
+    query_string:
+      query: properties.message:"Remove\ service\ principal"
+index: filebeat-*
+name: 448fd1ea-2116-4c62-9cde-a92d120e0f08-Azure-Service-Principal-Removed
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

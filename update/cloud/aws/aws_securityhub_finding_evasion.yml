@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the modification of the findings on SecurityHub.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"securityhub.amazonaws.com" AND event.action:("BatchUpdateFindings" OR "DeleteInsight" OR "UpdateFindings" OR "UpdateInsight"))
+index: filebeat-*
+name: a607e1fe-74bf-4440-a3ec-b059b9103157-AWS-SecurityHub-Findings-Evasion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a reload or a start of a service.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0.keyword:*systemctl* AND a1.keyword:(*daemon\-reload* OR *start*))
+index: filebeat-*
+name: 2625cc59-0634-40d0-821e-cb67382a3dd7-Systemd-Service-Reload-or-Start
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

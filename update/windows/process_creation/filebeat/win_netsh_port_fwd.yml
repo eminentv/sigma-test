@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects netsh commands that configure a port forwarding (PortProxy)
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\netsh.exe AND ((CommandLine.keyword:*interface* AND CommandLine.keyword:*portproxy* AND CommandLine.keyword:*add* AND CommandLine.keyword:*v4tov4*) OR (CommandLine.keyword:*connectp* AND CommandLine.keyword:*listena* AND CommandLine.keyword:*c\=*)))
+index: filebeat-*
+name: 322ed9ec-fcab-4f67-9a34-e7c6aef43614-Netsh-Port-Forwarding
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

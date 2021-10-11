@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of PowerShell
+filter:
+- query:
+    query_string:
+      query: PipeName.keyword:\\PSHost*
+index: filebeat-*
+name: ac7102b4-9e1e-4802-9b4f-17c5524c015c-T1086-PowerShell-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

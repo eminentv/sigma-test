@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of whoami that has been renamed to a different name to avoid detection
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.OriginalFileName:"whoami.exe" AND (NOT winlog.event_data.Image.keyword:*\\whoami.exe))
+index: winlogbeat-*
+name: f1086bf7-a0c4-4a37-9102-01e573caf4a0-Renamed-Whoami-Execution
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

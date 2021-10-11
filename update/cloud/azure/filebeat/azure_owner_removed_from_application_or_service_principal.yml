@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a owner is was removed from a application or service principal in Azure.
+filter:
+- query:
+    query_string:
+      query: properties.message:("Remove\ owner\ from\ service\ principal" OR "Remove\ owner\ from\ application")
+index: filebeat-*
+name: 636e30d5-3736-42ea-96b1-e6e2f8429fd6-Azure-Owner-Removed-From-Application-or-Service-Principal
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

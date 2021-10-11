@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific commands commonly used to remove or empty the syslog
+filter:
+- query:
+    query_string:
+      query: (\*.keyword:(*rm\ \/var\/log\/syslog* OR *rm\ \-r\ \/var\/log\/syslog* OR *rm\ \-f\ \/var\/log\/syslog* OR *rm\ \-rf\ \/var\/log\/syslog* OR *mv\ \/var\/log\/syslog* OR *\ >\/var\/log\/syslog* OR *\ >\ \/var\/log\/syslog*) AND (NOT \*.keyword:*\/syslog.*))
+index: filebeat-*
+name: e09eb557-96d2-4de9-ba2d-30f712a5afd3-Commands-to-Clear-or-Remove-the-Syslog
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

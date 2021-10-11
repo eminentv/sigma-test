@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Trojan loader acitivty as used by APT28
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*rundll32.exe* AND winlog.event_data.CommandLine.keyword:*%APPDATA%\\*) AND (winlog.event_data.CommandLine.keyword:*.dat\",* OR winlog.event_data.CommandLine.keyword:*.dll\",#1))
+index: winlogbeat-*
+name: ba778144-5e3d-40cf-8af9-e28fb1df1e20-Sofacy-Trojan-Loader-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

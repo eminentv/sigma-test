@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies use of WSReset.exe to bypass User Account Control. Adversaries use this technique to execute privileged processes.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*\\wsreset.exe AND (NOT winlog.event_data.Image.keyword:*\\conhost.exe))
+index: winlogbeat-*
+name: d797268e-28a9-49a7-b9a8-2f5039011c5c-Bypass-UAC-via-WSReset.exe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

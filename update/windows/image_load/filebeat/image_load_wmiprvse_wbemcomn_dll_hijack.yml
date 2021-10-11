@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a threat actor creating a file named `wbemcomn.dll` in the `C:\Windows\System32\wbem\` directory over the network and loading it for a WMI DLL Hijack scenario.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\wmiprvse.exe AND ImageLoaded.keyword:*\\wbem\\wbemcomn.dll)
+index: filebeat-*
+name: 7707a579-e0d8-4886-a853-ce47e4575aaa-Wmiprvse-Wbemcomn-DLL-Hijack
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

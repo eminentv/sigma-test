@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects different hacktools used for relay attacks on Windows for privilege escalation
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*PetitPotam* OR *RottenPotato* OR *HotPotato* OR *JuicyPotato* OR *\\just_dce_* OR *Juicy\ Potato* OR *\\temp\\rot.exe* OR *\\Potato.exe* OR *\\SpoolSample.exe* OR *\\Responder.exe* OR *\\smbrelayx* OR *\\ntlmrelayx*) OR winlog.event_data.CommandLine.keyword:(*Invoke\-Tater* OR *\ smbrelay* OR *\ ntlmrelay* OR *cme\ smb\ * OR *\ \/ntlm\:NTLMhash\ * OR *Invoke\-PetitPotam*))
+index: winlogbeat-*
+name: 5589ab4f-a767-433c-961d-c91f3f704db1-SMB-Relay-Attack-Tools
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

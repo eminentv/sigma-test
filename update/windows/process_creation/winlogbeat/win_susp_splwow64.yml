@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious Splwow64.exe process without any command line parameters
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\splwow64.exe AND (NOT winlog.event_data.CommandLine.keyword:*splwow64.exe))
+index: winlogbeat-*
+name: 1f1a8509-2cbb-44f5-8751-8e1571518ce2-Suspicious-Splwow64-Without-Params
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

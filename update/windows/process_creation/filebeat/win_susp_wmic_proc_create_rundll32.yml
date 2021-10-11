@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMI executing rundll32
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*process\ call\ create* AND CommandLine.keyword:*rundll32*)
+index: filebeat-*
+name: 3c89a1e8-0fba-449e-8f1b-8409d6267ec8-Suspicious-WMI-Execution-Using-Rundll32
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

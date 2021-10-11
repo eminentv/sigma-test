@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific malware patterns used by FurBall malware linked to Iranian Domestic Kitten APT group
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:(*Get\~\~\~AllBrowser* OR *Get\~\~\~HardwareInfo* OR *Take\~\~RecordCall* OR *Reset\~\~\~AllCommand*)
+index: filebeat-*
+name: 6c939dfa-c710-4e12-a4dd-47e1f10e68e1-Domestic-Kitten-FurBall-Malware-Pattern
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

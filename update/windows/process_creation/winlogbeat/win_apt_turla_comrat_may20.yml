@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects commands used by Turla group as reported by ESET in May 2020
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*tracert\ \-h\ 10\ yahoo.com* OR *.WSqmCons\)\)|iex;* OR *Fr`omBa`se6`4Str`ing*) OR (winlog.event_data.CommandLine.keyword:*net\ use\ https\:\/\/docs.live.net* AND winlog.event_data.CommandLine.keyword:*@aol.co.uk*))
+index: winlogbeat-*
+name: 9e2e51c5-c699-4794-ba5a-29f5da40ac0c-Turla-Group-Commands-May-2020
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

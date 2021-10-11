@@ -1,0 +1,17 @@
+alert:
+- debug
+description: In Kaspersky's 2020 Incident Response Analyst Report they listed legitimate tool "Mouse Lock" as being used for both credential access and collection in security incidents.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Product.keyword:*Mouse\ Lock* OR winlog.event_data.Company.keyword:*Misc314* OR winlog.event_data.CommandLine.keyword:*Mouse\ Lock_*)
+index: winlogbeat-*
+name: c9192ad9-75e5-43eb-8647-82a0a5b493e3-Mouse-Lock-Credential-Gathering
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process that use escape characters
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:(*h\^t\^t\^p* OR *h\"t\"t\"p*)
+index: filebeat-*
+name: f0cdd048-82dc-4f7a-8a7a-b87a52b6d0fd-Suspicious-Commandline-Escape
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

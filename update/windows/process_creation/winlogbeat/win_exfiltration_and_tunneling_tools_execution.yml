@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Execution of well known tools for data exfiltration and tunneling
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:(*\\plink.exe OR *\\socat.exe OR *\\stunnel.exe OR *\\httptunnel.exe)
+index: winlogbeat-*
+name: c75309a3-59f8-4a8d-9c2c-4c927ad50555-Exfiltration-and-Tunneling-Tools-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

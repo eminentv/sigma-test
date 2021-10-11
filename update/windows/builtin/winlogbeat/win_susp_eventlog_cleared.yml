@@ -1,0 +1,17 @@
+alert:
+- debug
+description: One of the Windows Eventlogs has been cleared. e.g. caused by "wevtutil cl" command execution
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("517" OR "1102"))
+index: winlogbeat-*
+name: d99b79d2-0a6f-4f46-ad8b-260b6e17f982-Eventlog-Cleared
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

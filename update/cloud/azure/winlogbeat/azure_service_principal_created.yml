@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a service principal is created in Azure.
+filter:
+- query:
+    query_string:
+      query: properties.message:"Add\ service\ principal"
+index: winlogbeat-*
+name: 0ddcff6d-d262-40b0-804b-80eb592de8e3-Azure-Service-Principal-Created
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

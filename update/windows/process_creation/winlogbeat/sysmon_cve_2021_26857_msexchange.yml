@@ -1,0 +1,17 @@
+alert:
+- debug
+description: "Detects possible successful exploitation for vulnerability described in CVE-2021-26857 by looking for | abnormal subprocesses spawning by Exchange Server\u2019s Unified Messaging service"
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*UMWorkerProcess.exe AND (NOT winlog.event_data.Image.keyword:(*wermgr.exe OR *WerFault.exe)))
+index: winlogbeat-*
+name: cd479ccc-d8f0-4c66-ba7d-e06286f3f887-CVE-2021-26857-Exchange-Exploitation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects LSASS process access by pypykatz for credential dumping.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetImage.keyword:*\\lsass.exe AND winlog.event_data.CallTrace.keyword:*C\:\\Windows\\SYSTEM32\\ntdll.dll\+* AND winlog.event_data.CallTrace.keyword:*C\:\\Windows\\System32\\KERNELBASE.dll\+* AND winlog.event_data.CallTrace.keyword:*libffi\-7.dll* AND winlog.event_data.CallTrace.keyword:*_ctypes.pyd\+* AND winlog.event_data.CallTrace.keyword:*python3*.dll\+* AND winlog.event_data.GrantedAccess:"0x1FFFFF")
+index: winlogbeat-*
+name: 7186e989-4ed7-4f4e-a656-4674b9e3e48b-Credential-Dumping-by-Pypykatz
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

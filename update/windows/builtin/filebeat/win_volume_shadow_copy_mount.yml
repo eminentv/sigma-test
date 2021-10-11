@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects volume shadow copy mount
+filter:
+- query:
+    query_string:
+      query: (Source:"Microsoft\-Windows\-Ntfs" AND EventID:"98" AND DeviceName.keyword:*HarddiskVolumeShadowCopy*)
+index: filebeat-*
+name: f512acbf-e662-4903-843e-97ce4652b740-Volume-Shadow-Copy-Mount
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

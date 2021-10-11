@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection for mshta.exe suspicious execution patterns sometimes involving file polyglotism
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\mshta.exe AND CommandLine.keyword:(*vbscript* OR *.jpg* OR *.png* OR *.lnk* OR *.xls* OR *.doc* OR *.zip*))
+index: filebeat-*
+name: cc7abbd0-762b-41e3-8a26-57ad50d2eea3-MSHTA-Suspicious-Execution-01
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

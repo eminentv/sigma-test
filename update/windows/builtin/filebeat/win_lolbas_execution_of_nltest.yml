@@ -1,0 +1,17 @@
+alert:
+- debug
+description: The attacker might use LOLBAS nltest.exe for discovery of domain controllers, domain trusts, parent domain and the current user permissions.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4689" AND ProcessName.keyword:*nltest.exe AND Status:"0x0")
+index: filebeat-*
+name: eeb66bbb-3dde-4582-815a-584aee9fe6d1-Correct-Execution-of-Nltest.exe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

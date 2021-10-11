@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a code page switch in command line or batch scripts to a rare language
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\chcp.com AND CommandLine.keyword:(*\ 936 OR *\ 1258))
+index: filebeat-*
+name: c7942406-33dd-4377-a564-0f62db0593a3-Suspicious-Code-Page-Switch
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

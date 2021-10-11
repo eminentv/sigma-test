@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects user agent and URI paths used by empire agents
+filter:
+- query:
+    query_string:
+      query: (c-useragent:"Mozilla\/5.0\ \(Windows\ NT\ 6.1;\ WOW64;\ Trident\/7.0;\ rv\:11.0\)\ like\ Gecko" AND cs-uri-query:("\/admin\/get.php" OR "\/news.php" OR "\/login\/process.php") AND cs-method:"POST")
+index: filebeat-*
+name: b923f7d6-ac89-4a50-a71a-89fb846b4aa8-Empire-UserAgent-URI-Combo
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

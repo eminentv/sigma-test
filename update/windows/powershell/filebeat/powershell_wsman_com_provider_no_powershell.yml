@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious use of the WSMAN provider without PowerShell.exe as the host application.
+filter:
+- query:
+    query_string:
+      query: (ProviderName:"WSMan" AND (NOT HostApplication.keyword:*powershell*))
+index: filebeat-*
+name: df9a0e0e-fedb-4d6c-8668-d765dfc92aa7-Suspicious-Non-PowerShell-WSMAN-COM-Provider
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

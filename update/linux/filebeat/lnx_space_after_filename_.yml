@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects space after filename
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*echo\ \"*\"\ >\ *\ \&&\ chmod\ \+x\ * AND *mv\ *\ \"*\ \"*)
+index: filebeat-*
+name: 879c3015-c88b-4782-93d7-07adf92dbcb7-Space-After-Filename
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command line parameters used by Koadic hack tool
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\cmd.exe AND CommandLine.keyword:*\/q* AND CommandLine.keyword:*\/c* AND CommandLine.keyword:*chcp*)
+index: filebeat-*
+name: 5cddf373-ef00-4112-ad72-960ac29bac34-Koadic-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

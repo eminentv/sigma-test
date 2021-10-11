@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process characteristics of Chinese TAIDOOR RAT malware load
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*dll,MyStart* OR *dll\ MyStart*) OR (winlog.event_data.CommandLine.keyword:*\ MyStart AND winlog.event_data.CommandLine.keyword:*rundll32.exe*))
+index: winlogbeat-*
+name: d1aa3382-abab-446f-96ea-4de52908210b-TAIDOOR-RAT-DLL-Load
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a specific process creation patterns as seen used by UNC2452 and provided by Microsoft as Microsoft Defender ATP queries
+filter:
+- query:
+    query_string:
+      query: ((((winlog.event_data.CommandLine.keyword:*7z.exe\ a\ \-v500m\ \-mx9\ \-r0\ \-p* OR (winlog.event_data.ParentCommandLine.keyword:*wscript.exe* AND winlog.event_data.ParentCommandLine.keyword:*.vbs* AND winlog.event_data.CommandLine.keyword:*rundll32.exe* AND winlog.event_data.CommandLine.keyword:*C\:\\Windows* AND winlog.event_data.CommandLine.keyword:*.dll,Tk_*)) OR (winlog.event_data.ParentImage.keyword:*\\rundll32.exe AND winlog.event_data.ParentCommandLine.keyword:*C\:\\Windows* AND winlog.event_data.CommandLine.keyword:*cmd.exe\ \/C\ *)) OR (winlog.event_data.CommandLine.keyword:*rundll32\ c\:\\windows\\* AND winlog.event_data.CommandLine.keyword:*.dll\ *)) OR ((winlog.event_data.ParentImage.keyword:*\\rundll32.exe AND winlog.event_data.Image.keyword:*\\dllhost.exe) AND (NOT winlog.event_data.CommandLine:("\ " OR ""))))
+index: winlogbeat-*
+name: 9be34ad0-b6a7-4fbd-91cf-fc7ec1047f5f-UNC2452-Process-Creation-Patterns
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

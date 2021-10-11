@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process related to rundll32 based on command line that invokes inline VBScript as seen being used by UNC2452
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*rundll32.exe* AND CommandLine.keyword:*Execute* AND CommandLine.keyword:*RegRead* AND CommandLine.keyword:*window.close*)
+index: filebeat-*
+name: 1cc50f3f-1fc8-4acf-b2e9-6f172e1fdebd-Suspicious-Rundll32-Invoking-Inline-VBScript
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

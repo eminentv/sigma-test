@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious malformed user agent strings in proxy logs
+filter:
+- query:
+    query_string:
+      query: ((c-useragent.keyword:(user\-agent* OR Mozilla\/3.0\ * OR Mozilla\/2.0\ * OR Mozilla\/1.0\ * OR Mozilla\ * OR \ Mozilla\/* OR Mozila\/* OR Mozilla\/4.0\ \(compatible;\ MSIE\ 6.0;\ MS\ Web\ Services\ Client\ Protocol*) OR c-useragent.keyword:(*\ \(compatible;MSIE\ * OR *.0;Windows\ NT\ *) OR c-useragent:("_" OR "CertUtil\ URL\ Agent" OR "Mozilla\/5.0\ \(Windows\ NT\ 10.0;\ Win64;\ x64;\ rv\:60.0\)" OR "Mozilla\/5.0\ \(Windows\ NT\ 6.3;\ WOW64;\ rv\:28.0\)\ Gecko\/20100101\ Firefox\/28.0" OR "HTTPS")) AND (NOT c-useragent.keyword:Mozilla\/3.0\ *\ Acrobat\ *))
+index: filebeat-*
+name: 7195a772-4b3f-43a4-a210-6a003d65caa1-Suspicious-User-Agent
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

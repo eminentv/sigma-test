@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects activity mentioned in Operation Wocao report
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4799" AND TargetUserName.keyword:Administr* AND winlog.event_data.CallerProcessName.keyword:*\\checkadmin.exe)
+index: winlogbeat-*
+name: 74ad4314-482e-4c3e-b237-3f7ed3b9ca8d-Operation-Wocao-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

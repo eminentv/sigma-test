@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a WMI backdoor in Exchange Transport Agents via WMI event filters
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.ParentImage.keyword:*\\EdgeTransport.exe
+index: winlogbeat-*
+name: 797011dc-44f4-4e6f-9f10-a8ceefbe566b-WMI-Backdoor-Exchange-Transport-Agent
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

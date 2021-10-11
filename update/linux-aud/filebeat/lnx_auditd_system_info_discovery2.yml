@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects system information discovery commands
+filter:
+- query:
+    query_string:
+      query: (type:"PATH" AND name.keyword:(\/sys\/class\/dmi\/id\/bios_version OR \/sys\/class\/dmi\/id\/product_name OR \/sys\/class\/dmi\/id\/chassis_vendor OR \/proc\/scsi\/scsi OR \/proc\/ide\/hd0\/model OR \/proc\/version OR \/etc\/*version OR \/etc\/*release OR \/etc\/issue))
+index: filebeat-*
+name: 1f358e2e-cb63-43c3-b575-dfb072a6814f-System-Information-Discovery
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

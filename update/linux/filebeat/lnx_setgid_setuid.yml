@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious change of file privileges with chown and chmod commands
+filter:
+- query:
+    query_string:
+      query: (*chown\ root* AND \*.keyword:(*\ chmod\ u\+s* OR *\ chmod\ g\+s*))
+index: filebeat-*
+name: c21c4eaa-ba2e-419a-92b2-8371703cbe21-Setuid-and-Setgid
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

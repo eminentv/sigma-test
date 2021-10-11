@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via VAR++ LAUNCHER
+filter:
+- query:
+    query_string:
+      query: (ServiceFileName.keyword:/(?i).*&&set.*(\{\d\}){2,}\\\"\s+?\-f.*&&.*cmd.*\/c/ AND EventID:"4697")
+index: filebeat-*
+name: 4c54ba8f-73d2-4d40-8890-d9cf1dca3d30-Invoke-Obfuscation-VAR++-LAUNCHER-OBFUSCATION
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

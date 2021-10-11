@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported when an activity occurs from a location that wasn't recently or never visited by any user in the organization.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Activity\ from\ infrequent\ country" AND status:"success")
+index: winlogbeat-*
+name: 0f2468a2-5055-4212-a368-7321198ee706-Activity-from-Infrequent-Country
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

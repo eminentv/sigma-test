@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a named pipe matching a pattern used by CobaltStrike Malleable C2 profiles
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.PipeName.keyword:/\\\\mojo\.5688\.8052\.(?:183894939787088877|35780273329370473)[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\wkssvc_?[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\ntsvcs[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\DserNamePipe[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\SearchTextHarvester[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\mypipe\-(?:f|h)[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\windows\.update\.manager[0-9a-f]{2,3}/ OR winlog.event_data.PipeName.keyword:/\\\\ntsvcs_[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\scerpc_?[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\PGMessagePipe[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\MsFteWds[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\f4c3[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\fullduplex_[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\msrpc_[0-9a-f]{4}/ OR winlog.event_data.PipeName.keyword:/\\\\win\\\\msrpc_[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\f53f[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\rpc_[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\spoolss_[0-9a-f]{2}/ OR winlog.event_data.PipeName.keyword:/\\\\Winsock2\\\\CatalogChangeListener-[0-9a-f]{3}-0,/)
+index: winlogbeat-*
+name: 0e7163d4-9e19-4fa7-9be6-000c61aad77a-CobaltStrike-Named-Pipe-Pattern-Regex
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

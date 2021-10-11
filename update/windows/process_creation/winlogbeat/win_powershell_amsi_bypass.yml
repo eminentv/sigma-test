@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Request to amsiInitFailed that can be used to disable AMSI Scanning
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*System.Management.Automation.AmsiUtils* AND winlog.event_data.CommandLine.keyword:*amsiInitFailed*)
+index: winlogbeat-*
+name: 30edb182-aa75-42c0-b0a9-e998bb29067c-Powershell-AMSI-Bypass-via-.NET-Reflection
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

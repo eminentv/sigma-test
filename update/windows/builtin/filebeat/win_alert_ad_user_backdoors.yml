@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects scenarios where one can control another users or computers account without having to use their credentials.
+filter:
+- query:
+    query_string:
+      query: (((((EventID:"4738" AND (NOT AllowedToDelegateTo:"\-")) AND (NOT NOT _exists_:AllowedToDelegateTo)) OR (EventID:"5136" AND AttributeLDAPDisplayName:"msDS\-AllowedToDelegateTo")) OR (EventID:"5136" AND ObjectClass:"user" AND AttributeLDAPDisplayName:"servicePrincipalName")) OR (EventID:"5136" AND AttributeLDAPDisplayName:"msDS\-AllowedToActOnBehalfOfOtherIdentity"))
+index: filebeat-*
+name: 300bac00-e041-4ee2-9c36-e262656a6ecc-Active-Directory-User-Backdoors
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

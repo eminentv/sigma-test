@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects remote PowerShell sections by monitoring for wsmprovhost (WinRM host process) as a parent or child process (sign of an active PowerShell remote session).
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\wsmprovhost.exe OR ParentImage.keyword:*\\wsmprovhost.exe)
+index: filebeat-*
+name: 734f8d9b-42b8-41b2-bcf5-abaf49d5a3c8-Remote-PowerShell-Session-Host-Process-WinRM
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

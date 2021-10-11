@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies use of the bcdedit command to delete boot configuration data. This tactic is sometimes used as by malware or an attacker as a destructive technique.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\bcdedit.exe AND CommandLine.keyword:*set*) AND ((CommandLine.keyword:*bootstatuspolicy* AND CommandLine.keyword:*ignoreallfailures*) OR (CommandLine.keyword:*recoveryenabled* AND CommandLine.keyword:*no*)))
+index: filebeat-*
+name: 1444443e-6757-43e4-9ea4-c8fc705f79a2-Modification-of-Boot-Configuration
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

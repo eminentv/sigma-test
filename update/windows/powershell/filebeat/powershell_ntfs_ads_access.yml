@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects writing data into NTFS alternate data streams from powershell. Needs Script Block Logging.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:(*set\-content* OR *add\-content*) AND ScriptBlockText.keyword:*\-stream*)
+index: filebeat-*
+name: 8c521530-5169-495d-a199-0a3a881ad24e-NTFS-Alternate-Data-Stream
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

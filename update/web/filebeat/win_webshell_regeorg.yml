@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Certain strings in the uri_query field when combined with null referer and null user agent can indicate activity associated with the webshell ReGeorg.
+filter:
+- query:
+    query_string:
+      query: (uri_query.keyword:(*cmd\=read* OR *connect&target* OR *cmd\=connect* OR *cmd\=disconnect* OR *cmd\=forward*) AND NOT _exists_:referer AND NOT _exists_:useragent AND method:"POST")
+index: filebeat-*
+name: 2ea44a60-cfda-11ea-87d0-0242ac130003-Webshell-ReGeorg-Detection-Via-Web-Logs
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

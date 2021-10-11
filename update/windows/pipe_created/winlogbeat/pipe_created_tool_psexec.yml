@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects PsExec service installation and execution events (service and Sysmon)
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.PipeName:"\\PSEXESVC"
+index: winlogbeat-*
+name: f3f3a972-f982-40ad-b63c-bca6afdfad7c-PsExec-Tool-Execution
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

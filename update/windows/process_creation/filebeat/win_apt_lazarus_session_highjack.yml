@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects executables launched outside their default directories as used by Lazarus Group (Bluenoroff)
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\msdtc.exe OR *\\gpvc.exe) AND (NOT Image.keyword:(C\:\\Windows\\System32\\* OR C\:\\Windows\\SysWOW64\\*)))
+index: filebeat-*
+name: 3f7f5b0b-5b16-476c-a85f-ab477f6dd24b-Lazarus-Session-Highjacker
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

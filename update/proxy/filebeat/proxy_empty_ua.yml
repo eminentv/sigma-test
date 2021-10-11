@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious empty user agent strings in proxy logs
+filter:
+- query:
+    query_string:
+      query: c-useragent:""
+index: filebeat-*
+name: 21e44d78-95e7-421b-a464-ffd8395659c4-Empty-User-Agent
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

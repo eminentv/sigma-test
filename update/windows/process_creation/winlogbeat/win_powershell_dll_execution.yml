@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects PowerShell Strings applied to rundll as seen in PowerShdll.dll
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\rundll32.exe OR winlog.event_data.Description.keyword:*Windows\-Hostprozess\ \(Rundll32\)*) AND winlog.event_data.CommandLine.keyword:(*Default.GetString* OR *FromBase64String*))
+index: winlogbeat-*
+name: 6812a10b-60ea-420c-832f-dfcc33b646ba-Detection-of-PowerShell-Execution-via-DLL
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

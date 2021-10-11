@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Windows Pcap driver installation based on a list of associated .sys files.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4697" AND ServiceFileName.keyword:(*pcap* OR *npcap* OR *npf* OR *nm3* OR *ndiscap* OR *nmnt* OR *windivert* OR *USBPcap* OR *pktmon*))
+index: filebeat-*
+name: 7b687634-ab20-11ea-bb37-0242ac130002-Windows-Pcap-Drivers
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

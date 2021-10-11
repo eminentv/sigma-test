@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may attempt to enumerate software for a variety of reasons, such as figuring out what security measures are present or if the compromised system has a version of software that is vulnerable.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\reg.exe AND winlog.event_data.CommandLine.keyword:*query* AND winlog.event_data.CommandLine.keyword:*\\software\\* AND winlog.event_data.CommandLine.keyword:*\/v* AND winlog.event_data.CommandLine.keyword:*svcversion*)
+index: winlogbeat-*
+name: e13f668e-7f95-443d-98d2-1816a7648a7b-Detected-Windows-Software-Discovery
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

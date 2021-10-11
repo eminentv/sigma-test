@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects using SettingSyncHost.exe to run hijacked binary
+filter:
+- query:
+    query_string:
+      query: ((NOT Image.keyword:(C\:\\Windows\\System32\\* OR C\:\\Windows\\SysWOW64\\*)) AND (ParentCommandLine.keyword:*cmd.exe\ \/c* AND ParentCommandLine.keyword:*RoamDiag.cmd* AND ParentCommandLine.keyword:*\-outputpath*))
+index: filebeat-*
+name: b2ddd389-f676-4ac4-845a-e00781a48e5f-Using-SettingSyncHost.exe-as-LOLBin
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

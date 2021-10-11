@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects javaw.exe in AppData folder as used by Adwind / JRAT
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\\AppData\\Roaming\\Oracle* AND CommandLine.keyword:*\\java* AND CommandLine.keyword:*.exe\ *) OR (CommandLine.keyword:*cscript.exe* AND CommandLine.keyword:*Retrive* AND CommandLine.keyword:*.vbs\ *))
+index: filebeat-*
+name: 1fac1481-2dbc-48b2-9096-753c49b4ec71-Adwind-RAT-/-JRAT
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

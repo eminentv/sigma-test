@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects non-system users performing privileged operation os the SCM database
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4674" AND ObjectType:"SC_MANAGER\ OBJECT" AND ObjectName:"servicesactive" AND PrivilegeList:"SeTakeOwnershipPrivilege") AND (NOT SubjectLogonId:"0x3e4"))
+index: filebeat-*
+name: dae8171c-5ec6-4396-b210-8466585b53e9-SCM-Database-Privileged-Operation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

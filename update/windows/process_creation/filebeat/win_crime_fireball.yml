@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Archer malware invocation via rundll32
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*rundll32.exe* AND CommandLine.keyword:*InstallArcherSvc*)
+index: filebeat-*
+name: 3d4aebe0-6d29-45b2-a8a4-3dfde586a26d-Fireball-Archer-Install
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

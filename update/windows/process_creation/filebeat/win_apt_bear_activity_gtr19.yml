@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Russian group activity as described in Global Threat Report 2019 by Crowdstrike
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\xcopy.exe AND CommandLine.keyword:*\/S* AND CommandLine.keyword:*\/E* AND CommandLine.keyword:*\/C* AND CommandLine.keyword:*\/Q* AND CommandLine.keyword:*\/H* AND CommandLine.keyword:*\\\*) OR (Image.keyword:*\\adexplorer.exe AND CommandLine.keyword:*\-snapshot* AND CommandLine.keyword:*\"\"* AND CommandLine.keyword:*c\:\\users\\*))
+index: filebeat-*
+name: b83f5166-9237-4b5e-9cd4-7b5d52f4d8ee-Judgement-Panda-Credential-Access-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

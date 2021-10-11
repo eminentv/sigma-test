@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMI script event consumers
+filter:
+- query:
+    query_string:
+      query: (Image:"C\:\\WINDOWS\\system32\\wbem\\scrcons.exe" AND ParentImage:"C\:\\Windows\\System32\\svchost.exe")
+index: filebeat-*
+name: ec1d5e28-8f3b-4188-a6f8-6e8df81dc28e-WMI-Persistence---Script-Event-Consumer
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

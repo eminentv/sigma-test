@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect indirect command execution via Program Compatibility Assistant (pcalua.exe or forfiles.exe).
+filter:
+- query:
+    query_string:
+      query: ParentImage.keyword:(*\\pcalua.exe OR *\\forfiles.exe)
+index: filebeat-*
+name: fa47597e-90e9-41cd-ab72-c3b74cfb0d02-Indirect-Command-Execution
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

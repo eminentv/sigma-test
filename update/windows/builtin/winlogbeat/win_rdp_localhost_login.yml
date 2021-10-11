@@ -1,0 +1,17 @@
+alert:
+- debug
+description: RDP login with localhost source address may be a tunnelled login
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4624" AND winlog.event_data.LogonType:"10" AND winlog.event_data.IpAddress:("\:\:1" OR "127.0.0.1"))
+index: winlogbeat-*
+name: 51e33403-2a37-4d66-a574-1fda1782cc31-RDP-Login-from-Localhost
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when Events are deleted in Azure Kubernetes. An adversary may delete events in Azure Kubernetes in an attempt to evade detection.
+filter:
+- query:
+    query_string:
+      query: properties.message:"MICROSOFT.KUBERNETES\/CONNECTEDCLUSTERS\/EVENTS.K8S.IO\/EVENTS\/DELETE"
+index: filebeat-*
+name: 225d8b09-e714-479c-a0e4-55e6f29adf35-Azure-Kubernetes-Events-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

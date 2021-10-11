@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via Stdin in Scripts
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND ((winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:/(?i).*(set).*&&\s?set.*(environment|invoke|\${?input).*&&.*"/) OR (winlog.event_id:"4103" AND winlog.event_data.Payload.keyword:/(?i).*(set).*&&\s?set.*(environment|invoke|\${?input).*&&.*"/)))
+index: winlogbeat-*
+name: 86b896ba-ffa1-4fea-83e3-ee28a4c915c7-Invoke-Obfuscation-Via-Stdin
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

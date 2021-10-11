@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 30
+description: Detects suspicious failed logins with different user accounts from a single source system
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("529" OR "4625") AND TargetUserName.keyword:* AND winlog.event_data.WorkstationName.keyword:*)
+index: winlogbeat-*
+max_threshold: 3
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: e98374a6-e2d9-4076-9b5c-11bdb2569995-Failed-Logins-with-Different-Accounts-from-Single-Source-System
+priority: 3
+query_key: winlog.event_data.WorkstationName.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

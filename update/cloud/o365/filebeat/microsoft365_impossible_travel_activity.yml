@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported a risky sign-in attempt due to a login associated with an impossible travel.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Impossible\ travel\ activity" AND status:"success")
+index: filebeat-*
+name: d7eab125-5f94-43df-8710-795b80fa1189-Microsoft-365---Impossible-Travel-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

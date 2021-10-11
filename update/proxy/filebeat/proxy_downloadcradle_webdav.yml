@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WebDav DownloadCradle
+filter:
+- query:
+    query_string:
+      query: (c-useragent.keyword:Microsoft\-WebDAV\-MiniRedir\/* AND cs-method:"GET")
+index: filebeat-*
+name: e09aed7a-09e0-4c9a-90dd-f0d52507347e-Windows-WebDAV-User-Agent
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

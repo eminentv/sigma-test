@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a ping command that uses a hex encoded IP address
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\ping.exe AND winlog.event_data.CommandLine.keyword:*0x*)
+index: winlogbeat-*
+name: 1a0d4aba-7668-4365-9ce4-6d79ab088dfd-Ping-Hex-IP
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

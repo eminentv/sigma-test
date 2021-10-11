@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for the Get-Clipboard commands in PowerShell logs. This could be an adversary capturing clipboard contents.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND ((winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*Get\-Clipboard*) OR (winlog.event_id:"4103" AND winlog.event_data.Payload.keyword:*Get\-Clipboard*)))
+index: winlogbeat-*
+name: 5486f63a-aa4c-488d-9a61-c9192853099f-PowerShell-Get-Clipboard
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

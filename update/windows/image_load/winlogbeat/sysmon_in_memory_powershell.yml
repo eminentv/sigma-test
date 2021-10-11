@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects loading of essential DLL used by PowerShell, but not by the process powershell.exe. Detects meterpreter's "load powershell" extension.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ImageLoaded.keyword:(*\\System.Management.Automation.Dll OR *\\System.Management.Automation.ni.Dll) AND (NOT winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\powershell_ise.exe OR *\\WINDOWS\\System32\\sdiagnhost.exe OR *\\mscorsvw.exe OR *\\WINDOWS\\System32\\RemoteFXvGPUDisablement.exe OR *\\sqlps.exe OR *\\wsmprovhost.exe OR *\\winrshost.exe OR *\\syncappvpublishingserver.exe OR *\\runscripthelper.exe OR *\\ServerManager.exe)))
+index: winlogbeat-*
+name: 092bc4b9-3d1d-43b4-a6b4-8c8acd83522f-In-memory-PowerShell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

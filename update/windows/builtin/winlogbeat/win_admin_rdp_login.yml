@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect remote login by Administrator user (depending on internal pattern).
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4624" AND winlog.event_data.LogonType:"10" AND winlog.event_data.AuthenticationPackageName:"Negotiate" AND TargetUserName.keyword:Admin*)
+index: winlogbeat-*
+name: 0f63e1ef-1eb9-4226-9d54-8927ca08520a-Admin-User-Remote-Logon
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

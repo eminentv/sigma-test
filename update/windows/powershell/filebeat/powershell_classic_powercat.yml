@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may use a non-application layer protocol for communication between host and C2 server or among infected hosts within a network
+filter:
+- query:
+    query_string:
+      query: (EventID:"400" AND HostApplication.keyword:(*powercat\ * OR *powercat.ps1*))
+index: filebeat-*
+name: c5b20776-639a-49bf-94c7-84f912b91c15-Netcat-The-Powershell-Version
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

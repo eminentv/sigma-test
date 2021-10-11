@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of smbexec.py tool by detecting a specific service installation
+filter:
+- query:
+    query_string:
+      query: (EventID:"7045" AND ServiceName:"BTOBTO" AND ServiceFileName.keyword:*\\execute.bat)
+index: filebeat-*
+name: 52a85084-6989-40c3-8f32-091e12e13f09-smbexec.py-Service-Installation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

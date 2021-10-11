@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation or execution of UserInitMprLogonScript persistence method
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.ParentImage.keyword:*\\userinit.exe AND (NOT winlog.event_data.Image.keyword:*\\explorer.exe)) AND (NOT winlog.event_data.CommandLine.keyword:(*netlogon.bat* OR *UsrLogon.cmd*))) OR winlog.event_data.CommandLine.keyword:*UserInitMprLogonScript*)
+index: winlogbeat-*
+name: 0a98a10c-685d-4ab0-bddc-b6bdd1d48458-Logon-Scripts-UserInitMprLogonScript
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

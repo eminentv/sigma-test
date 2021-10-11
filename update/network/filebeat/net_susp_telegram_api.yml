@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious DNS queries to api.telegram.org used by Telegram Bots of any kind
+filter:
+- query:
+    query_string:
+      query: dns.question.name:"api.telegram.org"
+index: filebeat-*
+name: c64c5175-5189-431b-a55e-6d9882158251-Telegram-Bot-API-Request
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

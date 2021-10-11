@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects suspicious failed logins with different user accounts from a single source system
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (EventID:"4776" AND TargetUserName.keyword:* AND Workstation.keyword:*)
+index: filebeat-*
+max_threshold: 3
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: 6309ffc4-8fa2-47cf-96b8-a2f72e58e538-Failed-Logins-with-Different-Accounts-from-Single-Source-System
+priority: 3
+query_key: Workstation.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule detects DLL injection and execution via LOLBAS - Tracker.exe
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\tracker.exe OR winlog.event_data.Description:"Tracker") AND winlog.event_data.CommandLine.keyword:*\ \/d\ * AND winlog.event_data.CommandLine.keyword:*\ \/c\ *)
+index: winlogbeat-*
+name: 148431ce-4b70-403d-8525-fcc2993f29ea-DLL-Injection-with-Tracker.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

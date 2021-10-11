@@ -1,0 +1,17 @@
+alert:
+- debug
+description: The Devtoolslauncher.exe executes other binary
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\devtoolslauncher.exe AND winlog.event_data.CommandLine.keyword:*LaunchForDeploy*)
+index: winlogbeat-*
+name: cc268ac1-42d9-40fd-9ed3-8c4e1a5b87e6-Devtoolslauncher.exe-Executes-Specified-Binary
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

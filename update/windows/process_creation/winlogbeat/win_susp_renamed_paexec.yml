@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious renamed PAExec execution as often used by attackers
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Description:"PAExec\ Application" OR winlog.event_data.OriginalFileName:"PAExec.exe") AND (NOT winlog.event_data.Image.keyword:(*\\PAexec.exe OR *\\paexec.exe)))
+index: winlogbeat-*
+name: c4e49831-1496-40cf-8ce1-b53f942b02f9-Renamed-PAExec
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

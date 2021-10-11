@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported when a user signs into your sanctioned apps from a risky IP address.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Log\ on\ from\ a\ risky\ IP\ address" AND status:"success")
+index: winlogbeat-*
+name: c191e2fa-f9d6-4ccf-82af-4f2aba08359f-Logon-from-a-Risky-IP-Address
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

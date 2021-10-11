@@ -1,0 +1,17 @@
+alert:
+- debug
+description: User Added to an Administrator's Azure AD Role
+filter:
+- query:
+    query_string:
+      query: (Operation:"Add\ member\ to\ role." AND Workload:"AzureActiveDirectory" AND ModifiedProperties{}.NewValue.keyword:(*Admins OR *Administrator))
+index: filebeat-*
+name: ebbeb024-5b1d-4e16-9c0c-917f86c708a7-User-Added-to-an-Administrator's-Azure-AD-Role
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

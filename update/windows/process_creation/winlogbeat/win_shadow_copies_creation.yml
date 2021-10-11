@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Shadow Copies creation using operating systems utilities, possible credential access
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\wmic.exe OR *\\vssadmin.exe) AND winlog.event_data.CommandLine.keyword:*shadow* AND winlog.event_data.CommandLine.keyword:*create*)
+index: winlogbeat-*
+name: b17ea6f7-6e90-447e-a799-e6c0a493d6ce-Shadow-Copies-Creation-Using-Operating-Systems-Utilities
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

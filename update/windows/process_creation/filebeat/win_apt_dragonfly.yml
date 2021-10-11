@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects CrackMapExecWin Activity as Described by NCSC
+filter:
+- query:
+    query_string:
+      query: Image.keyword:*\\crackmapexec.exe
+index: filebeat-*
+name: 04d9079e-3905-4b70-ad37-6bdf11304965-CrackMapExecWin
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

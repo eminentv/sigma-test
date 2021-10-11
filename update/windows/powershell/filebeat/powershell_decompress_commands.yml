@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for specific decompress commands in PowerShell logs. This could be an adversary decompressing files.
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4104" AND ScriptBlockText.keyword:*Expand\-Archive*) OR (EventID:"4103" AND Payload.keyword:*Expand\-Archive*))
+index: filebeat-*
+name: 81fbdce6-ee49-485a-908d-1a728c5dcb09-PowerShell-Decompress-Commands
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of ADRecon.ps1 for AD reconnaissance which has been reported to be actively used by FIN7
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:(*Function\ Get\-ADRExcelComOb* OR *ADRecon\-Report.xlsx*))
+index: filebeat-*
+name: bf72941a-cba0-41ea-b18c-9aca3925690d-PowerShell-ADRecon-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

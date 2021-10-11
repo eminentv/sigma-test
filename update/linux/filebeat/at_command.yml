@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of at/atd
+filter:
+- query:
+    query_string:
+      query: ProcessName.keyword:(*\/at OR *\/atd)
+index: filebeat-*
+name: d2d642d7-b393-43fe-bae4-e81ed5915c4b-Scheduled-Task/Job-At
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

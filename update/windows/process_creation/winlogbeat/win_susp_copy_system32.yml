@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious copy command that copies a system program from System32 to another directory on disk - sometimes used to use LOLBINs like certutil or desktopimgdownldr to a different location with a different name
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*\ \/c\ copy* OR *xcopy*) AND winlog.event_data.CommandLine.keyword:*\\System32\\*)
+index: winlogbeat-*
+name: fff9d2b7-e11c-4a69-93d3-40ef66189767-Suspicious-Copy-From-or-To-System32
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

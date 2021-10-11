@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the usage and installation of a backdoor that uses an option to register a malicious debugger for built-in tools that are accessible in the login screen
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\winlogon.exe AND Image.keyword:*\\cmd.exe AND CommandLine.keyword:(*sethc.exe* OR *utilman.exe* OR *osk.exe* OR *Magnify.exe* OR *Narrator.exe* OR *DisplaySwitch.exe*))
+index: filebeat-*
+name: 2fdefcb3-dbda-401e-ae23-f0db027628bc-Sticky-Key-Like-Backdoor-Usage
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious print spool service (spoolsv.exe) child processes.
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:*\\spoolsv.exe AND IntegrityLevel:"System") AND (((((Image.keyword:(*\\gpupdate.exe OR *\\whoami.exe OR *\\nltest.exe OR *\\taskkill.exe OR *\\wmic.exe OR *\\taskmgr.exe OR *\\sc.exe OR *\\findstr.exe OR *\\curl.exe OR *\\wget.exe OR *\\certutil.exe OR *\\bitsadmin.exe OR *\\accesschk.exe OR *\\wevtutil.exe OR *\\bcdedit.exe OR *\\fsutil.exe OR *\\cipher.exe OR *\\schtasks.exe OR *\\write.exe OR *\\wuauclt.exe) OR (Image.keyword:*\\net.exe AND (NOT CommandLine.keyword:*start*))) OR (Image.keyword:*\\cmd.exe AND (NOT CommandLine.keyword:(*.spl* OR *route\ add* OR *program\ files*)))) OR (Image.keyword:*\\netsh.exe AND (NOT CommandLine.keyword:(*add\ portopening* OR *rule\ name*)))) OR (Image.keyword:*\\powershell.exe AND (NOT CommandLine.keyword:*.spl*))) OR (Image.keyword:*\\rundll32.exe AND CommandLine.keyword:*rundll32.exe)))
+index: filebeat-*
+name: dcdbc940-0bff-46b2-95f3-2d73f848e33b-Suspicious-Spool-Service-Child-Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

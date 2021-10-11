@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may use binary padding to add junk data and change the on-disk representation of malware. This rule detect using dd and truncate to add a junk data to file.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\/truncate AND CommandLine.keyword:*\-s*) OR ((Image.keyword:*\/dd AND CommandLine.keyword:*if\=*) AND (NOT CommandLine.keyword:*of\=*)))
+index: filebeat-*
+name: 95361ce5-c891-4b0a-87ca-e24607884a96-Binary-Padding
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

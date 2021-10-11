@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect PetitPotam coerced authentication activity.
+filter:
+- query:
+    query_string:
+      query: (EventID:"5145" AND ShareName.keyword:\\\* AND ShareName.keyword:*\\IPC$ AND RelativeTargetName:"lsarpc" AND SubjectUserName:"ANONYMOUS\ LOGON")
+index: filebeat-*
+name: 1ce8c8a3-2723-48ed-8246-906ac91061a6-Possible-PetitPotam-Coerce-Authentication-Attempt
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

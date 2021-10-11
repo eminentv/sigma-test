@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of Time Travel Debugging Utility. Adversaries can execute malicious processes and dump processes, such as lsass.exe, via tttracer.exe.
+filter:
+- query:
+    query_string:
+      query: ImageLoaded.keyword:(*\\ttdrecord.dll OR *\\ttdwriter.dll OR *\\ttdloader.dll)
+index: filebeat-*
+name: e76c8240-d68f-4773-8880-5c6f63595aaf-Time-Travel-Debugging-Utility-Usage
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

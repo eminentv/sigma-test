@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may install a root certificate on a compromised system to avoid warnings when connecting to adversary controlled web servers.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*Cert\:\\LocalMachine\\Root* AND (ScriptBlockText.keyword:*Move\-Item* OR ScriptBlockText.keyword:*Import\-Certificate*))
+index: filebeat-*
+name: 42821614-9264-4761-acfc-5772c3286f76-Root-Certificate-Installed
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

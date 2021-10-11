@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attempts to collect data stored in the clipboard from users with the usage of xclip tool. Xclip has to be installed. Highly recommended using rule on servers, due to high usage of clipboard utilities on user workstations.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"xclip" AND a1:("\-selection" OR "\-sel") AND a2:("clipboard" OR "clip") AND a3:"\-o")
+index: filebeat-*
+name: 214e7e6c-f21b-47ff-bb6f-551b2d143fcf-Clipboard-Collection-with-Xclip-Tool
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

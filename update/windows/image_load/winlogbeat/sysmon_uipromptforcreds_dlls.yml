@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects potential use of UIPromptForCredentials functions by looking for some of the DLLs needed for it.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ImageLoaded.keyword:(*\\credui.dll OR *\\wincredui.dll) OR winlog.event_data.OriginalFileName:("credui.dll" OR "wincredui.dll"))
+index: winlogbeat-*
+name: 9ae01559-cf7e-4f8e-8e14-4c290a1b4784-UIPromptForCredentials-DLLs
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

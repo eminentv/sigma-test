@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process characteristics of Snatch ransomware word document droppers
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:(*shutdown\ \/r\ \/f\ \/t\ 00* OR *net\ stop\ SuperBackupMan*)
+index: filebeat-*
+name: 5325945e-f1f0-406e-97b8-65104d393fff-Snatch-Ransomware
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

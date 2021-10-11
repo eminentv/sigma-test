@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local systeam accounts
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/lastlog OR CommandLine.keyword:*'x\:0\:'* OR (Image.keyword:*\/cat AND CommandLine.keyword:(*\/etc\/passwd* OR *\/etc\/sudoers*)) OR Image.keyword:*\/id OR (Image.keyword:*\/lsof AND CommandLine.keyword:*\-u*))
+index: filebeat-*
+name: b45e3d6f-42c6-47d8-a478-df6bd6cf534c-Local-System-Accounts-Discovery
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

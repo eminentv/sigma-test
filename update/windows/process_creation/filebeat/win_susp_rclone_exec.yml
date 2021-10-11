@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Rclone which is commonly used by ransomware groups for exfiltration
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*\ pass\ * OR *\ user\ * OR *\ copy\ * OR *\ mega\ * OR *\ sync\ * OR *\ config\ * OR *\ lsd\ * OR *\ remote\ * OR *\ ls\ *) AND (Description:"Rsync\ for\ cloud\ storage" OR (Image.keyword:*\\rclone.exe AND ParentImage.keyword:(*\\PowerShell.exe OR *\\cmd.exe))))
+index: filebeat-*
+name: cb7286ba-f207-44ab-b9e6-760d82b84253-Rclone-Execution-via-Command-Line-or-PowerShell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

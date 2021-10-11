@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command lines that look as if they would create symbolic links to /etc/passwd
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*ln\ \-s\ \-f\ \/etc\/passwd* OR *ln\ \-s\ \/etc\/passwd*)
+index: filebeat-*
+name: c67fc22a-0be5-4b4f-aad5-2b32c4b69523-Symlink-Etc-Passwd
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

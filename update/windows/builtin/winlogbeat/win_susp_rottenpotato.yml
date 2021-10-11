@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects logon events that have characteristics of events generated during an attack with RottenPotato and the like
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4624" AND winlog.event_data.LogonType:"3" AND TargetUserName:"ANONYMOUS_LOGON" AND winlog.event_data.WorkstationName:"\-" AND winlog.event_data.IpAddress:"127.0.0.1")
+index: winlogbeat-*
+name: 16f5d8ca-44bd-47c8-acbe-6fc95a16c12f-RottenPotato-Like-Attack-Pattern
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

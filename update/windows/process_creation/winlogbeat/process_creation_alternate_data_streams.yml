@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may use NTFS file attributes to hide their malicious data in order to evade detection
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*txt\:* AND ((winlog.event_data.CommandLine.keyword:*type\ * AND winlog.event_data.CommandLine.keyword:*\ >\ *) OR (winlog.event_data.CommandLine.keyword:*makecab\ * AND winlog.event_data.CommandLine.keyword:*.cab*) OR (winlog.event_data.CommandLine.keyword:*reg\ * AND winlog.event_data.CommandLine.keyword:*\ export\ *) OR (winlog.event_data.CommandLine.keyword:*regedit\ * AND winlog.event_data.CommandLine.keyword:*\ \/E\ *) OR (winlog.event_data.CommandLine.keyword:*esentutl\ * AND winlog.event_data.CommandLine.keyword:*\ \/y\ * AND winlog.event_data.CommandLine.keyword:*\ \/d\ * AND winlog.event_data.CommandLine.keyword:*\ \/o\ *)))
+index: winlogbeat-*
+name: 7f43c430-5001-4f8b-aaa9-c3b88f18fa5c-Execute-From-Alternate-Data-Streams
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via COMPRESS OBFUSCATION
+filter:
+- query:
+    query_string:
+      query: (ServiceFileName.keyword:/(?i).*new-object.*(?:system\.io\.compression\.deflatestream|system\.io\.streamreader).*text\.encoding\]::ascii.*readtoend/ AND EventID:"4697")
+index: filebeat-*
+name: 7a922f1b-2635-4d6c-91ef-af228b198ad3-Invoke-Obfuscation-COMPRESS-OBFUSCATION
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

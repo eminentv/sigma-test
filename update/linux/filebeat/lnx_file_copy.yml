@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of tools that copy files from or to remote systems
+filter:
+- query:
+    query_string:
+      query: (\*.keyword:(*scp\ * OR *rsync\ * OR *sftp\ *) AND \*.keyword:(*@* OR *\:*))
+index: filebeat-*
+name: 7a14080d-a048-4de8-ae58-604ce58a795b-Remote-File-Copy
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

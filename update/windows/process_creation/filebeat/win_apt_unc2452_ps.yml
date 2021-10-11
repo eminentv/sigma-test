@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a specific PowerShell command line pattern used by the UNC2452 actors as mentioned in Microsoft and Symantec reports
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*Invoke\-WMIMethod\ win32_process\ \-name\ create\ \-argumentlist* AND CommandLine.keyword:*rundll32\ c\:\\windows*) OR (CommandLine.keyword:*wmic\ \/node\:* AND CommandLine.keyword:*process\ call\ create\ \"rundll32\ c\:\\windows*))
+index: filebeat-*
+name: b7155193-8a81-4d8f-805d-88de864ca50c-UNC2452-PowerShell-Pattern
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious DNS error messages that indicate a fatal or suspicious error that could be caused by exploiting attempts
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*\ dropping\ source\ port\ zero\ packet\ from\ * OR *\ denied\ AXFR\ from\ * OR *\ exiting\ \(due\ to\ fatal\ error\)*)
+index: filebeat-*
+name: c8e35e96-19ce-4f16-aeb6-fd5588dc5365-Suspicious-Named-Error
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

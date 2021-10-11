@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule detects the execution of Run Once task as configured in the registry
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\runonce.exe OR Description:"Run\ Once\ Wrapper") AND CommandLine.keyword:*\ \/AlternateShellStartup*)
+index: filebeat-*
+name: 198effb6-6c98-4d0c-9ea3-451fa143c45c-Run-Once-Task-Execution-as-Configured-in-Registry
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of mimikatz through WinRM protocol by monitoring access to lsass process by wsmprovhost.exe.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.TargetImage.keyword:*\\lsass.exe AND winlog.event_data.SourceImage:"C\:\\Windows\\system32\\wsmprovhost.exe")
+index: winlogbeat-*
+name: aa35a627-33fb-4d04-a165-d33b4afca3e8-Mimikatz-through-Windows-Remote-Management
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

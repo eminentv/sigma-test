@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Execute VBscript code that is referenced within the *.bgi file.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\bginfo.exe AND CommandLine.keyword:*\/popup* AND CommandLine.keyword:*\/nolicprompt*)
+index: filebeat-*
+name: aaf46cdc-934e-4284-b329-34aa701e3771-Application-Whitelisting-Bypass-via-Bginfo
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

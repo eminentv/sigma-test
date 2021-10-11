@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects file and folder permission changes.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0.keyword:(*chmod* OR *chown*))
+index: filebeat-*
+name: 74c01ace-0152-4094-8ae2-6fd776dd43e5-File-or-Folder-Permissions-Change
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

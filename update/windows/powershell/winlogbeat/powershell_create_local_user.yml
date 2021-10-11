@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation of a local user via PowerShell
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*New\-LocalUser*)
+index: winlogbeat-*
+name: 243de76f-4725-4f2e-8225-a8a69b15ad61-PowerShell-Create-Local-User
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

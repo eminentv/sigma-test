@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection of logins performed with WMI
+filter:
+- query:
+    query_string:
+      query: (EventID:"4624" AND ProcessName.keyword:*\\WmiPrvSE.exe)
+index: filebeat-*
+name: 5af54681-df95-4c26-854f-2565e13cfab0-Login-with-WMI
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

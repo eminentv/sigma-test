@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Azure Hybrid Connection Manager services querying the Azure service bus service
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.QueryName.keyword:*servicebus.windows.net* AND winlog.event_data.Image.keyword:*HybridConnectionManager*)
+index: winlogbeat-*
+name: 7bd3902d-8b8b-4dd4-838a-c6862d40150d-DNS-HybridConnectionManager-Service-Bus
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

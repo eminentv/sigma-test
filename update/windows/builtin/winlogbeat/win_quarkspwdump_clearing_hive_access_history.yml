@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects QuarksPwDump clearing access history in hive
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"16" AND winlog.event_data.HiveName.keyword:*\\AppData\\Local\\Temp\\SAM* AND winlog.event_data.HiveName.keyword:*.dmp)
+index: winlogbeat-*
+name: 39f919f3-980b-4e6f-a975-8af7e507ef2b-QuarksPwDump-Clearing-Access-History
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

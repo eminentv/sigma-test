@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects updates of the GuardDuty list of trusted IPs, perhaps to disable security alerts against malicious IPs.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"guardduty.amazonaws.com" AND event.action:"CreateIPSet")
+index: filebeat-*
+name: 6e61ee20-ce00-4f8d-8aee-bedd8216f7e3-AWS-GuardDuty-Important-Change
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

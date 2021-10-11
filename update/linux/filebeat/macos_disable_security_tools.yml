@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling security tools
+filter:
+- query:
+    query_string:
+      query: ((Image:"\/bin\/launchctl" AND CommandLine.keyword:*unload* AND CommandLine.keyword:(*com.objective\-see.lulu.plist* OR *com.objective\-see.blockblock.plist* OR *com.google.santad.plist* OR *com.carbonblack.defense.daemon.plist* OR *com.carbonblack.daemon.plist* OR *at.obdev.littlesnitchd.plist* OR *com.tenablesecurity.nessusagent.plist* OR *com.opendns.osx.RoamingClientConfigUpdater.plist* OR *com.crowdstrike.falcond.plist* OR *com.crowdstrike.userdaemon.plist* OR *osquery* OR *filebeat* OR *auditbeat* OR *packetbeat* OR *td\-agent*)) OR (Image:"\/usr\/sbin\/spctl" AND CommandLine.keyword:*disable*))
+index: filebeat-*
+name: ff39f1a6-84ac-476f-a1af-37fcdf53d7c0-Disable-Security-Tools
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

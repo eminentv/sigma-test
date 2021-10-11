@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious outbound network activity via kerberos default port indicating possible lateral movement or first stage PrivEsc via delegation.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.DestinationPort:"88" AND winlog.event_data.Initiated:"true") AND (NOT winlog.event_data.Image.keyword:(*\\lsass.exe OR *\\opera.exe OR *\\chrome.exe OR *\\firefox.exe)))
+index: winlogbeat-*
+name: e54979bd-c5f9-4d6c-967b-a04b19ac4c74-Suspicious-Outbound-Kerberos-Connection
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

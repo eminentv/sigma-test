@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a usage of the manage-bde.wsf script that may indicate an attempt of proxy execution from script
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*cscript* AND CommandLine.keyword:*manage\-bde.wsf*)
+index: filebeat-*
+name: c363385c-f75d-4753-a108-c1a8e28bdbda-Suspicious-Usage-of-the-Manage-bde.wsf-Script
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

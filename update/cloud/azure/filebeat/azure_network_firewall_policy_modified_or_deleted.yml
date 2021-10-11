@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a Firewall Policy is Modified or Deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/FIREWALLPOLICIES\/WRITE" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/JOIN\/ACTION" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/CERTIFICATES\/ACTION" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/DELETE")
+index: filebeat-*
+name: 83c17918-746e-4bd9-920b-8e098bf88c23-Azure-Network-Firewall-Policy-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

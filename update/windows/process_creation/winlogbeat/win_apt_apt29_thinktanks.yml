@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This method detects a suspicious PowerShell command line combination as used by APT29 in a campaign against U.S. think tanks.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\-noni* AND winlog.event_data.CommandLine.keyword:*\-ep* AND winlog.event_data.CommandLine.keyword:*bypass* AND winlog.event_data.CommandLine.keyword:*$*)
+index: winlogbeat-*
+name: 033fe7d6-66d1-4240-ac6b-28908009c71f-APT29
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

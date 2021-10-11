@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a user tampers with S3 data management in Amazon Web Services.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"s3.amazonaws.com" AND event.action:("PutBucketLogging" OR "PutBucketWebsite" OR "PutEncryptionConfiguration" OR "PutLifecycleConfiguration" OR "PutReplicationConfiguration" OR "ReplicateObject" OR "RestoreObject"))
+index: filebeat-*
+name: 78b3756a-7804-4ef7-8555-7b9024a02e2d-AWS-S3-Data-Management-Tampering
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects DNS queries for ip lookup services such as api.ipify.org not originating from a browser process.
+filter:
+- query:
+    query_string:
+      query: (dns.question.name:("canireachthe.net" OR "ipv4.icanhazip.com" OR "ip.anysrc.net" OR "edns.ip\-api.com" OR "wtfismyip.com" OR "checkip.dyndns.org" OR "api.2ip.ua" OR "icanhazip.com" OR "api.ipify.org" OR "ip\-api.com" OR "checkip.amazonaws.com" OR "ipecho.net" OR "ipinfo.io" OR "ipv4bot.whatismyipaddress.com" OR "freegeoip.app") AND (NOT Image.keyword:(*\\chrome.exe OR *\\iexplore.exe OR *\\firefox.exe OR *\\brave.exe OR *\\opera.exe OR *\\msedge.exe OR *\\vivaldi.exe)))
+index: filebeat-*
+name: ec82e2a5-81ea-4211-a1f8-37a0286df2c2-Suspicious-DNS-Query-for-IP-Lookup-Service-APIs
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

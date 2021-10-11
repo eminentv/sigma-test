@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of a renamed meg.exe of MegaSync during incident response engagements associated with ransomware families like Nefilim, Sodinokibi, Pysa, and Conti.
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:*\\explorer.exe AND CommandLine.keyword:*C\:\\Windows\\Temp\\meg.exe*) OR (OriginalFileName:"meg.exe" AND (NOT Image.keyword:*\\meg.exe)))
+index: filebeat-*
+name: 643bdcac-8b82-49f4-9fd9-25a90b929f3b-Renamed-MegaSync
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

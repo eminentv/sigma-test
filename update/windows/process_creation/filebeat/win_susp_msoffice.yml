@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Downloads payload from remote server
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\powerpnt.exe OR *\\winword.exe OR *\\excel.exe) AND CommandLine.keyword:*http*)
+index: filebeat-*
+name: 0c79148b-118e-472b-bdb7-9b57b444cc19-Malicious-Payload-Download-via-Office-Binaries
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

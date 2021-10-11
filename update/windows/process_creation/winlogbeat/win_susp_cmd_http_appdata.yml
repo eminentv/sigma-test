@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious command line execution that includes an URL and AppData string in the command line parameters as used by several droppers (js/vbs > powershell)
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\cmd.exe AND winlog.event_data.CommandLine.keyword:*http* AND winlog.event_data.CommandLine.keyword:*\:\/\/* AND winlog.event_data.CommandLine.keyword:*%AppData%*)
+index: winlogbeat-*
+name: 1ac8666b-046f-4201-8aba-1951aaec03a3-Command-Line-Execution-with-Suspicious-URL-and-AppData-Strings
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

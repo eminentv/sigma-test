@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects remote service activity via remote access to the svcctl named pipe
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:\\*\\IPC$ AND winlog.event_data.RelativeTargetName:"svcctl" AND winlog.event_data.Accesses.keyword:*WriteData*)
+index: winlogbeat-*
+name: 586a8d6b-6bfe-4ad9-9d78-888cd2fe50c3-Remote-Service-Activity-via-SVCCTL-Named-Pipe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Turla ComRAT patterns
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*\/index\/index.php?h\=*
+index: filebeat-*
+name: 7857f021-007f-4928-8b2c-7aedbe64bb82-Turla-ComRAT
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

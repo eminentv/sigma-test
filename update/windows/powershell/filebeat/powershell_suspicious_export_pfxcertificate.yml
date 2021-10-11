@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Commandlet that is used to export certificates from the local certificate store and sometimes used by threat actors to steal private keys from compromised machines
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*Export\-PfxCertificate*)
+index: filebeat-*
+name: aa7a3fce-bef5-4311-9cc1-5f04bb8c308c-Suspicious-Export-PfxCertificate
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

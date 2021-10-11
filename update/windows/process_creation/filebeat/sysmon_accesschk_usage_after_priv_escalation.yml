@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Accesschk is an access and privilege audit tool developed by SysInternal and often being used by attacker to verify if a privilege escalation process successful or not
+filter:
+- query:
+    query_string:
+      query: (IntegrityLevel:"Medium" AND (Product.keyword:*AccessChk OR Description.keyword:*Reports\ effective\ permissions*))
+index: filebeat-*
+name: c625d754-6a3d-4f65-9c9a-536aea960d37-Accesschk-Usage-After-Privilege-Escalation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

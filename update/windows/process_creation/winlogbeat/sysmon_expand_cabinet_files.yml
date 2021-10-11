@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries can use the inbuilt expand utility to decompress cab files as seen in recent Iranian MeteorExpress attack
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\expand.exe AND winlog.event_data.CommandLine.keyword:(*.cab* OR *\/F\:* OR *\-F\:* OR *C\:\\ProgramData\\* OR *C\:\\Public\\* OR *\\AppData\\Local\\Temp\\* OR *\\AppData\\Roaming\\Temp\\*))
+index: winlogbeat-*
+name: 9f107a84-532c-41af-b005-8d12a607639f-Cabinet-File-Expansion
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

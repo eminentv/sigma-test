@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect PetitPotam coerced authentication activity.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:\\\* AND winlog.event_data.ShareName.keyword:*\\IPC$ AND winlog.event_data.RelativeTargetName:"lsarpc" AND winlog.event_data.SubjectUserName:"ANONYMOUS\ LOGON")
+index: winlogbeat-*
+name: 1ce8c8a3-2723-48ed-8246-906ac91061a6-Possible-PetitPotam-Coerce-Authentication-Attempt
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a Keyvault Key is modified or deleted in Azure.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/UPDATE\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/CREATE" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/CREATE\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/IMPORT\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/RECOVER\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/RESTORE\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/DELETE" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/BACKUP\/ACTION" OR "MICROSOFT.KEYVAULT\/VAULTS\/KEYS\/PURGE\/ACTION")
+index: filebeat-*
+name: 80eeab92-0979-4152-942d-96749e11df40-Azure-Keyvault-Key-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

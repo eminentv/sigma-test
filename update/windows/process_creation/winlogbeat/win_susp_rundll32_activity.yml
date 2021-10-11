@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process related to rundll32 based on arguments
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*javascript\:* OR *.RegisterXLL*) OR (winlog.event_data.CommandLine.keyword:*url.dll* AND winlog.event_data.CommandLine.keyword:*OpenURL*) OR (winlog.event_data.CommandLine.keyword:*url.dll* AND winlog.event_data.CommandLine.keyword:*OpenURLA*) OR (winlog.event_data.CommandLine.keyword:*url.dll* AND winlog.event_data.CommandLine.keyword:*FileProtocolHandler*) OR (winlog.event_data.CommandLine.keyword:*zipfldr.dll* AND winlog.event_data.CommandLine.keyword:*RouteTheCall*) OR (winlog.event_data.CommandLine.keyword:*shell32.dll* AND winlog.event_data.CommandLine.keyword:*Control_RunDLL*) OR (winlog.event_data.CommandLine.keyword:*shell32.dll* AND winlog.event_data.CommandLine.keyword:*ShellExec_RunDLL*) OR (winlog.event_data.CommandLine.keyword:*mshtml.dll* AND winlog.event_data.CommandLine.keyword:*PrintHTML*) OR (winlog.event_data.CommandLine.keyword:*advpack.dll* AND winlog.event_data.CommandLine.keyword:*LaunchINFSection*) OR (winlog.event_data.CommandLine.keyword:*advpack.dll* AND winlog.event_data.CommandLine.keyword:*RegisterOCX*) OR (winlog.event_data.CommandLine.keyword:*ieadvpack.dll* AND winlog.event_data.CommandLine.keyword:*LaunchINFSection*) OR (winlog.event_data.CommandLine.keyword:*ieadvpack.dll* AND winlog.event_data.CommandLine.keyword:*RegisterOCX*) OR (winlog.event_data.CommandLine.keyword:*ieframe.dll* AND winlog.event_data.CommandLine.keyword:*OpenURL*) OR (winlog.event_data.CommandLine.keyword:*shdocvw.dll* AND winlog.event_data.CommandLine.keyword:*OpenURL*) OR (winlog.event_data.CommandLine.keyword:*syssetup.dll* AND winlog.event_data.CommandLine.keyword:*SetupInfObjectInstallAction'*) OR (winlog.event_data.CommandLine.keyword:*setupapi.dll* AND winlog.event_data.CommandLine.keyword:*InstallHinfSection*) OR (winlog.event_data.CommandLine.keyword:*pcwutl.dll* AND winlog.event_data.CommandLine.keyword:*LaunchApplication*) OR (winlog.event_data.CommandLine.keyword:*dfshim.dll* AND winlog.event_data.CommandLine.keyword:*ShOpenVerbApplication*))
+index: winlogbeat-*
+name: e593cf51-88db-4ee1-b920-37e89012a3c9-Suspicious-Rundll32-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

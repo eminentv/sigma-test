@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects suspicious failed logins with different user accounts from a single source system
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (pam_message:"authentication\ failure" AND pam_user.keyword:* AND pam_rhost.keyword:*)
+index: filebeat-*
+max_threshold: 3
+metric_agg_key: pam_user.keyword
+metric_agg_type: cardinality
+name: fc947f8e-ea81-4b14-9a7b-13f888f94e18-Failed-Logins-with-Different-Accounts-from-Single-Source-System
+priority: 3
+query_key: pam_rhost.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

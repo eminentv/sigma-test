@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a new user account. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+filter:
+- query:
+    query_string:
+      query: (type:"SYSCALL" AND exe.keyword:*\/useradd)
+index: filebeat-*
+name: 759d0d51-bc99-4b5e-9add-8f5b2c8e7512-Creation-Of-An-User-Account
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

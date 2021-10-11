@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Executes SCT script using scrobj.dll from a command in entered into a specially prepared INF file.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*InfDefaultInstall.exe\ * AND winlog.event_data.CommandLine.keyword:*.inf*)
+index: winlogbeat-*
+name: ce7cf472-6fcc-490a-9481-3786840b5d9b-InfDefaultInstall.exe-.inf-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

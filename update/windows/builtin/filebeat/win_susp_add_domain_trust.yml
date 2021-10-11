@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Addition of domains is seldom and should be verified for legitimacy.
+filter:
+- query:
+    query_string:
+      query: EventID:"4706"
+index: filebeat-*
+name: 0255a820-e564-4e40-af2b-6ac61160335c-Addition-of-Domain-Trusts
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the attack technique pass the hash which is used to move laterally inside the network
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND (winlog.event_id:("4624" OR "4625") AND winlog.event_data.LogonType:"3" AND winlog.event_data.LogonProcessName:"NtLmSsp" AND winlog.event_data.WorkstationName:"%Workstations%" AND winlog.ComputerName:"%Workstations%") AND (NOT winlog.event_data.AccountName:"ANONYMOUS\ LOGON"))
+index: winlogbeat-*
+name: f8d98d6c-7a07-4d74-b064-dd4a3c244528-Pass-the-Hash-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

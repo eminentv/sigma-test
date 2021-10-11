@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the Nishang Invoke-PowerShellTcpOneLine reverse shell
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\powershell.exe AND winlog.event_data.CommandLine.keyword:*new\-object\ system.net.sockets.tcpclient*)
+index: winlogbeat-*
+name: edc2f8ae-2412-4dfd-b9d5-0c57727e70be-Powershell-Reverse-Shell-Connection
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,2 @@
+sysmon_ads_executable.yml
+sysmon_regedit_export_to_ads.yml

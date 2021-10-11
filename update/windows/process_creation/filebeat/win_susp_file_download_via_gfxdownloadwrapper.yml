@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when GfxDownloadWrapper.exe downloads file from non standard URL
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\GfxDownloadWrapper.exe AND (NOT CommandLine.keyword:*gameplayapi.intel.com*)) AND (NOT ParentImage.keyword:*\\GfxDownloadWrapper.exe))
+index: filebeat-*
+name: eee00933-a761-4cd0-be70-c42fe91731e7-GfxDownloadWrapper.exe-Downloads-File-from-Suspicious-URL
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

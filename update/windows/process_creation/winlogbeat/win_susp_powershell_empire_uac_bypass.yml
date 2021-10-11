@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects some Empire PowerShell UAC bypass methods
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:(*\ \-NoP\ \-NonI\ \-w\ Hidden\ \-c\ $x\=$\(\(gp\ HKCU\:Software\\Microsoft\\Windows\ Update\).Update\)* OR *\ \-NoP\ \-NonI\ \-c\ $x\=$\(\(gp\ HKCU\:Software\\Microsoft\\Windows\ Update\).Update\);*)
+index: winlogbeat-*
+name: 3268b746-88d8-4cd3-bffc-30077d02c787-Empire-PowerShell-UAC-Bypass
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

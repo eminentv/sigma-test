@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMIC executions in which a event consumer gets created in order to establish persistence
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*ActiveScriptEventConsumer* AND winlog.event_data.CommandLine.keyword:*\ CREATE\ *)
+index: winlogbeat-*
+name: ebef4391-1a81-4761-a40a-1db446c0e625-Suspicious-WMIC-ActiveScriptEventConsumer-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

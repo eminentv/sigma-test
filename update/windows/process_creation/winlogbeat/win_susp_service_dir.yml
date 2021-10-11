@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a service binary running in a suspicious directory
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\Users\\Public\\* OR *\\$Recycle.bin* OR *\\Users\\All\ Users\\* OR *\\Users\\Default\\* OR *\\Users\\Contacts\\* OR *\\Users\\Searches\\* OR *C\:\\Perflogs\\* OR *\\config\\systemprofile\\* OR *\\Windows\\Fonts\\* OR *\\Windows\\IME\\* OR *\\Windows\\addins\\*) AND winlog.event_data.ParentImage.keyword:(*\\services.exe OR *\\svchost.exe))
+index: winlogbeat-*
+name: 883faa95-175a-4e22-8181-e5761aeb373c-Suspicious-Service-Binary-Directory
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

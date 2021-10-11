@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 10
+description: Detects possible exploitation activity or bugs in a web application
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: sc-status:("400" OR "401" OR "403" OR "500")
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 6fdfc796-06b3-46e8-af08-58f3505318af-Multiple-Suspicious-Resp-Codes-Caused-by-Single-Client
+priority: 3
+query_key: clientip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

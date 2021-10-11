@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated use of stdin to execute PowerShell
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND ((winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:/.*cmd.{0,5}(?:\/c|\/r).+powershell.+(?:\$\{?input\}?|noexit).+\"/) OR (winlog.event_id:"4103" AND winlog.event_data.Payload.keyword:/.*cmd.{0,5}(?:\/c|\/r).+powershell.+(?:\$\{?input\}?|noexit).+\"/)))
+index: winlogbeat-*
+name: 779c8c12-0eb1-11eb-adc1-0242ac120002-Invoke-Obfuscation-STDIN+-Launcher
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

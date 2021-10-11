@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects adding and using Exchange PowerShell snap-ins to export mailbox data by HAFNIUM
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\powershell.exe AND CommandLine.keyword:*add\-pssnapin\ microsoft.exchange.powershell.snapin*)
+index: filebeat-*
+name: 25676e10-2121-446e-80a4-71ff8506af47-Exchange-PowerShell-Snap-Ins-Used-by-HAFNIUM
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

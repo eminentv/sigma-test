@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies disabling of default Amazon Elastic Block Store (EBS) encryption in the current region. Disabling default encryption does not change the encryption status of your existing volumes.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"ec2.amazonaws.com" AND event.action:"DisableEbsEncryptionByDefault")
+index: filebeat-*
+name: 16124c2d-e40b-4fcc-8f2c-5ab7870a2223-AWS-EC2-Disable-EBS-Encryption
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

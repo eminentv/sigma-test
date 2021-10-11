@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects launch of executable by calling the LaunchApplication function from pcwutl.dll library.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\rundll32.exe AND CommandLine.keyword:*pcwutl* AND CommandLine.keyword:*LaunchApplication*)
+index: filebeat-*
+name: 9386d78a-7207-4048-9c9f-a93a7c2d1c05-Code-Execution-via-Pcwutl.dll
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

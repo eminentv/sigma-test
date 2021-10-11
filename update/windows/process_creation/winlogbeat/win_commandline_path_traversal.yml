@@ -1,0 +1,17 @@
+alert:
+- debug
+description: detects the usage of path traversal in cmd.exe indicating possible command/argument confusion/hijacking
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentCommandLine.keyword:*cmd* AND winlog.event_data.ParentCommandLine.keyword:*\/c* AND winlog.event_data.CommandLine.keyword:*\/..\/..\/*)
+index: winlogbeat-*
+name: 087790e3-3287-436c-bccf-cbd0184a7db1-Cmd.exe-CommandLine-Path-Traversal
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

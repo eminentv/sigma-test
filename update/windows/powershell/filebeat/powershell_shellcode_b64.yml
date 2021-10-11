@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Base64 encoded Shellcode
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*AAAAYInlM* AND ScriptBlockText.keyword:(*OiCAAAAYInlM* OR *OiJAAAAYInlM*))
+index: filebeat-*
+name: 16b37b70-6fcf-4814-a092-c36bd3aafcbd-PowerShell-ShellCode
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

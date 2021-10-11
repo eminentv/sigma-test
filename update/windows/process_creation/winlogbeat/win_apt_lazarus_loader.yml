@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects different loaders as described in various threat reports on Lazarus group activity
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*cmd.exe\ \/c\ * AND winlog.event_data.CommandLine.keyword:*\ \-p\ 0x* AND winlog.event_data.CommandLine.keyword:(*C\:\\ProgramData\\* OR *C\:\\RECYCLER\\*)) OR (winlog.event_data.CommandLine.keyword:*rundll32.exe\ * AND winlog.event_data.CommandLine.keyword:*C\:\\ProgramData\\* AND winlog.event_data.CommandLine.keyword:(*.bin,* OR *.tmp,* OR *.dat,* OR *.io,* OR *.ini,* OR *.db,*)))
+index: winlogbeat-*
+name: 7b49c990-4a9a-4e65-ba95-47c9cc448f6e-Lazarus-Loaders
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

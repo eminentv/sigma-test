@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule will looks for Windows Installer service (msiexec.exe) when it tries to install MSI packages with SYSTEM privilege
+filter:
+- query:
+    query_string:
+      query: (User.keyword:(NT\ AUTHORITY\\SYSTEM* OR AUTORITE\ NT\\Sys*) AND ((Image.keyword:*\\Windows\\Installer\\* AND Image.keyword:*msi* AND Image.keyword:*tmp) OR (Image.keyword:*\\msiexec.exe AND IntegrityLevel:"System")))
+index: filebeat-*
+name: cd951fdc-4b2f-47f5-ba99-a33bf61e3770-Always-Install-Elevated-Windows-Installer
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

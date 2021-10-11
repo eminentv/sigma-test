@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect changes of syslog daemons configuration files
+filter:
+- query:
+    query_string:
+      query: (type:"PATH" AND name:("\/etc\/syslog.conf" OR "\/etc\/rsyslog.conf" OR "\/etc\/syslog\-ng\/syslog\-ng.conf"))
+index: filebeat-*
+name: c830f15d-6f6e-430f-8074-6f73d6807841-Logging-Configuration-Changes-on-Linux-Host
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

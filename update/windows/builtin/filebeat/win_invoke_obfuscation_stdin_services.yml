@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated use of stdin to execute PowerShell
+filter:
+- query:
+    query_string:
+      query: (ImagePath.keyword:/.*cmd.{0,5}(?:\/c|\/r).+powershell.+(?:\$\{?input\}?|noexit).+\"/ AND EventID:"7045")
+index: filebeat-*
+name: 72862bf2-0eb1-11eb-adc1-0242ac120002-Invoke-Obfuscation-STDIN+-Launcher
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

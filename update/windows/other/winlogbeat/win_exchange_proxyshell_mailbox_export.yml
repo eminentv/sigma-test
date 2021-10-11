@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a successful export of an Exchange mailbox to untypical directory or with aspx name suffix which can be used to place a webshell or the needed role assignment for it
+filter:
+- query:
+    query_string:
+      query: ((\*.keyword:(*New\-MailboxExportRequest* AND *\ \-Mailbox\ *) AND \*.keyword:(*\-FilePath\ \"\\localhost\\C$* OR *\-FilePath\ \"\\127.0.0.1\\C$* OR *.aspx*)) OR \*.keyword:(*New\-ManagementRoleAssignment* AND *\ \-Role\ \"Mailbox\ Import\ Export\"* AND *\ \-User\ *))
+index: winlogbeat-*
+name: 516376b4-05cd-4122-bae0-ad7641c38d48-Mailbox-Export-to-Exchange-Webserver
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when storage bucket is enumerated in Google Cloud.
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name:("storage.buckets.list" OR "storage.buckets.listChannels")
+index: filebeat-*
+name: e2feb918-4e77-4608-9697-990a1aaf74c3-Google-Cloud-Storage-Buckets-Enumeration
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

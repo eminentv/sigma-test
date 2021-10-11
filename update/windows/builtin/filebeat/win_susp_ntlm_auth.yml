@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects logons using NTLM, which could be caused by a legacy source or attackers
+filter:
+- query:
+    query_string:
+      query: (EventID:"8002" AND CallingProcessName.keyword:*)
+index: filebeat-*
+name: 98c3bcf1-56f2-49dc-9d8d-c66cf190238b-NTLM-Logon
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Network sniffing refers to using the network interface on a system to monitor or capture information sent over a wired or wireless connection. An adversary may place a network interface into promiscuous mode to passively access data in transit over the network, or use span ports to capture a larger amount of data.
+filter:
+- query:
+    query_string:
+      query: (type:"execve" AND a1:"\-c" AND ((a0:"tcpdump" AND a3.keyword:*\-i*) OR (a0:"tshark" AND a3:"\-i")))
+index: filebeat-*
+name: f4d3748a-65d1-4806-bd23-e25728081d01-Network-Sniffing
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

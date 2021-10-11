@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects PsExec service installation and execution events (service and Sysmon)
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\PSEXESVC.exe AND User.keyword:NT\ AUTHORITY\\SYSTEM*)
+index: filebeat-*
+name: fa91cc36-24c9-41ce-b3c8-3bbc3f2f67ba-PsExec-Tool-Execution
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

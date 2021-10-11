@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects overwriting (effectively wiping/deleting) of a file.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0.keyword:*dd* AND a1.keyword:(*if\=\/dev\/null* OR *if\=\/dev\/zero*))
+index: filebeat-*
+name: 37222991-11e9-4b6d-8bdf-60fbe48f753e-Overwriting-the-File-with-Dev-Zero-or-Null
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

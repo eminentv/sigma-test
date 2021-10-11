@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects System Information Discovery commands
+filter:
+- query:
+    query_string:
+      query: ((type:"PATH" AND name:("\/etc\/lsb\-release" OR "\/etc\/redhat\-release" OR "\/etc\/issue")) OR (type:"EXECVE" AND a0:("uname" OR "uptime")))
+index: filebeat-*
+name: f34047d9-20d3-4e8b-8672-0a35cc50dc71-System-Information-Discovery
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

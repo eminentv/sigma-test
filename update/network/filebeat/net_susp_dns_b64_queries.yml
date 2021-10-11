@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious DNS queries using base64 encoding
+filter:
+- query:
+    query_string:
+      query: dns.question.name.keyword:*\=\=.*
+index: filebeat-*
+name: 4153a907-2451-4e4f-a578-c52bb6881432-Suspicious-DNS-Query-with-B64-Encoded-String
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

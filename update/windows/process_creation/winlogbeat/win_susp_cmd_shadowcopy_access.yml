@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a command used by conti to access volume shadow backups
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:*copy\ \\\\\?\\GLOBALROOT\\Device\\HarddiskVolumeShadowCopy*
+index: winlogbeat-*
+name: c73124a7-3e89-44a3-bdc1-25fe4df754b1-Conti-Volume-Shadow-Listing
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

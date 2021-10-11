@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects DNS queries for subdomains used for upload to MEGA.io
+filter:
+- query:
+    query_string:
+      query: dns.question.name.keyword:*userstorage.mega.co.nz*
+index: filebeat-*
+name: 613c03ba-0779-4a53-8a1f-47f914a4ded3-DNS-Query-for-MEGA.io-Upload-Domain
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

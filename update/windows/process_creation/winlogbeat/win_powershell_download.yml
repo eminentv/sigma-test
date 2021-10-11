@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a Powershell process that contains download commands in its command line string
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\powershell.exe AND winlog.event_data.CommandLine.keyword:*new\-object* AND winlog.event_data.CommandLine.keyword:*net.webclient\).* AND winlog.event_data.CommandLine.keyword:*download* AND winlog.event_data.CommandLine.keyword:(*string\(* OR *file\(*))
+index: winlogbeat-*
+name: 3b6ab547-8ec2-4991-b9d2-2b06702a48d7-PowerShell-Download-from-URL
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

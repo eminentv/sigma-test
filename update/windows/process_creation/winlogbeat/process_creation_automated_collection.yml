@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Once established within a system or network, an adversary may use automated techniques for collecting internal data.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*.doc* OR *.docx* OR *.xls* OR *.xlsx* OR *.ppt* OR *.pptx* OR *.rtf* OR *.pdf* OR *.txt*) AND ((winlog.event_data.CommandLine.keyword:*dir\ * AND winlog.event_data.CommandLine.keyword:*\ \/b\ * AND winlog.event_data.CommandLine.keyword:*\ \/s\ *) OR (winlog.event_data.OriginalFileName:"FINDSTR.EXE" AND winlog.event_data.CommandLine.keyword:*\ \/e\ *)))
+index: winlogbeat-*
+name: f576a613-2392-4067-9d1a-9345fb58d8d1-Automated-Collection-Command-Prompt
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

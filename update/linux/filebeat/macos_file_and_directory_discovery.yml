@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of system utilities to discover files and directories
+filter:
+- query:
+    query_string:
+      query: ((Image:"\/usr\/bin\/file" AND CommandLine.keyword:/(.){200,}/) OR (Image:"\/bin\/ls" AND CommandLine.keyword:*\-R*) OR Image:"\/usr\/bin\/find" OR Image:"\/usr\/bin\/mdfind" OR Image:"\/tree")
+index: filebeat-*
+name: 089dbdf6-b960-4bcc-90e3-ffc3480c20f6-File-and-Directory-Discovery
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

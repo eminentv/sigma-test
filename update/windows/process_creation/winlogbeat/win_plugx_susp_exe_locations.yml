@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of an executable that is typically used by PlugX for DLL side loading started from an uncommon location
+filter:
+- query:
+    query_string:
+      query: ((((((((((((winlog.event_data.Image.keyword:*\\CamMute.exe AND (NOT winlog.event_data.Image.keyword:(*\\Lenovo\\Communication\ Utility\\* OR *\\Lenovo\\Communications\ Utility\\*))) OR (winlog.event_data.Image.keyword:*\\chrome_frame_helper.exe AND (NOT winlog.event_data.Image.keyword:*\\Google\\Chrome\\application\\*))) OR (winlog.event_data.Image.keyword:*\\dvcemumanager.exe AND (NOT winlog.event_data.Image.keyword:*\\Microsoft\ Device\ Emulator\\*))) OR (winlog.event_data.Image.keyword:*\\Gadget.exe AND (NOT winlog.event_data.Image.keyword:*\\Windows\ Media\ Player\\*))) OR (winlog.event_data.Image.keyword:*\\hcc.exe AND (NOT winlog.event_data.Image.keyword:*\\HTML\ Help\ Workshop\\*))) OR (winlog.event_data.Image.keyword:*\\hkcmd.exe AND (NOT winlog.event_data.Image.keyword:(*\\System32\\* OR *\\SysNative\\* OR *\\SysWowo64\\*)))) OR (winlog.event_data.Image.keyword:*\\Mc.exe AND (NOT winlog.event_data.Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit*)))) OR (winlog.event_data.Image.keyword:*\\MsMpEng.exe AND (NOT winlog.event_data.Image.keyword:(*\\Microsoft\ Security\ Client\\* OR *\\Windows\ Defender\\* OR *\\AntiMalware\\*)))) OR (winlog.event_data.Image.keyword:*\\msseces.exe AND (NOT winlog.event_data.Image.keyword:(*\\Microsoft\ Security\ Center\\* OR *\\Microsoft\ Security\ Client\\* OR *\\Microsoft\ Security\ Essentials\\*)))) OR (winlog.event_data.Image.keyword:*\\OInfoP11.exe AND (NOT winlog.event_data.Image.keyword:*\\Common\ Files\\Microsoft\ Shared\\*))) OR (winlog.event_data.Image.keyword:*\\OleView.exe AND (NOT winlog.event_data.Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit* OR *\\Windows\ Resource\ Kit\\*)))) OR (winlog.event_data.Image.keyword:*\\rc.exe AND (NOT winlog.event_data.Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit* OR *\\Windows\ Resource\ Kit\\* OR *\\Microsoft.NET\\*))))
+index: winlogbeat-*
+name: aeab5ec5-be14-471a-80e8-e344418305c2-Executable-Used-by-PlugX-in-Uncommon-Location
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

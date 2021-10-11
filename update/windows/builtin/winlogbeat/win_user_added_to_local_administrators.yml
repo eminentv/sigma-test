@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule triggers on user accounts that are added to the local Administrators group, which could be legitimate activity or a sign of privilege escalation activity
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND (winlog.event_id:"4732" AND winlog.channel:"Security" AND (TargetUserName.keyword:Administr* OR TargetSid:"S\-1\-5\-32\-544")) AND (NOT winlog.event_data.SubjectUserName.keyword:*$))
+index: winlogbeat-*
+name: c265cf08-3f99-46c1-8d59-328247057d57-User-Added-to-Local-Administrators
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

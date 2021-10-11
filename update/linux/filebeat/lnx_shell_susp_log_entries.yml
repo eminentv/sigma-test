@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious log entries in Linux log files
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*entered\ promiscuous\ mode* OR *Deactivating\ service* OR *Oversized\ packet\ received\ from* OR *imuxsock\ begins\ to\ drop\ messages*)
+index: filebeat-*
+name: f64b6e9a-5d9d-48a5-8289-e1dd2b3876e1-Suspicious-Log-Entries
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

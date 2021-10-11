@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a user manipulates with Firmward Password on MacOS. NOTE - this command has been disabled on silicon-based apple computers.
+filter:
+- query:
+    query_string:
+      query: (Image:"\/usr\/sbin\/firmwarepasswd" AND CommandLine.keyword:(*setpasswd* OR *full* OR *delete* OR *check*))
+index: filebeat-*
+name: 7ed2c9f7-c59d-4c82-a7e2-f859aa676099-Suspicious-MacOS-Firmware-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

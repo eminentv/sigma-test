@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies potential full network packet capture in gcp. This feature can potentially be abused to read sensitive data from unencrypted internal traffic.
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name.keyword:(v*.Compute.PacketMirrorings.Get OR v*.Compute.PacketMirrorings.Delete OR v*.Compute.PacketMirrorings.Insert OR v*.Compute.PacketMirrorings.Patch OR v*.Compute.PacketMirrorings.List OR v*.Compute.PacketMirrorings.aggregatedList)
+index: filebeat-*
+name: 980a7598-1e7f-4962-9372-2d754c930d0e-Google-Full-Network-Traffic-Packet-Capture
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect creation of dump files containing the memory space of lsass.exe, which contains sensitive credentials. Identifies usage of Sysinternals procdump.exe to export the memory space of lsass.exe which contains sensitive credentials.
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.CommandLine.keyword:*lsass* AND winlog.event_data.CommandLine.keyword:*.dmp*) AND (NOT winlog.event_data.Image.keyword:*\\werfault.exe)) OR (winlog.event_data.Image.keyword:*\\procdump* AND winlog.event_data.Image.keyword:*.exe AND winlog.event_data.CommandLine.keyword:*lsass*))
+index: winlogbeat-*
+name: ffa6861c-4461-4f59-8a41-578c39f3f23e-LSASS-Memory-Dumping
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

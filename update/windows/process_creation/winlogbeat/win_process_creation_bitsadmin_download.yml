@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of bitsadmin downloading a file
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\bitsadmin.exe AND ((winlog.event_data.CommandLine.keyword:(*\ \/create\ * OR *\ \/addfile\ *) AND winlog.event_data.CommandLine.keyword:*http*) OR winlog.event_data.CommandLine.keyword:*\ \/transfer\ *)) OR winlog.event_data.CommandLine.keyword:*copy\ bitsadmin.exe*)
+index: winlogbeat-*
+name: d059842b-6b9d-4ed1-b5c3-5b89143c6ede-Bitsadmin-Download
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

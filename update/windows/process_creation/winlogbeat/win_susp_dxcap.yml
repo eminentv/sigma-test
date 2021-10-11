@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of of Dxcap.exe
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\dxcap.exe AND winlog.event_data.CommandLine.keyword:*\-c* AND winlog.event_data.CommandLine.keyword:*.exe*)
+index: winlogbeat-*
+name: 60f16a96-db70-42eb-8f76-16763e333590-Application-Whitelisting-Bypass-via-Dxcap.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

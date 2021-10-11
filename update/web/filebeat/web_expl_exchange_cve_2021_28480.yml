@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects successful exploitation of Exchange vulnerability as reported in CVE-2021-28480
+filter:
+- query:
+    query_string:
+      query: ((c-uri.keyword:*\/owa\/calendar\/a* AND cs-method:"POST") AND (NOT sc-status:"503"))
+index: filebeat-*
+name: a2a9d722-0acb-4096-bccc-daaf91a5037b-Exchange-Exploitation-CVE-2021-28480
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

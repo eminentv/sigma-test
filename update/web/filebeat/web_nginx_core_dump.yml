@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a core dump of a crashing Nginx worker process, which could be a signal of a serious problem or exploitation attempts.
+filter:
+- query:
+    query_string:
+      query: exited\ on\ signal\ 6\ \(core\ dumped\)
+index: filebeat-*
+name: 59ec40bb-322e-40ab-808d-84fa690d7e56-Nginx-Core-Dump
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

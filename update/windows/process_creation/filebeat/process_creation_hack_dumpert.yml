@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Dumpert process dumper, which dumps the lsass.exe process memory
+filter:
+- query:
+    query_string:
+      query: Imphash:"09D278F9DE118EF09163C6140255C690"
+index: filebeat-*
+name: 2704ab9e-afe2-4854-a3b1-0c0706d03578-Dumpert-Process-Dumper
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

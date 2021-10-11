@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects backup catalog deletions
+filter:
+- query:
+    query_string:
+      query: (EventID:"524" AND Source:"Microsoft\-Windows\-Backup")
+index: filebeat-*
+name: 9703792d-fd9a-456d-a672-ff92efe4806a-Backup-Catalog-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

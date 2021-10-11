@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect VBoxDrvInst.exe run with parameters allowing processing INF file. This allows to create values in the registry and install drivers. For example one could use this technique to obtain persistence via modifying one of Run or RunOnce registry keys
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\VBoxDrvInst.exe AND winlog.event_data.CommandLine.keyword:*driver* AND winlog.event_data.CommandLine.keyword:*executeinf*)
+index: winlogbeat-*
+name: b7b19cb6-9b32-4fc4-a108-73f19acfe262-Suspicious-VBoxDrvInst.exe-Parameters
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

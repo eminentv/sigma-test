@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a process from Windows task manager
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*\\taskmgr.exe AND (NOT winlog.event_data.Image.keyword:(*\\resmon.exe OR *\\mmc.exe OR *\\taskmgr.exe)))
+index: winlogbeat-*
+name: 3d7679bd-0c00-440c-97b0-3f204273e6c7-Taskmgr-as-Parent
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

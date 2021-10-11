@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via use MSHTA in Scripts
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4104" AND ScriptBlockText.keyword:/(?i).*(set).*(&&).*(mshta).*(vbscript:createobject).*(\.run).*\(window\.close\).*"/) OR (EventID:"4103" AND Payload.keyword:/(?i).*(set).*(&&).*(mshta).*(vbscript:createobject).*(\.run).*\(window\.close\).*"/))
+index: filebeat-*
+name: e55a5195-4724-480e-a77e-3ebe64bd3759-Invoke-Obfuscation-Via-Use-MSHTA
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

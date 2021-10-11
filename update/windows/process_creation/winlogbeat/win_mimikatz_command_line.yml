@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection well-known mimikatz command line arguments
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:(*DumpCreds* OR *invoke\-mimikatz*) OR (winlog.event_data.CommandLine.keyword:(*rpc* OR *token* OR *crypto* OR *dpapi* OR *sekurlsa* OR *kerberos* OR *lsadump* OR *privilege* OR *process*) AND winlog.event_data.CommandLine.keyword:*\:\:*))
+index: winlogbeat-*
+name: a642964e-bead-4bed-8910-1bb4d63e3b4d-Mimikatz-Command-Line
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

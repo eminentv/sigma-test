@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Raw disk access using illegitimate tools, possible defence evasion
+filter:
+- query:
+    query_string:
+      query: ((NOT winlog.event_data.Device.keyword:*floppy*) AND (NOT winlog.event_data.Image.keyword:(*\\wmiprvse.exe OR *\\sdiagnhost.exe OR *\\searchindexer.exe OR *\\csrss.exe OR *\\defrag.exe OR *\\smss.exe OR *\\vssvc.exe OR *\\compattelrunner.exe OR *\\wininit.exe OR *\\autochk.exe OR *\\taskhost.exe OR *\\dfsrs.exe OR *\\vds.exe OR *\\lsass.exe)))
+index: winlogbeat-*
+name: db809f10-56ce-4420-8c86-d6a7d793c79c-Raw-Disk-Access-Using-Illegitimate-Tools
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

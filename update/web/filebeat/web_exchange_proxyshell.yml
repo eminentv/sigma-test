@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects URL patterns that could be found in ProxyShell exploitation attempts against Exchange servers (failed and successful)
+filter:
+- query:
+    query_string:
+      query: ((c-uri.keyword:*\/autodiscover.json* AND c-uri.keyword:(*\/powershell* OR *\/mapi\/nspi* OR *\/EWS* OR *X\-Rps\-CAT*)) OR c-uri.keyword:(*autodiscover.json?@* OR *autodiscover.json%3f@* OR *%3f@foo.com* OR *Email\=autodiscover\/autodiscover.json* OR *json?@foo.com*))
+index: filebeat-*
+name: 23eee45e-933b-49f9-ae1b-df706d2d52ef-Exchange-ProxyShell-Pattern
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

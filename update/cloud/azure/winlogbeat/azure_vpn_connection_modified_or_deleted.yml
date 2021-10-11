@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a VPN connection is modified or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/VPNGATEWAYS\/VPNCONNECTIONS\/WRITE" OR "MICROSOFT.NETWORK\/VPNGATEWAYS\/VPNCONNECTIONS\/DELETE")
+index: winlogbeat-*
+name: 61171ffc-d79c-4ae5-8e10-9323dba19cd3-Azure-VPN-Connection-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

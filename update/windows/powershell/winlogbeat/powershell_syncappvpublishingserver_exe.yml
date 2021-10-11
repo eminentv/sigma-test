@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects SyncAppvPublishingServer process execution which usually utilized by adversaries to bypass PowerShell execution restrictions.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND "SyncAppvPublishingServer.exe")
+index: winlogbeat-*
+name: 9f7aa113-9da6-4a8d-907c-5f1a4b908299-SyncAppvPublishingServer-Execution-to-Bypass-Powershell-Restriction
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

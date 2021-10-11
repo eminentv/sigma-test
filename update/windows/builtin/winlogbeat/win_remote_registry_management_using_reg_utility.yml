@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Remote registry management using REG utility from non-admin workstation
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND (winlog.event_id:"5145" AND winlog.event_data.RelativeTargetName.keyword:*\\winreg*) AND (NOT winlog.event_data.IpAddress:"%Admins_Workstations%"))
+index: winlogbeat-*
+name: 68fcba0d-73a5-475e-a915-e8b4c576827e-Remote-Registry-Management-Using-Reg-Utility
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious powershell process which includes bxor command, alternative obfuscation method to b64 encoded commands.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Windows\ PowerShell" AND winlog.event_id:"400" AND winlog.event_data.HostName:"ConsoleHost" AND winlog.event_data.HostApplication.keyword:(*bxor* OR *join* OR *char*))
+index: winlogbeat-*
+name: 812837bb-b17f-45e9-8bd0-0ec35d2e3bd6-Suspicious-XOR-Encoded-PowerShell-Command-Line
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

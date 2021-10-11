@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects requests to exclude files, folders or processes from Antivirus scanning using PowerShell cmdlets
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*Add\-MpPreference\ * AND winlog.event_data.CommandLine.keyword:(*\ \-ExclusionPath\ * OR *\ \-ExclusionExtension\ * OR *\ \-ExclusionProcess\ *)) OR winlog.event_data.CommandLine.keyword:(*QWRkLU1wUHJlZmVyZW5jZ* OR *FkZC1NcFByZWZlcmVuY2* OR *BZGQtTXBQcmVmZXJlbmNl*))
+index: winlogbeat-*
+name: 17769c90-230e-488b-a463-e05c08e9d48f-Powershell-Defender-Exclusion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

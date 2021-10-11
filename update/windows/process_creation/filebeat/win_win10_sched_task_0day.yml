@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Task Scheduler .job import arbitrary DACL write\par
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\schtasks.exe AND CommandLine.keyword:*\/change* AND CommandLine.keyword:*\/TN* AND CommandLine.keyword:*\/RU* AND CommandLine.keyword:*\/RP*)
+index: filebeat-*
+name: 931b6802-d6a6-4267-9ffa-526f57f22aaf-Windows-10-Scheduled-Task-SandboxEscaper-0-day
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

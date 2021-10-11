@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects installed new certificate
+filter:
+- query:
+    query_string:
+      query: Image.keyword:(*\/update\-ca\-certificates OR *\/update\-ca\-trust)
+index: filebeat-*
+name: 78a80655-a51e-4669-bc6b-e9d206a462ee-Install-Root-Certificate
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects relevant ClamAV messages
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*Trojan*FOUND* OR *VirTool*FOUND* OR *Webshell*FOUND* OR *Rootkit*FOUND* OR *Htran*FOUND*)
+index: filebeat-*
+name: 36aa86ca-fd9d-4456-814e-d3b1b8e1e0bb-Relevant-ClamAV-Message
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: "Csi.exe is a signed binary from Microsoft that comes with Visual Studio and provides C# interactive capabilities. It can be used to run C# code from a file passed as a parameter in command line. Early version of this utility provided with Microsoft \u201CRoslyn\u201D Community Technology Preview was named 'rcsi.exe'"
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\csi.exe OR Image.keyword:*\\rcsi.exe OR OriginalFileName:"csi.exe" OR OriginalFileName:"rcsi.exe") AND Company:"Microsoft\ Corporation")
+index: filebeat-*
+name: 40b95d31-1afc-469e-8d34-9a3a667d058e-Suspicious-Csi.exe-Usage
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

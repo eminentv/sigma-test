@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Shadow Copies storage symbolic link creation using operating systems utilities
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*mklink* AND winlog.event_data.CommandLine.keyword:*HarddiskVolumeShadowCopy*)
+index: winlogbeat-*
+name: 40b19fa6-d835-400c-b301-41f3a2baacaf-Shadow-Copies-Access-via-Symlink
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

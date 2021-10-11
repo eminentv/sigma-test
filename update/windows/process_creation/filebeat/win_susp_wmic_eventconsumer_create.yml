@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMIC executions in which a event consumer gets created in order to establish persistence
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*ActiveScriptEventConsumer* AND CommandLine.keyword:*\ CREATE\ *)
+index: filebeat-*
+name: ebef4391-1a81-4761-a40a-1db446c0e625-Suspicious-WMIC-ActiveScriptEventConsumer-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

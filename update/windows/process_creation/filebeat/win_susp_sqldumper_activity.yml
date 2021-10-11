@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process dump via legitimate sqldumper.exe binary
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\sqldumper.exe AND CommandLine.keyword:(*0x0110* OR *0x01100\:40*))
+index: filebeat-*
+name: 23ceaf5c-b6f1-4a32-8559-f2ff734be516-Dumping-Process-via-Sqldumper.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

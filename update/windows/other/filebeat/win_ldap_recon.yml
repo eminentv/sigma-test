@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects possible Active Directory enumeration via LDAP
+filter:
+- query:
+    query_string:
+      query: (((EventID:"30" AND SearchFilter.keyword:(*\(groupType\:1.2.840.113556.1.4.803\:\=2147483648\)* OR *\(groupType\:1.2.840.113556.1.4.803\:\=2147483656\)* OR *\(groupType\:1.2.840.113556.1.4.803\:\=2147483652\)* OR *\(groupType\:1.2.840.113556.1.4.803\:\=2147483650\)* OR *\(sAMAccountType\=805306369\)* OR *\(sAMAccountType\=805306368\)* OR *\(sAMAccountType\=536870913\)* OR *\(sAMAccountType\=536870912\)* OR *\(sAMAccountType\=268435457\)* OR *\(sAMAccountType\=268435456\)* OR *\(objectCategory\=groupPolicyContainer\)* OR *\(objectCategory\=organizationalUnit\)* OR *\(objectCategory\=Computer\)* OR *\(objectCategory\=nTDSDSA\)* OR *\(objectCategory\=server\)* OR *\(objectCategory\=domain\)* OR *\(objectCategory\=person\)* OR *\(objectCategory\=group\)* OR *\(objectCategory\=user\)* OR *\(objectClass\=trustedDomain\)* OR *\(objectClass\=computer\)* OR *\(objectClass\=server\)* OR *\(objectClass\=group\)* OR *\(objectClass\=user\)* OR *\(primaryGroupID\=521\)* OR *\(primaryGroupID\=516\)* OR *\(primaryGroupID\=515\)* OR *\(primaryGroupID\=512\)* OR *Domain\ Admins*)) AND (NOT (EventID:"30" AND SearchFilter.keyword:(*\(domainSid\=*\)* OR *\(objectSid\=*\)*)))) OR (EventID:"30" AND SearchFilter.keyword:(*\(userAccountControl\:1.2.840.113556.1.4.803\:\=4194304\)* OR *\(userAccountControl\:1.2.840.113556.1.4.803\:\=2097152\)* OR *\!\(userAccountControl\:1.2.840.113556.1.4.803\:\=1048574\)* OR *\(userAccountControl\:1.2.840.113556.1.4.803\:\=524288\)* OR *\(userAccountControl\:1.2.840.113556.1.4.803\:\=65536\)* OR *\(userAccountControl\:1.2.840.113556.1.4.803\:\=8192\)* OR *\(userAccountControl\:1.2.840.113556.1.4.803\:\=544\)* OR *\!\(UserAccountControl\:1.2.840.113556.1.4.803\:\=2\)* OR *msDS\-AllowedToActOnBehalfOfOtherIdentity* OR *msDS\-AllowedToDelegateTo* OR *\(accountExpires\=9223372036854775807\)* OR *\(accountExpires\=0\)* OR *\(adminCount\=1\)* OR *ms\-MCS\-AdmPwd*)))
+index: filebeat-*
+name: 31d68132-4038-47c7-8f8e-635a39a7c174-LDAP-Reconnaissance-/-Active-Directory-Enumeration
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

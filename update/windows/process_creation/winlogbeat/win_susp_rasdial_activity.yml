@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process related to rasdial.exe
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:*rasdial.exe
+index: winlogbeat-*
+name: 6bba49bf-7f8c-47d6-a1bb-6b4dece4640e-Suspicious-RASdial-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

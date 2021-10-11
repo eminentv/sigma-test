@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the exploitation of Microsoft Exchange vulnerability as described in CVE-2020-0688
+filter:
+- query:
+    query_string:
+      query: (cs-method:"GET" AND c-uri.keyword:(*\/ecp\/* OR *\/owa\/*) AND c-uri.keyword:*__VIEWSTATE\=*)
+index: filebeat-*
+name: fce2c2e2-0fb5-41ab-a14c-5391e1fd70a5-CVE-2020-0688-Exchange-Exploitation-via-Web-Log
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

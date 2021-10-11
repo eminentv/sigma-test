@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using pkgmgr.exe and dism.exe (UACMe 23)
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\pkgmgr.exe AND Image.keyword:*\\dism.exe AND IntegrityLevel:("High" OR "System"))
+index: filebeat-*
+name: a743ceba-c771-4d75-97eb-8a90f7f4844c-UAC-Bypass-Using-PkgMgr-and-DISM
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

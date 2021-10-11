@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects successful code compilation via Visual Basic Command Line Compiler that utilizes Windows Resource to Object Converter.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*\\vbc.exe AND winlog.event_data.Image.keyword:*\\cvtres.exe)
+index: winlogbeat-*
+name: 7b10f171-7f04-47c7-9fa2-5be43c76e535-Visual-Basic-Command-Line-Compiler-Usage
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

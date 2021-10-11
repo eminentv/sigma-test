@@ -1,0 +1,17 @@
+alert:
+- debug
+description: setupapi.dll library provide InstallHinfSection function for processing INF files. INF file may contain instructions allowing to create values in the registry, modify files and install drivers. This technique could be used to obtain persistence via modifying one of Run or RunOnce registry keys, run process or use other DLLs chain calls (see references) InstallHinfSection function in setupapi.dll calls runonce.exe executable regardless of actual content of INF file.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\runonce.exe AND ParentImage.keyword:*\\rundll32.exe AND ParentCommandLine.keyword:*setupapi.dll* AND ParentCommandLine.keyword:*InstallHinfSection*)
+index: filebeat-*
+name: 285b85b1-a555-4095-8652-a8a4106af63f-Suspicious-Rundll32-Setupapi.dll-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

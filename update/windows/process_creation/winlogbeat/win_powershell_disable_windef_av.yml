@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attackers attempting to disable Windows Defender using Powershell
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\powershell.exe AND winlog.event_data.CommandLine.keyword:(*\-DisableBehaviorMonitoring\ $true* OR *\-DisableRuntimeMonitoring\ $true*)) OR (winlog.event_data.CommandLine.keyword:*sc* AND winlog.event_data.CommandLine.keyword:*stop* AND winlog.event_data.CommandLine.keyword:*WinDefend*) OR (winlog.event_data.CommandLine.keyword:*sc* AND winlog.event_data.CommandLine.keyword:*config* AND winlog.event_data.CommandLine.keyword:*WinDefend* AND winlog.event_data.CommandLine.keyword:*start\=disabled*))
+index: winlogbeat-*
+name: a7ee1722-c3c5-aeff-3212-c777e4733217-Powershell-Used-To-Disable-Windows-Defender-AV-Security-Monitoring
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of ntdsutil.exe, which can be used for various attacks against the NTDS database (NTDS.DIT)
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:*\\ntdsutil.exe
+index: winlogbeat-*
+name: 2afafd61-6aae-4df4-baed-139fa1f4c345-Invocation-of-Active-Directory-Diagnostic-Tool-ntdsutil.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

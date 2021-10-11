@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an executable in the users directory started from Microsoft Word, Excel, Powerpoint, Publisher or Visio
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.ParentImage.keyword:(*\\WINWORD.EXE OR *\\EXCEL.EXE OR *\\POWERPNT.exe OR *\\MSPUB.exe OR *\\VISIO.exe) AND winlog.event_data.Image.keyword:C\:\\users\\* AND winlog.event_data.Image.keyword:*.exe) AND (NOT winlog.event_data.Image.keyword:*\\Teams.exe))
+index: winlogbeat-*
+name: aa3a6f94-890e-4e22-b634-ffdfd54792cc-MS-Office-Product-Spawning-Exe-in-User-Dir
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

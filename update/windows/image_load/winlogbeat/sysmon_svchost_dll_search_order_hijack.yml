@@ -1,0 +1,17 @@
+alert:
+- debug
+description: IKEEXT and SessionEnv service, as they call LoadLibrary on files that do not exist within C:\Windows\System32\ by default. An attacker can place their malicious logic within the PROCESS_ATTACH block of their library and restart the aforementioned services "svchost.exe -k netsvcs" to gain code execution on a remote machine.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\svchost.exe AND winlog.event_data.ImageLoaded.keyword:(*\\tsmsisrv.dll OR *\\tsvipsrv.dll OR *\\wlbsctrl.dll)) AND (NOT winlog.event_data.ImageLoaded.keyword:C\:\\Windows\\WinSxS\\*))
+index: winlogbeat-*
+name: 602a1f13-c640-4d73-b053-be9a2fa58b77-Svchost-DLL-Search-Order-Hijack
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

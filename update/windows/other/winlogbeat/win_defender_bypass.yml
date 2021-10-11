@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects scenarios where an windows defender exclusion was added in registry where an entity would want to bypass antivirus scanning from windows defender
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("4657" OR "4656" OR "4660" OR "4663") AND winlog.event_data.ObjectName.keyword:*\\Microsoft\\Windows\ Defender\\Exclusions\\*)
+index: winlogbeat-*
+name: e9c8808f-4cfb-4ba9-97d4-e5f3beaa244d-Windows-Defender-Exclusion-Set
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

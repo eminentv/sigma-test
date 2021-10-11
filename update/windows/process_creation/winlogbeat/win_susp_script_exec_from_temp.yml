@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious script executions from temporary folder
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\mshta.exe OR *\\wscript.exe OR *\\cscript.exe) AND winlog.event_data.CommandLine.keyword:(*\\Windows\\Temp* OR *\\Temporary\ Internet* OR *\\AppData\\Local\\Temp* OR *\\AppData\\Roaming\\Temp* OR *%TEMP%* OR *%TMP%* OR *%LocalAppData%\\Temp*)) AND (NOT winlog.event_data.CommandLine.keyword:(*\ >* OR *Out\-File* OR *ConvertTo\-Json*)))
+index: winlogbeat-*
+name: a6a39bdb-935c-4f0a-ab77-35f4bbf44d33-Suspicious-Script-Execution-From-Temp-Folder
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

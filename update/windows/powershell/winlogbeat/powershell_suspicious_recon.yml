@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Once established within a system or network, an adversary may use automated techniques for collecting internal data
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:(*Get\-Service\ * OR *Get\-ChildItem\ * OR *Get\-Process\ *) AND winlog.event_data.ScriptBlockText.keyword:*>\ $env\:TEMP\\*)
+index: winlogbeat-*
+name: a9723fcc-881c-424c-8709-fd61442ab3c3-Recon-Information-for-Export-with-PowerShell
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

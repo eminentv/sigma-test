@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects change of user environment. Adversaries can insert code into these files to gain persistence each time a user logs in or opens a new shell.
+filter:
+- query:
+    query_string:
+      query: (type:"PATH" AND name.keyword:(\/home\/*\/.bashrc OR \/home\/*\/.bash_profile OR \/home\/*\/.profile OR \/etc\/profile OR \/etc\/shells OR \/etc\/bashrc OR \/etc\/csh.cshrc OR \/etc\/csh.login))
+index: filebeat-*
+name: e74e15cc-c4b6-4c80-b7eb-dfe49feb7fe9-Edit-of-.bash_profile-and-.bashrc
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

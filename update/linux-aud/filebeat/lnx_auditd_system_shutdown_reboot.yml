@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may shutdown/reboot systems to interrupt access to, or aid in the destruction of, those systems.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND (\*.keyword:(*shutdown* OR *reboot* OR *halt* OR *poweroff*) OR (\*.keyword:(*init* OR *telinit*) AND \*.keyword:(*0* OR *6*))))
+index: filebeat-*
+name: 4cb57c2f-1f29-41f8-893d-8bed8e1c1d2f-System-Shutdown/Reboot
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

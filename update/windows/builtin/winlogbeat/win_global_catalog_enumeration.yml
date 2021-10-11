@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 1
+description: Detects enumeration of the global catalog (that can be performed using BloodHound or others AD reconnaissance tools). Adjust Threshold according to domain width.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5156" AND winlog.event_data.DestinationPort:("3268" OR "3269"))
+index: winlogbeat-*
+max_threshold: 2000
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 619b020f-0fd7-4f23-87db-3f51ef837a34-Enumeration-via-the-Global-Catalog
+priority: 3
+query_key: winlog.event_data.SourceAddress.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Checks for event id 1102 which indicates the security event log was cleared.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"1102")
+index: winlogbeat-*
+name: a122ac13-daf8-4175-83a2-72c387be339d-Security-Event-Log-Cleared
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

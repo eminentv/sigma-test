@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious file execution by wscript and cscript
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\cscript.exe AND CommandLine.keyword:*.vbs* AND CommandLine.keyword:*\/shell*)
+index: filebeat-*
+name: 966e4016-627f-44f7-8341-f394905c361f-WMIExec-VBS-Script
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

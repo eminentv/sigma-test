@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Attackers can use explorer.exe for evading defense mechanisms
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\explorer.exe AND ParentImage.keyword:*\\cmd.exe AND CommandLine.keyword:*explorer.exe*)
+index: filebeat-*
+name: 9eb271b9-24ae-4cd4-9465-19cfc1047f3e-Proxy-Execution-Via-Explorer.exe
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

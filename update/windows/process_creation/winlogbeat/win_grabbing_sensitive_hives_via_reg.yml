@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Dump sam, system or security hives using REG.exe utility
+filter:
+- query:
+    query_string:
+      query: "(winlog.event_data.Image.keyword:*\\\\reg.exe AND winlog.event_data.CommandLine.keyword:(*save* OR *export* OR *\u02E2ave* OR *e\u02E3port*) AND winlog.event_data.CommandLine.keyword:(*hklm* OR *hk\u02EAm* OR *hkey_local_machine* OR *hkey_\u02EAocal_machine* OR *hkey_loca\u02EA_machine* OR *hkey_\u02EAoca\u02EA_machine*) AND winlog.event_data.CommandLine.keyword:(*\\\\system OR *\\\\sam OR *\\\\security OR *\\\\\u02E2ystem OR *\\\\sy\u02E2tem OR *\\\\\u02E2y\u02E2tem OR *\\\\\u02E2am OR *\\\\\u02E2ecurity))"
+index: winlogbeat-*
+name: fd877b94-9bb5-4191-bb25-d79cbd93c167-Grabbing-Sensitive-Hives-via-Reg-Utility
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects certain command line parameters often used during reconnaissance activity via web shells
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.ParentImage.keyword:(*\\w3wp.exe OR *\\php\-cgi.exe OR *\\nginx.exe OR *\\httpd.exe) OR winlog.event_data.ParentImage.keyword:(*\\apache* OR *\\tomcat*)) AND (((winlog.event_data.Image.keyword:(*\\net.exe OR *\\net1.exe) AND winlog.event_data.CommandLine.keyword:(*\ user\ * OR *\ use\ * OR *\ group\ *)) OR (winlog.event_data.Image.keyword:*\\ping.exe AND winlog.event_data.CommandLine.keyword:*\ \-n\ *) OR winlog.event_data.CommandLine.keyword:(*&cd&echo* OR *cd\ \/d\ *)) OR (winlog.event_data.Image.keyword:*\\wmic.exe AND winlog.event_data.CommandLine.keyword:*\ \/node\:*) OR winlog.event_data.Image.keyword:(*\\whoami.exe OR *\\systeminfo.exe OR *\\quser.exe OR *\\ipconfig.exe OR *\\pathping.exe OR *\\tracert.exe OR *\\netstat.exe OR *\\schtasks.exe OR *\\vssadmin.exe OR *\\wevtutil.exe OR *\\tasklist.exe) OR winlog.event_data.CommandLine.keyword:(*\ Test\-NetConnection\ * OR *dir\ \\*)))
+index: winlogbeat-*
+name: bed2a484-9348-4143-8a8a-b801c979301c-Webshell-Detection-With-Command-Line-Keywords
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

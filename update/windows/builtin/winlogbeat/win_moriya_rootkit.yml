@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Moriya rootkit as described in the securelist's Operation TunnelSnake report
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"7045" AND winlog.event_data.ServiceName:"ZzNetSvc")
+index: winlogbeat-*
+name: 25b9c01c-350d-4b95-bed1-836d04a4f324-Moriya-Rootkit
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

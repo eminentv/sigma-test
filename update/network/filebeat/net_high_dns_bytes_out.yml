@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 1
+description: High DNS queries bytes amount from host per short period of time
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: dns.question.name.keyword:*
+index: filebeat-*
+max_threshold: 300000
+metric_agg_key: question_length.keyword
+metric_agg_type: sum
+name: 0f6c1bf5-70a5-4963-aef9-aab1eefb50bd-High-DNS-Bytes-Out
+priority: 3
+query_key: source.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious access to URLs that was noticed in cases in which attackers exploitated the ADSelfService vulnerability CVE-2021-40539
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:(*\/help\/admin\-guide\/Reports\/ReportGenerate.jsp* OR *\/ServletApi\/..\/RestApi\/LogonCustomization* OR *\/ServletApi\/..\/RestAPI\/Connection*)
+index: filebeat-*
+name: 6702b13c-e421-44cc-ab33-42cc25570f11-ADSelfService-Exploitation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

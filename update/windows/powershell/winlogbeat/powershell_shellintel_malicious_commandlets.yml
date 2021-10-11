@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Commandlet names from ShellIntel exploitation scripts.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:(*Invoke\-SMBAutoBrute* OR *Invoke\-GPOLinks* OR *Out\-Minidump* OR *Invoke\-Potato*))
+index: winlogbeat-*
+name: 402e1e1d-ad59-47b6-bf80-1ee44985b3a7-Malicious-ShellIntel-PowerShell-Commandlets
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

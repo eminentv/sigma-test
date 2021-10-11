@@ -1,0 +1,17 @@
+alert:
+- debug
+description: An adversary may compress or encrypt data that is collected prior to exfiltration using 3rd party utilities
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*7z.exe* OR *7za.exe*) AND CommandLine.keyword:*\ \-p* AND CommandLine.keyword:(*\ a\ * OR *\ u\ *))
+index: filebeat-*
+name: 9fbf5927-5261-4284-a71d-f681029ea574-Compress-Data-and-Lock-With-Password-for-Exfiltration-With-7-ZIP
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

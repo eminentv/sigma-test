@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects failed logins with multiple invalid domain accounts from a single source system using the NTLM protocol.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4776" AND Status.keyword:*0xC0000064) AND (NOT TargetUserName.keyword:*$))
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: 56d62ef8-3462-4890-9859-7b41e541f8d5-Invalid-Users-Failing-To-Authenticate-From-Single-Source-Using-NTLM
+priority: 3
+query_key: Workstation.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

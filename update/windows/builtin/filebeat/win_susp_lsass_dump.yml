@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process handle on LSASS process with certain access mask and object type SAM_DOMAIN
+filter:
+- query:
+    query_string:
+      query: (EventID:"4656" AND ProcessName.keyword:*\\lsass.exe AND AccessMask:"0x705" AND ObjectType:"SAM_DOMAIN")
+index: filebeat-*
+name: aa1697b7-d611-4f9a-9cb2-5125b4ccfd5c-Password-Dumper-Activity-on-LSASS
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

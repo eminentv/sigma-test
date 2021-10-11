@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies use of various commands to query a systems time. This technique may be used before executing a scheduled task or to discover the time zone of a target system.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:(*\\net.exe OR *\\net1.exe) AND CommandLine.keyword:*time*) OR (Image.keyword:*\\w32tm.exe AND CommandLine.keyword:*tz*) OR (Image.keyword:*\\powershell.exe AND CommandLine.keyword:*Get\-Date*))
+index: filebeat-*
+name: b243b280-65fe-48df-ba07-6ddea7646427-Discovery-of-a-System-Time
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of CSharp interactive console by PowerShell
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\csi.exe AND ParentImage.keyword:*\\powershell.exe AND OriginalFileName:"csi.exe")
+index: filebeat-*
+name: a9e416a8-e613-4f8b-88b8-a7d1d1af2f61-Suspicious-Use-of-CSharp-Interactive-Console
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

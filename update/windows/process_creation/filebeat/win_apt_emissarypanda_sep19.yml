@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of DLL side-loading malware used by threat group Emissary Panda aka APT27
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\sllauncher.exe AND Image.keyword:*\\svchost.exe)
+index: filebeat-*
+name: 9aa01d62-7667-4d3b-acb8-8cb5103e2014-Emissary-Panda-Malware-SLLauncher
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

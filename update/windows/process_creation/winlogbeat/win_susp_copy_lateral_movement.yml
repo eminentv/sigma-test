@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious copy command to or from an Admin share
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.Image.keyword:(*\\robocopy.exe OR *\\xcopy.exe) OR (winlog.event_data.Image.keyword:*\\cmd.exe AND winlog.event_data.CommandLine.keyword:*copy*)) OR (winlog.event_data.Image.keyword:*\\powershell* AND winlog.event_data.CommandLine.keyword:(*copy\-item* OR *copy* OR *cpi\ * OR *\ cp\ *))) AND (winlog.event_data.CommandLine.keyword:*\\\\\* AND winlog.event_data.CommandLine.keyword:*$*))
+index: winlogbeat-*
+name: 855bc8b5-2ae8-402e-a9ed-b889e6df1900-Copy-from-Admin-Share
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

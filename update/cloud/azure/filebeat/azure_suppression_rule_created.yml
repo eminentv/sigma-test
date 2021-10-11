@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a suppression rule is created in Azure. Adversary's could attempt this to evade detection.
+filter:
+- query:
+    query_string:
+      query: properties.message:"MICROSOFT.SECURITY\/ALERTSSUPPRESSIONRULES\/WRITE"
+index: filebeat-*
+name: 92cc3e5d-eb57-419d-8c16-5c63f325a401-Azure-Suppression-Rule-Created
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

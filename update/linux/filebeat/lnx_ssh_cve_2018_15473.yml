@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects exploitation attempt using public exploit code for CVE-2018-15473
+filter:
+- query:
+    query_string:
+      query: error\:\ buffer_get_ret\:\ trying\ to\ get\ more\ bytes\ 1907\ than\ in\ buffer\ 308\ \[preauth\]
+index: filebeat-*
+name: 4c9d903d-4939-4094-ade0-3cb748f4d7da-SSHD-Error-Message-CVE-2018-15473
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

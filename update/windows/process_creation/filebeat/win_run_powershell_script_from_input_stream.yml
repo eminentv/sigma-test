@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects PowerShell script execution via input stream redirect
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\powershell.exe AND CommandLine.keyword:/\s-\s*</)
+index: filebeat-*
+name: c83bf4b5-cdf0-437c-90fa-43d734f7c476-Run-PowerShell-Script-from-Redirected-Input-Stream
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

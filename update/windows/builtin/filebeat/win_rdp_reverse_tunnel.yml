@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects svchost hosting RDP termsvcs communicating with the loopback address
+filter:
+- query:
+    query_string:
+      query: (EventID:"5156" AND ((SourcePort:"3389" AND DestAddress.keyword:(127.* OR \:\:1)) OR (DestPort:"3389" AND SourceAddress.keyword:(127.* OR \:\:1))))
+index: filebeat-*
+name: 5bed80b6-b3e8-428e-a3ae-d3c757589e41-RDP-over-Reverse-SSH-Tunnel-WFP
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

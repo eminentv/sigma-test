@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Storing files in Alternate Data Stream (ADS) similar to Astaroth malware.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*Start\-Process* AND ScriptBlockText.keyword:*\-FilePath\ \"$env\:comspec\"\ * AND ScriptBlockText.keyword:*\-ArgumentList\ * AND ScriptBlockText.keyword:*>*)
+index: filebeat-*
+name: a699b30e-d010-46c8-bbd1-ee2e26765fe9-Powershell-Store-File-In-Alternate-Data-Stream
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

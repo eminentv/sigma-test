@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command line parameters used by Rubeus hack tool
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:(*\ asreproast\ * OR *\ dump\ \/service\:krbtgt\ * OR *\ kerberoast\ * OR *\ createnetonly\ \/program\:* OR *\ ptt\ \/ticket\:* OR *\ \/impersonateuser\:* OR *\ renew\ \/ticket\:* OR *\ asktgt\ \/user\:* OR *\ harvest\ \/interval\:* OR *\ s4u\ \/user\:* OR *\ s4u\ \/ticket\:* OR *\ hash\ \/password\:*)
+index: winlogbeat-*
+name: 7ec2c172-dceb-4c10-92c9-87c1881b7e18-Rubeus-Hack-Tool
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

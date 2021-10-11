@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects renamed powershell
+filter:
+- query:
+    query_string:
+      query: ((EventID:"400" AND HostName:"ConsoleHost") AND (NOT HostApplication.keyword:(powershell.exe* OR C\:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe*)))
+index: filebeat-*
+name: 30a8cb77-8eb3-4cfb-8e79-ad457c5a4592-Renamed-Powershell-Under-Powershell-Channel
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

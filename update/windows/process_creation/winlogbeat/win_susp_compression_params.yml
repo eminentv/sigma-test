@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command line arguments of common data compression tools
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.OriginalFileName.keyword:(7z*.exe OR *rar.exe OR *Command*Line*RAR*) AND winlog.event_data.CommandLine.keyword:(*\ \-p* OR *\ \-ta* OR *\ \-tb* OR *\ \-sdel* OR *\ \-dw* OR *\ \-hp*)) AND (NOT winlog.event_data.ParentImage.keyword:C\:\\Program*))
+index: winlogbeat-*
+name: 27a72a60-7e5e-47b1-9d17-909c9abafdcd-Suspicious-Compression-Tool-Parameters
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

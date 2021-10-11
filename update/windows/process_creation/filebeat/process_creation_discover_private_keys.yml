@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may search for private key certificate files on compromised systems for insecurely stored credential
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*dir\ * OR *findstr\ *) AND CommandLine.keyword:(*.key* OR *.pgp* OR *.gpg* OR *.ppk* OR *.p12* OR *.pem* OR *.pfx* OR *.cer* OR *.p7b* OR *.asc*))
+index: filebeat-*
+name: 213d6a77-3d55-4ce8-ba74-fcfef741974e-Discover-Private-Keys
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

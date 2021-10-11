@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious print spool service (spoolsv.exe) child processes.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.ParentImage.keyword:*\\spoolsv.exe AND winlog.event_data.IntegrityLevel:"System") AND (((((winlog.event_data.Image.keyword:(*\\gpupdate.exe OR *\\whoami.exe OR *\\nltest.exe OR *\\taskkill.exe OR *\\wmic.exe OR *\\taskmgr.exe OR *\\sc.exe OR *\\findstr.exe OR *\\curl.exe OR *\\wget.exe OR *\\certutil.exe OR *\\bitsadmin.exe OR *\\accesschk.exe OR *\\wevtutil.exe OR *\\bcdedit.exe OR *\\fsutil.exe OR *\\cipher.exe OR *\\schtasks.exe OR *\\write.exe OR *\\wuauclt.exe) OR (winlog.event_data.Image.keyword:*\\net.exe AND (NOT winlog.event_data.CommandLine.keyword:*start*))) OR (winlog.event_data.Image.keyword:*\\cmd.exe AND (NOT winlog.event_data.CommandLine.keyword:(*.spl* OR *route\ add* OR *program\ files*)))) OR (winlog.event_data.Image.keyword:*\\netsh.exe AND (NOT winlog.event_data.CommandLine.keyword:(*add\ portopening* OR *rule\ name*)))) OR (winlog.event_data.Image.keyword:*\\powershell.exe AND (NOT winlog.event_data.CommandLine.keyword:*.spl*))) OR (winlog.event_data.Image.keyword:*\\rundll32.exe AND winlog.event_data.CommandLine.keyword:*rundll32.exe)))
+index: winlogbeat-*
+name: dcdbc940-0bff-46b2-95f3-2d73f848e33b-Suspicious-Spool-Service-Child-Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

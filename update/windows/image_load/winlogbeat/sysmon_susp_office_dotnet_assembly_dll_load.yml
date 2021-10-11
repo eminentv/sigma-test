@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects any assembly DLL being loaded by an Office Product
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\winword.exe OR *\\powerpnt.exe OR *\\excel.exe OR *\\outlook.exe) AND winlog.event_data.ImageLoaded.keyword:C\:\\Windows\\assembly\\*)
+index: winlogbeat-*
+name: ff0f2b05-09db-4095-b96d-1b75ca24894a-dotNET-DLL-Loaded-Via-Office-Applications
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

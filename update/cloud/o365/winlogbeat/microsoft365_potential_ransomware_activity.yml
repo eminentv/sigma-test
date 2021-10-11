@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported when a user uploads files to the cloud that might be infected with ransomware.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Potential\ ransomware\ activity" AND status:"success")
+index: winlogbeat-*
+name: bd132164-884a-48f1-aa2d-c6d646b04c69-Microsoft-365---Potential-Ransomware-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

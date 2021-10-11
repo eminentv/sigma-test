@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious flags used by PsExec and PAExec but no usual program name in command line
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.CommandLine.keyword:*\\127.0.0.1* AND winlog.event_data.CommandLine.keyword:*\ \-s\ * AND winlog.event_data.CommandLine.keyword:*cmd.exe*) OR (winlog.event_data.CommandLine.keyword:*\ \/accepteula\ * AND winlog.event_data.CommandLine.keyword:*cmd\ \/c\ * AND winlog.event_data.CommandLine.keyword:*\ \-u\ * AND winlog.event_data.CommandLine.keyword:*\ \-p\ *)) AND (NOT winlog.event_data.CommandLine.keyword:(*paexec* OR *PsExec*)))
+index: winlogbeat-*
+name: 207b0396-3689-42d9-8399-4222658efc99-PsExec/PAExec-Flags
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

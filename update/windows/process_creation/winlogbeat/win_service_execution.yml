@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects manual service execution (start) via system utilities.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\net.exe OR *\\net1.exe) AND winlog.event_data.CommandLine.keyword:*\ start\ *)
+index: winlogbeat-*
+name: 2a072a96-a086-49fa-bcb5-15cc5a619093-Service-Execution
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

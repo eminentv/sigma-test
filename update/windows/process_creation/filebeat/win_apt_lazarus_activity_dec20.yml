@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects different process creation events as described in various threat reports on Lazarus group activity
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*reg.exe\ save\ hklm\\sam\ %temp%\\\~reg_sam.save* OR *1q2w3e4r@#$@#$@#$* OR *\ \-hp1q2w3e4\ * OR *.dat\ data03\ 10000\ \-p\ *) OR (CommandLine.keyword:*process\ call\ create* AND CommandLine.keyword:*\ >\ %temp%\\\~*) OR (CommandLine.keyword:*netstat\ \-aon\ |\ find\ * AND CommandLine.keyword:*\ >\ %temp%\\\~*) OR CommandLine.keyword:*.255\ 10\ C\:\\ProgramData\\*)
+index: filebeat-*
+name: 24c4d154-05a4-4b99-b57d-9b977472443a-Lazarus-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

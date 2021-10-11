@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a user performs data exfiltration by using DataSvcUtil.exe
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\/in\:* AND winlog.event_data.CommandLine.keyword:*\/out\:* AND winlog.event_data.Image.keyword:*\\DataSvcUtil.exe)
+index: winlogbeat-*
+name: e290b10b-1023-4452-a4a9-eb31a9013b3a-LOLBAS-Data-Exfiltration-by-DataSvcUtil.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

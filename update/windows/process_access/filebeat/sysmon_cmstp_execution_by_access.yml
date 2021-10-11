@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects various indicators of Microsoft Connection Manager Profile Installer execution
+filter:
+- query:
+    query_string:
+      query: CallTrace.keyword:*cmlua.dll*
+index: filebeat-*
+name: 3b4b232a-af90-427c-a22f-30b0c0837b95-CMSTP-Execution-Process-Access
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

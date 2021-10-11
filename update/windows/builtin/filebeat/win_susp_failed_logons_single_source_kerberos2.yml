@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects failed logins with multiple disabled domain accounts from a single source system using the Kerberos protocol.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4768" AND Status:"0x12") AND (NOT TargetUserName.keyword:*$))
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: 4b6fe998-b69c-46d8-901b-13677c9fb663-Disabled-Users-Failing-To-Authenticate-From-Source-Using-Kerberos
+priority: 3
+query_key: IpAddress.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

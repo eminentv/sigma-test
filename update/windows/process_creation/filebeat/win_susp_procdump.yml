@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious uses of the SysInternals Procdump utility by using a special command line parameter ' -ma ' and ' -accepteula' in a single step. This way we're also able to catch cases in which the attacker has renamed the procdump executable.
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*\ \-ma\ * AND CommandLine.keyword:*\ \-accepteula\ *)
+index: filebeat-*
+name: 03795938-1387-481b-9f4c-3f6241e604fe-Suspicious-Use-of-Procdump
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

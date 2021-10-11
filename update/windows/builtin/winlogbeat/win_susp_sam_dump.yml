@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious SAM dump activity as cause by QuarksPwDump and other password dumpers
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"16" AND "\\AppData\\Local\\Temp\\SAM\-" AND ".dmp")
+index: winlogbeat-*
+name: 839dd1e8-eda8-4834-8145-01beeee33acd-SAM-Dump-to-AppData
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

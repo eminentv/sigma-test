@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation of startup item plist files that automatically get executed at boot initialization to establish persistence.
+filter:
+- query:
+    query_string:
+      query: (TargetFilename.keyword:*\/Library\/StartupItems\/* AND TargetFilename.keyword:*.plist)
+index: filebeat-*
+name: dfe8b941-4e54-4242-b674-6b613d521962-Startup-Items
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

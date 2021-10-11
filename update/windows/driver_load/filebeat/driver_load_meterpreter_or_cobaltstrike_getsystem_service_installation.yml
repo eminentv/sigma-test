@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of getsystem Meterpreter/Cobalt Strike command by detecting a specific service installation
+filter:
+- query:
+    query_string:
+      query: ((ImagePath.keyword:*cmd* AND ImagePath.keyword:*\/c* AND ImagePath.keyword:*echo* AND ImagePath.keyword:*\\pipe\\*) OR (ImagePath.keyword:*%COMSPEC%* AND ImagePath.keyword:*\/c* AND ImagePath.keyword:*echo* AND ImagePath.keyword:*\\pipe\\*) OR (ImagePath.keyword:*cmd.exe* AND ImagePath.keyword:*\/c* AND ImagePath.keyword:*echo* AND ImagePath.keyword:*\\pipe\\*) OR (ImagePath.keyword:*rundll32* AND ImagePath.keyword:*.dll,a* AND ImagePath.keyword:*\/p\:*))
+index: filebeat-*
+name: d585ab5a-6a69-49a8-96e8-4a726a54de46-Meterpreter-or-Cobalt-Strike-Getsystem-Service-Installation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

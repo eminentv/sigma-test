@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a device in azure is no longer managed or compliant
+filter:
+- query:
+    query_string:
+      query: properties.message:("Device\ no\ longer\ compliant" OR "Device\ no\ longer\ managed")
+index: winlogbeat-*
+name: 542b9912-c01f-4e3f-89a8-014c48cdca7d-Azure-Device-No-Longer-Managed-or-Compliant
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

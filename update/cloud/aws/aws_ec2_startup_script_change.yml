@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects changes to the EC2 instance startup script. The shell script will be executed as root/SYSTEM every time the specific instances are booted up.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"ec2.amazonaws.com" AND requestParameters.userData.keyword:* AND event.action:"ModifyInstanceAttribute")
+index: filebeat-*
+name: 1ab3c5ed-5baf-417b-bb6b-78ca33f6c3df-AWS-EC2-Startup-Shell-Script-Change
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

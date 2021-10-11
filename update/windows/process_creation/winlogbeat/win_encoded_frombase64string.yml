@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a base64 encoded FromBase64String keyword in a process command line
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:(*OjpGcm9tQmFzZTY0U3RyaW5n* OR *o6RnJvbUJhc2U2NFN0cmluZ* OR *6OkZyb21CYXNlNjRTdHJpbm*)
+index: winlogbeat-*
+name: fdb62a13-9a81-4e5c-a38f-ea93a16f6d7c-Encoded-FromBase64String
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

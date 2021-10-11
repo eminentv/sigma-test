@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of regini.exe which can be used to modify registry keys, the changes are imported from one or more text files.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\regini.exe AND (NOT CommandLine.keyword:/:[^ \\\\]/))
+index: filebeat-*
+name: 5f60740a-f57b-4e76-82a1-15b6ff2cb134-Modifies-the-Registry-From-a-File
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

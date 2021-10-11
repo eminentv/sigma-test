@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection use of the command "split" to split files into parts and possible transfer.
+filter:
+- query:
+    query_string:
+      query: Image.keyword:*\/split
+index: filebeat-*
+name: 7f2bb9d5-6395-4de5-969c-70c11fbe6b12-Split-A-File-Into-Pieces
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

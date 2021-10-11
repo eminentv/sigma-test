@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process patterns found in Cobalt Strike beacon activity (see reference for more details)
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\\cmd.exe\ \/C\ whoami* AND ParentImage.keyword:C\:\\Temp*) OR (CommandLine.keyword:*conhost.exe\ 0xffffffff\ \-ForceV1* AND ParentCommandLine.keyword:(*\/C\ whoami* OR *cmd.exe\ \/C\ echo* OR *\ >\ \\.\\pipe*)) OR (CommandLine.keyword:(*cmd.exe\ \/c\ echo* OR *>\ \\.\\pipe* OR *\\whoami.exe*) AND ParentImage.keyword:*\\dllhost.exe) OR (Image.keyword:*\\cmd.exe AND ParentImage.keyword:*\\runonce.exe AND ParentCommandLine.keyword:*\\runonce.exe))
+index: filebeat-*
+name: f35c5d71-b489-4e22-a115-f003df287317-CobaltStrike-Process-Patterns
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

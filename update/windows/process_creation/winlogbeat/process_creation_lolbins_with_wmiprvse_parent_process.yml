@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule will monitor LOLBin process creations by wmiprvse. Add more LOLBins to rule logic if needed.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*regsvr32 OR *rundll32 OR *msiexec OR *mshta OR *verclsid) AND winlog.event_data.ParentImage.keyword:*\\wbem\\WmiPrvSE.exe)
+index: winlogbeat-*
+name: 8a582fe2-0882-4b89-a82a-da6b2dc32937-Lolbins-Process-Creation-with-WmiPrvse
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

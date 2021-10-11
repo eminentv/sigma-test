@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via RUNDLL LAUNCHER
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4104" AND ScriptBlockText.keyword:/(?i).*rundll32(?:\.exe)?(?:\s+)?shell32\.dll.*shellexec_rundll.*powershell.*\"/) OR (EventID:"4103" AND Payload.keyword:/(?i).*rundll32(?:\.exe)?(?:\s+)?shell32\.dll.*shellexec_rundll.*powershell.*\"/))
+index: filebeat-*
+name: e6cb92b4-b470-4eb8-8a9d-d63e8583aae0-Invoke-Obfuscation-RUNDLL-LAUNCHER
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

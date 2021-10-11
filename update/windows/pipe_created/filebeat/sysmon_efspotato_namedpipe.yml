@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of a pipe name as used by the tool EfsPotato
+filter:
+- query:
+    query_string:
+      query: PipeName.keyword:(*\\pipe\\* OR *\\pipe\\srvsvc*)
+index: filebeat-*
+name: 637f689e-b4a5-4a86-be0e-0100a0a33ba2-EfsPotato-Named-Pipe
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

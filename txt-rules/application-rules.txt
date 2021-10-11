@@ -1,0 +1,5 @@
+appframework_django_exceptions.yml
+appframework_ruby_on_rails_exceptions.yml
+appframework_spring_exceptions.yml
+app_python_sql_exceptions.yml
+app_sqlinjection_errors.yml

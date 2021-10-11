@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects service path modification to PowerShell or cmd.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\sc.exe AND winlog.event_data.CommandLine.keyword:*config* AND winlog.event_data.CommandLine.keyword:*binpath* AND winlog.event_data.CommandLine.keyword:(*powershell* OR *cmd*))
+index: winlogbeat-*
+name: 138d3531-8793-4f50-a2cd-f291b2863d78-Suspicious-Service-Path-Modification
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

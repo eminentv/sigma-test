@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects tools extracting LSA secret DPAPI domain backup key from Domain Controllers
+filter:
+- query:
+    query_string:
+      query: (EventID:"4662" AND ObjectType:"SecretObject" AND AccessMask:"0x2" AND ObjectName:"BCKUPKEY")
+index: filebeat-*
+name: 4ac1f50b-3bd0-4968-902d-868b4647937e-DPAPI-Domain-Backup-Key-Extraction
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

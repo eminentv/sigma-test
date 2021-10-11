@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Look for non-system accounts SMB accessing a file with write (0x2) access mask via administrative share (i.e C$).
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND (winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:*C$ AND winlog.event_data.AccessMask:"0x2") AND (NOT winlog.event_data.SubjectUserName.keyword:*$))
+index: winlogbeat-*
+name: b210394c-ba12-4f89-9117-44a2464b9511-SMB-Create-Remote-File-Admin-Share
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

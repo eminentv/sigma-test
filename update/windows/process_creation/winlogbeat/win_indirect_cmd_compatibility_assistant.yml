@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect indirect command execution via Program Compatibility Assistant pcwrun.exe
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.ParentImage.keyword:*\\pcwrun.exe
+index: winlogbeat-*
+name: b97cd4b1-30b8-4a9d-bd72-6293928d52bc-Indirect-Command-Execution-By-Program-Compatibility-Wizard
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

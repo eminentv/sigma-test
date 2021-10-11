@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious PowerShell download command
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Windows\ PowerShell" AND winlog.event_id:"400" AND winlog.event_data.HostApplication.keyword:*System.Net.WebClient* AND (winlog.event_data.HostApplication.keyword:*.DownloadFile\(* OR winlog.event_data.HostApplication.keyword:*.DownloadString\(*))
+index: winlogbeat-*
+name: 3236fcd0-b7e3-4433-b4f8-86ad61a9af2d-Suspicious-PowerShell-Download
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects successful installation of Atera Remote Monitoring & Management (RMM) agent as recently found to be used by Conti operators
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Application" AND winlog.event_id:"1033" AND winlog.event_data.Source:"MsiInstaller" AND Message.keyword:*AteraAgent*)
+index: winlogbeat-*
+name: 87261fb2-69d0-42fe-b9de-88c6b5f65a43-Atera-Agent-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of Xwizard tool from the non-default directory which can be used to sideload a custom xwizards.dll
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\xwizard.exe AND (NOT winlog.event_data.Image.keyword:C\:\\Windows\\System32\\*))
+index: winlogbeat-*
+name: 193d5ccd-6f59-40c6-b5b0-8e32d5ddd3d1-Xwizard-DLL-Sideloading
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

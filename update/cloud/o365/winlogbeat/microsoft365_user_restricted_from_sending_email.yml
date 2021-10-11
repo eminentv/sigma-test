@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Security Compliance Center reported a user who exceeded sending limits of the service policies and because of this has been restricted from sending email.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"User\ restricted\ from\ sending\ email" AND status:"success")
+index: winlogbeat-*
+name: ff246f56-7f24-402a-baca-b86540e3925c-Microsoft-365---User-Restricted-from-Sending-Email
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

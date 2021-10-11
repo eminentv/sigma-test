@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the registration of the security event source VSSAudit. It would usually trigger when volume shadow copy operations happen.
+filter:
+- query:
+    query_string:
+      query: (AuditSourceName:"VSSAudit" AND (EventID:"4904" OR EventID:"4905"))
+index: filebeat-*
+name: e9faba72-4974-4ab2-a4c5-46e25ad59e9b-VSSAudit-Security-Event-Source-Registration
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

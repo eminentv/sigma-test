@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a named pipe as used by CobaltStrike
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.PipeName.keyword:*\\MSSE\-* AND winlog.event_data.PipeName.keyword:*\-server*) OR winlog.event_data.PipeName.keyword:\\postex_* OR winlog.event_data.PipeName.keyword:\\postex_ssh_* OR winlog.event_data.PipeName.keyword:\\status_* OR winlog.event_data.PipeName.keyword:\\msagent_*)
+index: winlogbeat-*
+name: d5601f8c-b26f-4ab0-9035-69e11a8d4ad2-CobaltStrike-Named-Pipe
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

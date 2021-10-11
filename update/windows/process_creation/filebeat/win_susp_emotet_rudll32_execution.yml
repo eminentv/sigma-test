@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting Emotet DLL loading by looking for rundll32.exe processes with command lines ending in ,RunDLL or ,#1
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\rundll32.exe AND CommandLine.keyword:*,RunDLL) AND (NOT ParentImage.keyword:*\\tracker.exe))
+index: filebeat-*
+name: 54e57ce3-0672-46eb-a402-2c0948d5e3e9-Emotet-RunDLL32-Process-Creation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

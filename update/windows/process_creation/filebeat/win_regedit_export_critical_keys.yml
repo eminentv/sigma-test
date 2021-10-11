@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the export of a crital Registry key to a file.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\regedit.exe AND CommandLine.keyword:*\ \/E\ * AND CommandLine.keyword:(*hklm* OR *hkey_local_machine*) AND CommandLine.keyword:(*\\system OR *\\sam OR *\\security))
+index: filebeat-*
+name: 82880171-b475-4201-b811-e9c826cd5eaa-Exports-Critical-Registry-Keys-To-a-File
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

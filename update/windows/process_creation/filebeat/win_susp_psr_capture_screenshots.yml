@@ -1,0 +1,17 @@
+alert:
+- debug
+description: The psr.exe captures desktop screenshots and saves them on the local machine
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\Psr.exe AND CommandLine.keyword:*\/start*)
+index: filebeat-*
+name: 2158f96f-43c2-43cb-952a-ab4580f32382-Psr.exe-Capture-Screenshots
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

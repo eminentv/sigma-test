@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects strings used in command execution in DNS TXT Answer
+filter:
+- query:
+    query_string:
+      query: (dns.type:"TXT" AND dns.answers.name.keyword:(*IEX* OR *Invoke\-Expression* OR *cmd.exe*))
+index: filebeat-*
+name: 8ae51330-899c-4641-8125-e39f2e07da72-DNS-TXT-Answer-with-Possible-Execution-Strings
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

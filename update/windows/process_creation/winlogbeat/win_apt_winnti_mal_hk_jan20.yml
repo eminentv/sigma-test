@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process characteristics of Winnti malware noticed in Dec/Jan 2020 in a campaign against Honk Kong universities
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.ParentImage.keyword:(*C\:\\Windows\\Temp* OR *\\hpqhvind.exe*) AND winlog.event_data.Image.keyword:C\:\\ProgramData\\DRM*) OR (winlog.event_data.ParentImage.keyword:C\:\\ProgramData\\DRM* AND winlog.event_data.Image.keyword:*\\wmplayer.exe) OR (winlog.event_data.ParentImage.keyword:*\\Test.exe AND winlog.event_data.Image.keyword:*\\wmplayer.exe) OR winlog.event_data.Image:"C\:\\ProgramData\\DRM\\CLR\\CLR.exe" OR (winlog.event_data.ParentImage.keyword:C\:\\ProgramData\\DRM\\Windows* AND winlog.event_data.Image.keyword:*\\SearchFilterHost.exe))
+index: winlogbeat-*
+name: 3121461b-5aa0-4a41-b910-66d25524edbb-Winnti-Malware-HK-University-Campaign
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

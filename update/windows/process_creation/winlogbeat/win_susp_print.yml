@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Attackers can use print.exe for remote file copy
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\print.exe AND winlog.event_data.CommandLine.keyword:print* AND winlog.event_data.CommandLine.keyword:*\/D* AND winlog.event_data.CommandLine.keyword:*.exe*) AND (NOT winlog.event_data.CommandLine.keyword:*print.exe*))
+index: winlogbeat-*
+name: bafac3d6-7de9-4dd9-8874-4a1194b493ed-Abusing-Print-Executable
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

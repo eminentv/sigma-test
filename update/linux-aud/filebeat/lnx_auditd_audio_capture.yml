@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attempts to record audio with arecord utility
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"arecord" AND a1:"\-vv" AND a2:"\-fdat")
+index: filebeat-*
+name: a7af2487-9c2f-42e4-9bb9-ff961f0561d5-Audio-Capture
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious program execution in Outlook temp folder
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:*\\Temporary\ Internet\ Files\\Content.Outlook\\*
+index: winlogbeat-*
+name: a018fdc3-46a3-44e5-9afb-2cd4af1d4b39-Execution-in-Outlook-Temp-Folder
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

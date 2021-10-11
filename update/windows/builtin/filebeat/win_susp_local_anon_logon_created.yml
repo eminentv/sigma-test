@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of suspicious accounts similar to ANONYMOUS LOGON, such as using additional spaces. Created as an covering detection for exclusion of Logon Type 3 from ANONYMOUS LOGON accounts.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4720" AND SamAccountName.keyword:*ANONYMOUS* AND SamAccountName.keyword:*LOGON*)
+index: filebeat-*
+name: 1bbf25b9-8038-4154-a50b-118f2a32be27-Suspicious-Windows-ANONYMOUS-LOGON-Local-Account-Created
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

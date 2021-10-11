@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects SILENTTRINITY stager use
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Description.keyword:*st2stager*
+index: winlogbeat-*
+name: 03552375-cc2c-4883-bbe4-7958d5a980be-SILENTTRINITY-Stager-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

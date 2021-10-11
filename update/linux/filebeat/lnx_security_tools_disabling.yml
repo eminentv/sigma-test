@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling security tools
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\/service AND CommandLine.keyword:*iptables* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/service AND CommandLine.keyword:*ip6tables* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/chkconfig AND CommandLine.keyword:*iptables* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/chkconfig AND CommandLine.keyword:*ip6tables* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*firewalld* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*firewalld* AND CommandLine.keyword:*disable*) OR (Image.keyword:*\/service AND CommandLine.keyword:*cbdaemon* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/chkconfig AND CommandLine.keyword:*cbdaemon* AND CommandLine.keyword:*off*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*cbdaemon* AND CommandLine.keyword:*stop*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*cbdaemon* AND CommandLine.keyword:*disable*) OR (Image.keyword:*\/setenforce AND CommandLine.keyword:*0*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*stop* AND CommandLine.keyword:*falcon\-sensor*) OR (Image.keyword:*\/systemctl AND CommandLine.keyword:*disable* AND CommandLine.keyword:*falcon\-sensor*))
+index: filebeat-*
+name: e3a8a052-111f-4606-9aee-f28ebeb76776-Disabling-Security-Tools
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

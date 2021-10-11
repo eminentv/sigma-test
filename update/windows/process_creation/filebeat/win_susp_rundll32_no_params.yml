@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious start of rundll32.exe without any parameters as found in CobaltStrike beacon activity
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\\rundll32.exe AND (NOT ParentImage.keyword:*\\svchost.exe)) AND (NOT ParentImage.keyword:(*\\AppData\\Local\\* OR *\\Microsoft\\Edge\\*)))
+index: filebeat-*
+name: 1775e15e-b61b-4d14-a1a3-80981298085a-Suspicious-Rundll32-Without-Any-CommandLine-Params
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

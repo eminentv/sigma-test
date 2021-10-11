@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies use of Fodhelper.exe to bypass User Account Control. Adversaries use this technique to execute privileged processes.
+filter:
+- query:
+    query_string:
+      query: ParentImage.keyword:*\\fodhelper.exe
+index: filebeat-*
+name: 7f741dcf-fc22-4759-87b4-9ae8376676a2-Bypass-UAC-via-Fodhelper.exe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

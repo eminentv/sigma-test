@@ -1,0 +1,17 @@
+alert:
+- debug
+description: dotnet.exe will execute any DLL and execute unsigned code
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*.dll OR *.csproj) AND Image.keyword:*\\dotnet.exe)
+index: filebeat-*
+name: d80d5c81-04ba-45b4-84e4-92eba40e0ad3-Dotnet.exe-Exec-Dll-and-Execute-Unsigned-Code-LOLBIN
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

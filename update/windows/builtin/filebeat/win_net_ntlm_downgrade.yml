@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects NetNTLM downgrade attack
+filter:
+- query:
+    query_string:
+      query: (EventID:"4657" AND ObjectName.keyword:*\\REGISTRY\\MACHINE\\SYSTEM* AND ObjectName.keyword:*ControlSet* AND ObjectName.keyword:*\\Control\\Lsa* AND ObjectValueName:("LmCompatibilityLevel" OR "NtlmMinClientSec" OR "RestrictSendingNTLMTraffic"))
+index: filebeat-*
+name: d3abac66-f11c-4ed0-8acb-50cc29c97eed-NetNTLM-Downgrade-Attack
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

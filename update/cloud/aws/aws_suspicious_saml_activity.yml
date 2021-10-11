@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when suspicious SAML activity has occurred in AWS. An adversary could gain backdoor access via SAML.
+filter:
+- query:
+    query_string:
+      query: ((event.provider:"sts.amazonaws.com" AND event.action:"AssumeRoleWithSAML") OR (event.provider:"iam.amazonaws.com" AND event.action:"UpdateSAMLProvider"))
+index: filebeat-*
+name: f43f5d2f-3f2a-4cc8-b1af-81fde7dbaf0e-AWS-Suspicious-SAML-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

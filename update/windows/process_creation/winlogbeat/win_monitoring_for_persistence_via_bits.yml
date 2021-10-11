@@ -1,0 +1,17 @@
+alert:
+- debug
+description: BITS will allow you to schedule a command to execute after a successful download to notify you that the job is finished. When the job runs on the system the command specified in the BITS job will be executed. This can be abused by actors to create a backdoor within the system and for persistence. It will be chained in a BITS job to schedule the download of malware/additional binaries and execute the program after being downloaded
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:/(?i).*bitsadmin.*\/SetNotifyCmdLine.*(%COMSPEC%|cmd.exe|regsvr32.exe).*/ OR winlog.event_data.CommandLine.keyword:/(?i).*bitsadmin.*\/Addfile.*(http|https|ftp|ftps):.*/)
+index: winlogbeat-*
+name: b9cbbc17-d00d-4e3d-a827-b06d03d2380d-Monitoring-For-Persistence-Via-BITS
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

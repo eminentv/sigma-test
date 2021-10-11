@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Windows Defender logs when the history of detected infections is deleted. Log file will contain the message "Windows Defender Antivirus has removed history of malware and other potentially unwanted software".
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-Windows\ Defender\/Operational" AND winlog.event_id:"1013" AND winlog.event_data.EventType:"4")
+index: winlogbeat-*
+name: 2afe6582-e149-11ea-87d0-0242ac130003-Windows-Defender-Malware-Detection-History-Deletion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

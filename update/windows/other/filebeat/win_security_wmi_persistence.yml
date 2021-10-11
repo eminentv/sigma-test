@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious WMI event filter and command line event consumer based on WMI and Security Logs.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4662" AND ObjectType:"WMI\ Namespace" AND ObjectName.keyword:*subscription*)
+index: filebeat-*
+name: f033f3f3-fd24-4995-97d8-a3bb17550a88-WMI-Persistence
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

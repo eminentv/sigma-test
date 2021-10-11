@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects remote thread creation from CACTUSTORCH as described in references.
+filter:
+- query:
+    query_string:
+      query: (EventID:"8" AND SourceImage.keyword:(*\\System32\\cscript.exe OR *\\System32\\wscript.exe OR *\\System32\\mshta.exe OR *\\winword.exe OR *\\excel.exe) AND TargetImage.keyword:*\\SysWOW64\\* AND NOT _exists_:StartModule)
+index: filebeat-*
+name: 2e4e488a-6164-4811-9ea1-f960c7359c40-CACTUSTORCH-Remote-Thread-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

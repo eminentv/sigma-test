@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects well-known credential dumping tools execution via service execution events
+filter:
+- query:
+    query_string:
+      query: ImagePath.keyword:(*fgexec* OR *dumpsvc* OR *cachedump* OR *mimidrv* OR *gsecdump* OR *servpw* OR *pwdump*)
+index: filebeat-*
+name: df5ff0a5-f83f-4a5b-bba1-3e6a3f6f6ea2-Credential-Dumping-Tools-Service-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

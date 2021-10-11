@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection of sc.exe utility spawning by user with Medium integrity level to change service ImagePath or FailureCommand
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\sc.exe AND IntegrityLevel:"Medium") AND ((CommandLine.keyword:*config* AND CommandLine.keyword:*binPath*) OR (CommandLine.keyword:*failure* AND CommandLine.keyword:*command*)))
+index: filebeat-*
+name: d937b75f-a665-4480-88a5-2f20e9f9b22a-Possible-Privilege-Escalation-via-Weak-Service-Permissions
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

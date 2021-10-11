@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when an admin share is mounted using net.exe
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\net.exe OR *\\net1.exe) AND winlog.event_data.CommandLine.keyword:*\ use\ * AND winlog.event_data.CommandLine.keyword:*\\\*\\*$*)
+index: winlogbeat-*
+name: 3abd6094-7027-475f-9630-8ab9be7b9725-Mounted-Windows-Admin-Shares-with-net.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

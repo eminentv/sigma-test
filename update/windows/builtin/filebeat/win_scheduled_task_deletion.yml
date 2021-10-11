@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects scheduled task deletion events. Scheduled tasks are likely to be deleted if not used for persistence. Malicious Software often creates tasks directly under the root node e.g. \TASKNAME
+filter:
+- query:
+    query_string:
+      query: EventID:"4699"
+index: filebeat-*
+name: 4f86b304-3e02-40e3-aa5d-e88a167c9617-Scheduled-Task-Deletion
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

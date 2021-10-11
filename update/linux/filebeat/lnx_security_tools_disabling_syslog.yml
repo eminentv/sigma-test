@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling security tools
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*stopping\ iptables* OR *stopping\ ip6tables* OR *stopping\ firewalld* OR *stopping\ cbdaemon* OR *stopping\ falcon\-sensor*)
+index: filebeat-*
+name: 49f5dfc1-f92e-4d34-96fa-feba3f6acf36-Disabling-Security-Tools
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

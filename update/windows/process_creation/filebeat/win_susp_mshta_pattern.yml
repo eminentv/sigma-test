@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious mshta process patterns
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\mshta.exe AND (((ParentImage.keyword:(*\\cmd.exe OR *\\powershell.exe) OR CommandLine.keyword:(*\\AppData\\Local* OR *C\:\\Windows\\Temp* OR *C\:\\Users\\Public*)) OR (NOT Image.keyword:(*C\:\\Windows\\System32* OR *C\:\\Windows\\SysWOW64*))) OR (NOT (CommandLine.keyword:(*.htm* OR *.hta*) AND CommandLine.keyword:(*mshta.exe OR *mshta)))))
+index: filebeat-*
+name: e32f92d1-523e-49c3-9374-bdb13b46a3ba-Suspicious-MSHTA-Process-Patterns
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

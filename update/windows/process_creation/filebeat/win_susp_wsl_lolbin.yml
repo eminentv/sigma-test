@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Possible usage of Windows Subsystem for Linux (WSL) binary as a LOLBIN
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\wsl.exe AND CommandLine.keyword:(*\ \-e\ * OR *\ \-\-exec\ *))
+index: filebeat-*
+name: dec44ca7-61ad-493c-bfd7-8819c5faa09b-WSL-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

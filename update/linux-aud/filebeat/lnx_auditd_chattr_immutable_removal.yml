@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects removing immutable file attribute.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0.keyword:*chattr* AND a1.keyword:*\-i*)
+index: filebeat-*
+name: a5b977d6-8a81-4475-91b9-49dbfcd941f7-Remove-Immutable-File-Attribute
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

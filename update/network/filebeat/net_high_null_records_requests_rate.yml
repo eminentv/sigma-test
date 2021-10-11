@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 1
+description: Extremely high rate of NULL record type DNS requests from host per short period of time. Possible result of iodine tool execution
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: dns.type:"NULL"
+index: filebeat-*
+max_threshold: 50
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 44ae5117-9c44-40cf-9c7c-7edad385ca70-High-NULL-Records-Requests-Rate
+priority: 3
+query_key: source.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

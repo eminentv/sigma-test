@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect changes in auditd configuration files
+filter:
+- query:
+    query_string:
+      query: (type:"PATH" AND name.keyword:(\/etc\/audit\/* OR \/etc\/libaudit.conf OR \/etc\/audisp\/*))
+index: filebeat-*
+name: 977ef627-4539-4875-adf4-ed8f780c4922-Auditing-Configuration-Changes-on-Linux-Host
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

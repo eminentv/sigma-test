@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Potential adversaries accessing the microphone and webcam in an endpoint.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("4657" OR "4656" OR "4663") AND (winlog.event_data.ObjectName.keyword:*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\microphone\\NonPackaged* OR winlog.event_data.ObjectName.keyword:*\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\webcam\\NonPackaged*))
+index: winlogbeat-*
+name: 8cd538a4-62d5-4e83-810b-12d41e428d6e-Processes-Accessing-the-Microphone-and-Webcam
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a schtask via PowerSploit or Empire Default Configuration.
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\powershell.exe AND Image.keyword:*\\schtasks.exe AND CommandLine.keyword:*\/Create* AND CommandLine.keyword:*\/SC* AND CommandLine.keyword:(*ONLOGON* OR *DAILY* OR *ONIDLE* OR *Updater*) AND CommandLine.keyword:*\/TN* AND CommandLine.keyword:*Updater* AND CommandLine.keyword:*\/TR* AND CommandLine.keyword:*powershell*)
+index: filebeat-*
+name: 56c217c3-2de2-479b-990f-5c109ba8458f-Default-PowerSploit-and-Empire-Schtasks-Persistence
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

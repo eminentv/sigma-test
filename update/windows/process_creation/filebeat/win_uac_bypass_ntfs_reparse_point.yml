@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using NTFS reparse point and wusa.exe DLL hijacking (UACMe 36)
+filter:
+- query:
+    query_string:
+      query: (IntegrityLevel:("High" OR "System") AND ((CommandLine.keyword:\"C\:\\Windows\\system32\\wusa.exe\"\ \ \/quiet\ C\:\\Users\\* AND CommandLine.keyword:*\\AppData\\Local\\Temp\\update.msu) OR (ParentCommandLine:"\"C\:\\Windows\\system32\\dism.exe\"\ \/online\ \/quiet\ \/norestart\ \/add\-package\ \/packagepath\:\"C\:\\Windows\\system32\\pe386\"\ \/ignorecheck" AND CommandLine.keyword:*C\:\\Users\\* AND CommandLine.keyword:*\\AppData\\Local\\Temp\\* AND CommandLine.keyword:*\\dismhost.exe\ \{* AND Image.keyword:*\\DismHost.exe)))
+index: filebeat-*
+name: 39ed3c80-e6a1-431b-9df3-911ac53d08a7-UAC-Bypass-Using-NTFS-Reparse-Point---Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

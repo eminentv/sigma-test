@@ -1,0 +1,17 @@
+alert:
+- debug
+description: F-Secure C3 produces DLLs with a default exported StartNodeRelay function.
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*rundll32.exe* AND CommandLine.keyword:*.dll* AND CommandLine.keyword:*StartNodeRelay*)
+index: filebeat-*
+name: b18c9d4c-fac9-4708-bd06-dd5bfacf200f-F-Secure-C3-Load-by-Rundll32
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

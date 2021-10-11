@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Exports the target Registry key and hides it in the specified alternate data stream.
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.Image.keyword:*\\regedit.exe
+index: winlogbeat-*
+name: 0d7a9363-af70-4e7b-a3b7-1a176b7fbe84-Exports-Registry-Key-To-an-Alternate-Data-Stream
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

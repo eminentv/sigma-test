@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the registration of a debugger for a program that is available in the logon screen (sticky key backdoor).
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\\CurrentVersion\\Image\ File\ Execution\ Options\\* AND winlog.event_data.CommandLine.keyword:(*sethc.exe* OR *utilman.exe* OR *osk.exe* OR *magnify.exe* OR *narrator.exe* OR *displayswitch.exe* OR *atbroker.exe*))
+index: winlogbeat-*
+name: ae215552-081e-44c7-805f-be16f975c8a2-Suspicious-Debugger-Registration-Cmdline
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

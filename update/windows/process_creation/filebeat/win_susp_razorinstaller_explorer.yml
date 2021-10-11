@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a explorer.exe sub process of the RazerInstaller software which can be invoked from the installer to select a different installation folder but can also be exploited to escalate privileges to LOCAL SYSTEM
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:*\\RazerInstaller.exe AND IntegrityLevel:"System") AND (NOT Image.keyword:C\:\\Windows\\Installer\\Razer\\Installer\\*))
+index: filebeat-*
+name: a4eaf250-7dc1-4842-862a-5e71cd59a167-Suspicious-RazerInstaller-Explorer-Subprocess
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Kerberos DLL being loaded by an Office Product
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\winword.exe OR *\\powerpnt.exe OR *\\excel.exe OR *\\outlook.exe) AND ImageLoaded.keyword:*\\kerberos.dll)
+index: filebeat-*
+name: 7417e29e-c2e7-4cf6-a2e8-767228c64837-Active-Directory-Kerberos-DLL-Loaded-Via-Office-Applications
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

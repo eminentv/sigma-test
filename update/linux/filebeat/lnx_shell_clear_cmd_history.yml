@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Clear command history in linux which is used for defense evasion.
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*rm\ *bash_history* OR *echo\ \"\"\ >\ *bash_history* OR *cat\ \/dev\/null\ >\ *bash_history* OR *ln\ \-sf\ \/dev\/null\ *bash_history* OR *truncate\ \-s0\ *bash_history* OR *export\ HISTFILESIZE\=0* OR *history\ \-c* OR *history\ \-w* OR *shred\ *bash_history* OR *empty_bash_history*)
+index: filebeat-*
+name: fdc88d25-96fb-4b7c-9633-c0e417fdbd4e-Clear-Command-History
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

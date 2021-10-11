@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious process pattern found in CVE-2021-40444 exploitation
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\control.exe AND ParentImage.keyword:(*\\winword.exe OR *\\powerpnt.exe OR *\\excel.exe)) AND (NOT CommandLine.keyword:*\\control.exe\ input.dll))
+index: filebeat-*
+name: 894397c6-da03-425c-a589-3d09e7d1f750-CVE-2021-40444-Process-Pattern
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

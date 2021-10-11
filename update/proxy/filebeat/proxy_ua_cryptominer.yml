@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious user agent strings used by crypto miners in proxy logs
+filter:
+- query:
+    query_string:
+      query: c-useragent.keyword:(XMRig\ * OR ccminer*)
+index: filebeat-*
+name: fa935401-513b-467b-81f4-f9e77aa0dd78-Crypto-Miner-User-Agent
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

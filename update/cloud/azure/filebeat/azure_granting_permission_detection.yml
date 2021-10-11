@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies IPs from which users grant access to other users on azure resources and alerts when a previously unseen source IP address is used.
+filter:
+- query:
+    query_string:
+      query: Microsoft.Authorization\/roleAssignments\/write
+index: filebeat-*
+name: a622fcd2-4b5a-436a-b8a2-a4171161833c-Granting-Of-Permissions-To-An-Account
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

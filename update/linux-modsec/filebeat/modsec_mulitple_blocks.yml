@@ -1,0 +1,23 @@
+alert:
+- debug
+buffer_time:
+  minutes: 120
+description: Detects multiple blocks by the mod_security module (Web Application Firewall)
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*mod_security\:\ Access\ denied* OR *ModSecurity\:\ Access\ denied* OR *mod_security\-message\:\ Access\ denied*)
+index: filebeat-*
+max_threshold: 6
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: a06eea10-d932-4aa6-8ba9-186df72c8d23-Multiple-Modsecurity-Blocks
+priority: 3
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

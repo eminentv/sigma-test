@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when an ElastiCache security group has been created.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"elasticache.amazonaws.com" AND event.action:"CreateCacheSecurityGroup")
+index: filebeat-*
+name: 4ae68615-866f-4304-b24b-ba048dfa5ca7-AWS-ElastiCache-Security-Group-Created
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

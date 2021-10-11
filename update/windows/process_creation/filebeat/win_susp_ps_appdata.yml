@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious command line execution that invokes PowerShell with reference to an AppData folder
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*\/c* AND CommandLine.keyword:*powershell* AND CommandLine.keyword:*\\AppData\\* AND CommandLine.keyword:(*Local\\* OR *Roaming\\*))
+index: filebeat-*
+name: ac175779-025a-4f12-98b0-acdaeb77ea85-PowerShell-Script-Run-in-AppData
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

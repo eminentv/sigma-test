@@ -1,0 +1,21 @@
+alert:
+- debug
+description: 'Adversaries may establish persistence by executing malicious content triggered by user inactivity.
+
+  Screensavers are programs that execute after a configurable time of user inactivity and consist of Portable Executable (PE) files with a .scr file extension
+
+  '
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*reg.exe AND winlog.event_data.CommandLine.keyword:(*HKEY_CURRENT_USER\\Control\ Panel\\Desktop* OR *HKCU\\Control\ Panel\\Desktop*) AND winlog.event_data.CommandLine.keyword:*\/t\ REG_SZ* AND winlog.event_data.CommandLine.keyword:*\/f* AND ((winlog.event_data.CommandLine.keyword:*\/v\ ScreenSaveActive* AND winlog.event_data.CommandLine.keyword:*\/d\ 1*) OR (winlog.event_data.CommandLine.keyword:*\/v\ ScreenSaveTimeout* AND winlog.event_data.CommandLine.keyword:*\/d\ *) OR (winlog.event_data.CommandLine.keyword:*\/v\ ScreenSaverIsSecure* AND winlog.event_data.CommandLine.keyword:*\/d\ 0*) OR (winlog.event_data.CommandLine.keyword:*\/v\ SCRNSAVE.EXE* AND winlog.event_data.CommandLine.keyword:*\/d\ * AND winlog.event_data.CommandLine.keyword:*.scr*)))
+index: winlogbeat-*
+name: 0fc35fc3-efe6-4898-8a37-0b233339524f-Suspicious-ScreenSave-Change-by-Reg.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

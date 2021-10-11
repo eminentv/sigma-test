@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Execution via SyncInvoke in CL_Invocation.ps1 module
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*CL_Invocation.ps1* AND winlog.event_data.ScriptBlockText.keyword:*SyncInvoke*)
+index: winlogbeat-*
+name: 4cd29327-685a-460e-9dac-c3ab96e549dc-Execution-via-CL_Invocation.ps1
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

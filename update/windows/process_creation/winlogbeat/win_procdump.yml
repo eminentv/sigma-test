@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects uses of the SysInternals Procdump utility
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\procdump.exe OR *\\procdump64.exe) OR (winlog.event_data.CommandLine.keyword:*\ \-ma\ * AND winlog.event_data.CommandLine.keyword:*.exe*))
+index: winlogbeat-*
+name: 2e65275c-8288-4ab4-aeb7-6274f58b6b20-Procdump-Usage
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

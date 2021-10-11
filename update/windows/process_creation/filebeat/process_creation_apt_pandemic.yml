@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Pandemic Windows Implant
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:*loaddll\ \-a\ *
+index: filebeat-*
+name: 9fefd33c-339d-4495-9cba-b96ca006f512-Pandemic-Registry-Key
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious copy command to or from an Admin share
+filter:
+- query:
+    query_string:
+      query: (((Image.keyword:(*\\robocopy.exe OR *\\xcopy.exe) OR (Image.keyword:*\\cmd.exe AND CommandLine.keyword:*copy*)) OR (Image.keyword:*\\powershell* AND CommandLine.keyword:(*copy\-item* OR *copy* OR *cpi\ * OR *\ cp\ *))) AND (CommandLine.keyword:*\\\\\* AND CommandLine.keyword:*$*))
+index: filebeat-*
+name: 855bc8b5-2ae8-402e-a9ed-b889e6df1900-Copy-from-Admin-Share
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

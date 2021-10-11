@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects DCShadow via create new SPN
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND ((winlog.event_id:"4742" AND winlog.event_data.ServicePrincipalNames.keyword:*GC\/*) OR (winlog.event_id:"5136" AND winlog.event_data.AttributeLDAPDisplayName:"servicePrincipalName" AND winlog.event_data.AttributeValue.keyword:GC\/*)))
+index: winlogbeat-*
+name: 32e19d25-4aed-4860-a55a-be99cb0bf7ed-Possible-DC-Shadow
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

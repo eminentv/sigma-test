@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects extracting of zip file from image file
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"unzip" AND a1.keyword:(*.jpg OR *.png))
+index: filebeat-*
+name: edd595d7-7895-4fa7-acb3-85a18a8772ca-Steganography-Unzip-Hidden-Information-From-Picture-File
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

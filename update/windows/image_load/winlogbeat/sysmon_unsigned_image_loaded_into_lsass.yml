@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Loading unsigned image (DLL, EXE) into LSASS process
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\lsass.exe AND winlog.event_data.Signed:"false")
+index: winlogbeat-*
+name: 857c8db3-c89b-42fb-882b-f681c7cf4da2-Unsigned-Image-Loaded-Into-LSASS-Process
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

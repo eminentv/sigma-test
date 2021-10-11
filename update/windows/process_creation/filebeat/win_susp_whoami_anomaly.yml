@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of whoami with suspicious parents or parameters
+filter:
+- query:
+    query_string:
+      query: ((((Image.keyword:*\\whoami.exe AND (NOT ParentImage.keyword:(*\\cmd.exe OR *\\powershell.exe))) AND (NOT ParentImage:("C\:\\Program\ Files\\Microsoft\ Monitoring\ Agent\\Agent\\MonitoringHost.exe" OR ""))) AND (NOT NOT _exists_:ParentImage)) OR CommandLine.keyword:(*whoami\ \-all* OR *whoami\ \/all* OR *whoami.exe\ \-all* OR *whoami.exe\ \/all*))
+index: filebeat-*
+name: 8de1cbe8-d6f5-496d-8237-5f44a721c7a0-Whoami-Execution-Anomaly
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

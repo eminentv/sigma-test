@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using scheduled tasks and variable expansion of cleanmgr.exe (UACMe 34)
+filter:
+- query:
+    query_string:
+      query: '(CommandLine.keyword:*\"\\system32\\cleanmgr.exe\ \/autoclean\ \/d\ C\: AND ParentCommandLine:"C\:\\Windows\\system32\\svchost.exe\ \-k\ netsvcs\ \-p\ \-s\ Schedule" AND IntegrityLevel:("High" OR "System"))'
+index: filebeat-*
+name: b697e69c-746f-4a86-9f59-7bfff8eab881-UAC-Bypass-Using-Disk-Cleanup
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

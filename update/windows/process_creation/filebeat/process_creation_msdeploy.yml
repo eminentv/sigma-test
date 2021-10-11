@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects file execution using the msdeploy.exe lolbin
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*verb\:sync* AND CommandLine.keyword:*\-source\:RunCommand* AND CommandLine.keyword:*\-dest\:runCommand* AND Image.keyword:*\\msdeploy.exe)
+index: filebeat-*
+name: 646bc99f-6682-4b47-a73a-17b1b64c9d34-Execute-Files-with-Msdeploy.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

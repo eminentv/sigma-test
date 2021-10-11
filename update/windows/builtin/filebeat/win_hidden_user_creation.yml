@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a local hidden user account which should not happen for event ID 4720.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4720" AND TargetUserName.keyword:*$)
+index: filebeat-*
+name: 7b449a5e-1db5-4dd0-a2dc-4e3a67282538-Hidden-Local-User-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: It is extremely abnormal for svchost.exe to spawn without any CLI arguments and is normally observed when a malicious process spawns the process and injects code into the process memory space.
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*svchost.exe AND Image.keyword:*\\svchost.exe) AND (NOT (ParentImage.keyword:(*\\rpcnet.exe OR *\\rpcnetp.exe) OR NOT _exists_:CommandLine)))
+index: filebeat-*
+name: 16c37b52-b141-42a5-a3ea-bbe098444397-Suspect-Svchost-Activity
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

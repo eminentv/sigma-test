@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated use of Clip.exe to execute PowerShell
+filter:
+- query:
+    query_string:
+      query: (ServiceFileName.keyword:/.*cmd.{0,5}(?:\/c|\/r).+clip(?:\.exe)?.{0,4}&&.+clipboard]::\(\s\\\"\{\d\}.+\-f.+\"/ AND EventID:"4697")
+index: filebeat-*
+name: 4edf51e1-cb83-4e1a-bc39-800e396068e3-Invoke-Obfuscation-CLIP+-Launcher
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

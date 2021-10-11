@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This event was observed on the target host during lateral movement. The process name within the event contains the process spawned post compromise. Account Name within the event contains the compromised user account name. This event should to be correlated with 4624 and 4688 for further intrusion context.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4674" AND ObjectServer:"Security" AND ObjectType:"File" AND ObjectName:"\\Device\\ConDrv")
+index: filebeat-*
+name: 29d31aee-30f4-4006-85a9-a4a02d65306c-Lateral-Movement-Indicator-ConDrv
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

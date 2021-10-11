@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using computerdefaults.exe (UACMe 59)
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.IntegrityLevel:("High" OR "System") AND winlog.event_data.Image:"C\:\\Windows\\System32\\ComputerDefaults.exe") AND (NOT winlog.event_data.ParentImage.keyword:(*\:\\Windows\\System32* OR *\:\\Program\ Files*)))
+index: winlogbeat-*
+name: 3c05e90d-7eba-4324-9972-5d7f711a60a8-UAC-Bypass-Using-ComputerDefaults
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

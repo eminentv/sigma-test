@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Once established within a system or network, an adversary may use automated techniques for collecting internal data.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\tree.com OR *\\WMIC.exe OR *\\doskey.exe OR *\\sc.exe) AND winlog.event_data.ParentCommandLine.keyword:*\ >\ %TEMP%\\*)
+index: winlogbeat-*
+name: aa2efee7-34dd-446e-8a37-40790a66efd7-Recon-Information-for-Export-with-Command-Prompt
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

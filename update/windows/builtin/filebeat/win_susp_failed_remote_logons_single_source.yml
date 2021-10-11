@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects a source system failing to authenticate against a remote host with multiple users.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4625" AND LogonType:"3") AND (NOT IpAddress:"\-"))
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: add2ef8d-dc91-4002-9e7e-f2702369f53a-Multiple-Users-Remotely-Failing-To-Authenticate-From-Single-Source
+priority: 3
+query_key: IpAddress.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

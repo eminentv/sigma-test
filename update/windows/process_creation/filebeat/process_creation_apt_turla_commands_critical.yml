@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects automated lateral movement by Turla group
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:(net\ use\ \\%DomainController%\\C$\ \"P@ssw0rd\"\ * OR dir\ c\:\\*.doc*\ \/s OR dir\ %TEMP%\\*.exe)
+index: filebeat-*
+name: c601f20d-570a-4cde-a7d6-e17f99cb8e7f-Turla-Group-Lateral-Movement
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

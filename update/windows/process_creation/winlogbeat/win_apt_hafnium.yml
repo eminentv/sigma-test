@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects activity observed by different researchers to be HAFNIUM group activity (or related) on Exchange servers
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*attrib* AND winlog.event_data.CommandLine.keyword:*\ \+h\ * AND winlog.event_data.CommandLine.keyword:*\ \+s\ * AND winlog.event_data.CommandLine.keyword:*\ \+r\ * AND winlog.event_data.CommandLine.keyword:*.aspx*) OR (winlog.event_data.CommandLine.keyword:*schtasks* AND winlog.event_data.CommandLine.keyword:*VSPerfMon*) OR (winlog.event_data.CommandLine.keyword:*vssadmin\ list\ shadows* AND winlog.event_data.CommandLine.keyword:*Temp\\__output*) OR winlog.event_data.CommandLine.keyword:*%TEMP%\\execute.bat* OR winlog.event_data.Image.keyword:*Users\\Public\\opera\\Opera_browser.exe OR (winlog.event_data.Image.keyword:*Opera_browser.exe AND winlog.event_data.ParentImage.keyword:(*\\services.exe OR *\\svchost.exe)) OR winlog.event_data.Image.keyword:*\\ProgramData\\VSPerfMon\\* OR (winlog.event_data.CommandLine.keyword:*\ \-t7z\ * AND winlog.event_data.CommandLine.keyword:*C\:\\Programdata\\pst* AND winlog.event_data.CommandLine.keyword:*\\it.zip*) OR (winlog.event_data.Image.keyword:*\\makecab.exe AND winlog.event_data.CommandLine.keyword:(*Microsoft\\Exchange\ Server\\* OR *inetpub\\wwwroot*)) OR winlog.event_data.CommandLine.keyword:(*\\Temp\\xx.bat* OR *Windows\\WwanSvcdcs* OR *Windows\\Temp\\cw.exe*) OR (winlog.event_data.CommandLine.keyword:*\\comsvcs.dll* AND winlog.event_data.CommandLine.keyword:*Minidump* AND winlog.event_data.CommandLine.keyword:*\\inetpub\\wwwroot*) OR (winlog.event_data.CommandLine.keyword:*dsquery* AND winlog.event_data.CommandLine.keyword:*\ \-uco\ * AND winlog.event_data.CommandLine.keyword:*\\inetpub\\wwwroot*))
+index: winlogbeat-*
+name: bbb2dedd-a0e3-46ab-ba6c-6c82ae7a9aa7-Exchange-Exploitation-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

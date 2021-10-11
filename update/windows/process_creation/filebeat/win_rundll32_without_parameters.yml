@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects rundll32 execution without parameters as observed when running Metasploit windows/smb/psexec exploit module
+filter:
+- query:
+    query_string:
+      query: CommandLine:"rundll32.exe"
+index: filebeat-*
+name: 5bb68627-3198-40ca-b458-49f973db8752-Rundll32-Without-Parameters
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

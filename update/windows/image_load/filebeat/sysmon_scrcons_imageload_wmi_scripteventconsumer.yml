@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects signs of the WMI script host process %SystemRoot%\system32\wbem\scrcons.exe functionality being used via images being loaded by a process.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\scrcons.exe AND ImageLoaded.keyword:(*\\vbscript.dll OR *\\wbemdisp.dll OR *\\wshom.ocx OR *\\scrrun.dll))
+index: filebeat-*
+name: b439f47d-ef52-4b29-9a2f-57d8a96cb6b8-WMI-Script-Host-Process-Image-Loaded
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

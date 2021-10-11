@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects remote PowerShell sessions
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4103" AND winlog.event_data.ContextInfo.keyword:*\ \=\ ServerRemoteHost\ * AND winlog.event_data.ContextInfo.keyword:*wsmprovhost.exe*)
+index: winlogbeat-*
+name: 96b9f619-aa91-478f-bacb-c3e50f8df575-Remote-PowerShell-Session
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

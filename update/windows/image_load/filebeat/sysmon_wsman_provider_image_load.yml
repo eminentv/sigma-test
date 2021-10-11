@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects signs of potential use of the WSMAN provider from uncommon processes locally and remote execution.
+filter:
+- query:
+    query_string:
+      query: (((ImageLoaded.keyword:(*\\WsmSvc.dll OR *\\WsmAuto.dll OR *\\Microsoft.WSMan.Management.ni.dll) OR OriginalFileName:("WsmSvc.dll" OR "WSMANAUTOMATION.DLL" OR "Microsoft.WSMan.Management.dll")) AND (NOT Image.keyword:*\\powershell.exe)) OR (Image.keyword:*\\svchost.exe AND OriginalFileName:"WsmWmiPl.dll"))
+index: filebeat-*
+name: ad1f4bb9-8dfb-4765-adb6-2a7cfb6c0f94-Suspicious-WSMAN-Provider-Image-Loads
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

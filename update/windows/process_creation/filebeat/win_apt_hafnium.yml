@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects activity observed by different researchers to be HAFNIUM group activity (or related) on Exchange servers
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*attrib* AND CommandLine.keyword:*\ \+h\ * AND CommandLine.keyword:*\ \+s\ * AND CommandLine.keyword:*\ \+r\ * AND CommandLine.keyword:*.aspx*) OR (CommandLine.keyword:*schtasks* AND CommandLine.keyword:*VSPerfMon*) OR (CommandLine.keyword:*vssadmin\ list\ shadows* AND CommandLine.keyword:*Temp\\__output*) OR CommandLine.keyword:*%TEMP%\\execute.bat* OR Image.keyword:*Users\\Public\\opera\\Opera_browser.exe OR (Image.keyword:*Opera_browser.exe AND ParentImage.keyword:(*\\services.exe OR *\\svchost.exe)) OR Image.keyword:*\\ProgramData\\VSPerfMon\\* OR (CommandLine.keyword:*\ \-t7z\ * AND CommandLine.keyword:*C\:\\Programdata\\pst* AND CommandLine.keyword:*\\it.zip*) OR (Image.keyword:*\\makecab.exe AND CommandLine.keyword:(*Microsoft\\Exchange\ Server\\* OR *inetpub\\wwwroot*)) OR CommandLine.keyword:(*\\Temp\\xx.bat* OR *Windows\\WwanSvcdcs* OR *Windows\\Temp\\cw.exe*) OR (CommandLine.keyword:*\\comsvcs.dll* AND CommandLine.keyword:*Minidump* AND CommandLine.keyword:*\\inetpub\\wwwroot*) OR (CommandLine.keyword:*dsquery* AND CommandLine.keyword:*\ \-uco\ * AND CommandLine.keyword:*\\inetpub\\wwwroot*))
+index: filebeat-*
+name: bbb2dedd-a0e3-46ab-ba6c-6c82ae7a9aa7-Exchange-Exploitation-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

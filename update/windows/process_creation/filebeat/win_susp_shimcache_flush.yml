@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects actions that clear the local ShimCache and remove forensic evidence
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*rundll32* AND ((CommandLine.keyword:*apphelp.dll* AND CommandLine.keyword:(*ShimFlushCache* OR *#250*)) OR (CommandLine.keyword:*kernel32.dll* AND CommandLine.keyword:(*BaseFlushAppcompatCache* OR *#46*))))
+index: filebeat-*
+name: b0524451-19af-4efa-a46f-562a977f792e-ShimCache-Flush
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

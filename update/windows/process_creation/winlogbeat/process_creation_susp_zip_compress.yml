@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Use living off the land tools to zip a file and stage it in the Windows temporary folder for later exfiltration
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*Compress\-Archive\ * AND winlog.event_data.CommandLine.keyword:*\ \-Path\ * AND winlog.event_data.CommandLine.keyword:*\ \-DestinationPath\ * AND winlog.event_data.CommandLine.keyword:*$env\:TEMP\\*)
+index: winlogbeat-*
+name: 85a8e5ba-bd03-4bfb-bbfa-a4409a8f8b98-Zip-A-Folder-With-PowerShell-For-Staging-In-Temp
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

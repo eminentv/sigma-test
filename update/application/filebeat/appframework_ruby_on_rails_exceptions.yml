@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious Ruby on Rails exceptions that could indicate exploitation attempts
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*ActionController\:\:InvalidAuthenticityToken* OR *ActionController\:\:InvalidCrossOriginRequest* OR *ActionController\:\:MethodNotAllowed* OR *ActionController\:\:BadRequest* OR *ActionController\:\:ParameterMissing*)
+index: filebeat-*
+name: 0d2c3d4c-4b48-4ac3-8f23-ea845746bb1a-Ruby-on-Rails-Framework-Exceptions
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

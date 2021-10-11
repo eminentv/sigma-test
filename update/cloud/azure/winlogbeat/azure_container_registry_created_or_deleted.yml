@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Container Registry is created or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.CONTAINERREGISTRY\/REGISTRIES\/WRITE" OR "MICROSOFT.CONTAINERREGISTRY\/REGISTRIES\/DELETE")
+index: winlogbeat-*
+name: 93e0ef48-37c8-49ed-a02c-038aab23628e-Azure-Container-Registry-Created-or-Deleted
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

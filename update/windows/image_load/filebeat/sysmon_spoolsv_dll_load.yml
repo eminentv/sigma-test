@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect DLL Load from Spooler Service backup folder
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*spoolsv.exe AND ImageLoaded.keyword:*\\Windows\\System32\\spool\\drivers\\x64\\3\\* AND ImageLoaded.keyword:*.dll)
+index: filebeat-*
+name: 02fb90de-c321-4e63-a6b9-25f4b03dfd14-Windows-Spooler-Service-Suspicious-Binary-Load
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detection of sc.exe utility spawning by user with Medium integrity level to change service ImagePath or FailureCommand
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\sc.exe AND winlog.event_data.IntegrityLevel:"Medium") AND ((winlog.event_data.CommandLine.keyword:*config* AND winlog.event_data.CommandLine.keyword:*binPath*) OR (winlog.event_data.CommandLine.keyword:*failure* AND winlog.event_data.CommandLine.keyword:*command*)))
+index: winlogbeat-*
+name: d937b75f-a665-4480-88a5-2f20e9f9b22a-Possible-Privilege-Escalation-via-Weak-Service-Permissions
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

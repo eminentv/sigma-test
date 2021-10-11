@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects artefacts associated with activity group GALLIUM - Microsoft Threat Intelligence Center indicators released in December 2019.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Hashes:"e570585edc69f9074cb5e8a790708336bd45ca0f" AND (NOT winlog.event_data.Image.keyword:(*\:\\Program\ Files\(x86\)\\* OR *\:\\Program\ Files\\*)))
+index: winlogbeat-*
+name: 18739897-21b1-41da-8ee4-5b786915a676-GALLIUM-Artefacts
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

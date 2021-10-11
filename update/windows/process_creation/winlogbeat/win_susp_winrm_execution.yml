@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an attempt to execute code or create service on remote host via winrm.vbs.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\cscript.exe AND winlog.event_data.CommandLine.keyword:*winrm* AND winlog.event_data.CommandLine.keyword:*invoke\ Create\ wmicimv2\/Win32_* AND winlog.event_data.CommandLine.keyword:*\-r\:http*)
+index: winlogbeat-*
+name: 9df0dd3a-1a5c-47e3-a2bc-30ed177646a0-Remote-Code-Execute-via-Winrm.vbs
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

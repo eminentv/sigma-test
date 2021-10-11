@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects multiple failed logins with multiple valid domain accounts from a single source system using the Kerberos protocol.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND (winlog.event_id:"4771" AND winlog.event_data.Status:"0x18") AND (NOT TargetUserName.keyword:*$))
+index: winlogbeat-*
+max_threshold: 10
+metric_agg_key: TargetUserName.keyword
+metric_agg_type: cardinality
+name: 5d1d946e-32e6-4d9a-a0dc-0ac022c7eb98-Valid-Users-Failing-to-Authenticate-From-Single-Source-Using-Kerberos
+priority: 3
+query_key: winlog.event_data.IpAddress.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

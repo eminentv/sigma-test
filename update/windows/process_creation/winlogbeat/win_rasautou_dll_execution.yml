@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects using Rasautou.exe for loading arbitrary .DLL specified in -d option and executes the export specified in -p.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\rasautou.exe OR winlog.event_data.OriginalFileName:"rasdlui.exe") AND (winlog.event_data.CommandLine.keyword:*\-d* AND winlog.event_data.CommandLine.keyword:*\-p*))
+index: winlogbeat-*
+name: cd3d1298-eb3b-476c-ac67-12847de55813-DLL-Execution-via-Rasautou.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

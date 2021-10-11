@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects CVE-2019-11510 exploitation attempt - URI contains Guacamole
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*?\/dana\/html5acc\/guacamole\/*
+index: filebeat-*
+name: 2dbc10d7-a797-49a8-8776-49efa6442e60-Pulse-Secure-Attack-CVE-2019-11510
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

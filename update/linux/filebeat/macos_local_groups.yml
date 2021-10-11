@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local system groups
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\/dscacheutil AND CommandLine.keyword:*\-q* AND CommandLine.keyword:*group*) OR (Image.keyword:*\/cat AND CommandLine.keyword:*\/etc\/group*) OR (Image.keyword:*\/dscl AND CommandLine.keyword:*\-list* AND CommandLine.keyword:*\/groups*))
+index: filebeat-*
+name: 89bb1f97-c7b9-40e8-b52b-7d6afbd67276-Local-Groups-Discovery
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

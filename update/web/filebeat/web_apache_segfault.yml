@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a segmentation fault error message caused by a creashing apache worker process
+filter:
+- query:
+    query_string:
+      query: exit\ signal\ Segmentation\ Fault
+index: filebeat-*
+name: 1da8ce0b-855d-4004-8860-7d64d42063b1-Apache-Segmentation-Fault
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

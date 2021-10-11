@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a threat actor creating a file named `iertutil.dll` in the `C:\Program Files\Internet Explorer\` directory over the network for a DCOM InternetExplorer DLL Hijack scenario.
+filter:
+- query:
+    query_string:
+      query: ((EventID:"5145" AND RelativeTargetName.keyword:*\\Internet\ Explorer\\iertutil.dll) AND (NOT SubjectUserName.keyword:*$))
+index: filebeat-*
+name: c39f0c81-7348-4965-ab27-2fde35a1b641-T1021-DCOM-InternetExplorer.Application-Iertutil-DLL-Hijack
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

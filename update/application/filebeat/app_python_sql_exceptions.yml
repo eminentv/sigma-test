@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Generic rule for SQL exceptions in Python according to PEP 249
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*DataError* OR *IntegrityError* OR *ProgrammingError* OR *OperationalError*)
+index: filebeat-*
+name: 19aefed0-ffd4-47dc-a7fc-f8b1425e84f9-Python-SQL-Exceptions
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

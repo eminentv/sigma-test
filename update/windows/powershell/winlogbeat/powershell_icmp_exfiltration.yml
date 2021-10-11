@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Exfiltration Over Alternative Protocol - ICMP. Adversaries may steal data by exfiltrating it over an un-encrypted network protocol other than that of the existing command and control channel.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*New\-Object* AND winlog.event_data.ScriptBlockText.keyword:*System.Net.NetworkInformation.Ping* AND winlog.event_data.ScriptBlockText.keyword:*.Send\(*)
+index: winlogbeat-*
+name: 4c4af3cd-2115-479c-8193-6b8bfce9001c-PowerShell-ICMP-Exfiltration
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

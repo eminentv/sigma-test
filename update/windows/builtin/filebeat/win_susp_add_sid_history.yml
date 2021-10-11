@@ -1,0 +1,17 @@
+alert:
+- debug
+description: An attacker can use the SID history attribute to gain additional privileges.
+filter:
+- query:
+    query_string:
+      query: (EventID:("4765" OR "4766") OR ((EventID:"4738" AND (NOT SidHistory:("\-" OR "%%1793"))) AND (NOT NOT _exists_:SidHistory)))
+index: filebeat-*
+name: 2632954e-db1c-49cb-9936-67d1ef1d17d2-Addition-of-SID-History-to-Active-Directory-Object
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

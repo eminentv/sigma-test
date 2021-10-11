@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 1
+description: High DNS requests amount from host per short period of time
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: destination.port:"53"
+index: filebeat-*
+max_threshold: 1000
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 51186749-7415-46be-90e5-6914865c825a-High-DNS-Requests-Rate
+priority: 3
+query_key: source.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

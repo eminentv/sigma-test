@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection to trigger for the deletion of files by Sysinternals SDelete. It looks for the common name pattern used to rename files.
+filter:
+- query:
+    query_string:
+      query: TargetFilename.keyword:(*.AAA OR *.ZZZ)
+index: filebeat-*
+name: 6ddab845-b1b8-49c2-bbf7-1a11967f64bc-Sysinternals-SDelete-File-Deletion
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

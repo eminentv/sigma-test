@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when Rule Collections (Application, NAT, and Network) is being modified or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/AZUREFIREWALLS\/APPLICATIONRULECOLLECTIONS\/WRITE" OR "MICROSOFT.NETWORK\/AZUREFIREWALLS\/APPLICATIONRULECOLLECTIONS\/DELETE" OR "MICROSOFT.NETWORK\/AZUREFIREWALLS\/NATRULECOLLECTIONS\/WRITE" OR "MICROSOFT.NETWORK\/AZUREFIREWALLS\/NATRULECOLLECTIONS\/DELETE" OR "MICROSOFT.NETWORK\/AZUREFIREWALLS\/NETWORKRULECOLLECTIONS\/WRITE" OR "MICROSOFT.NETWORK\/AZUREFIREWALLS\/NETWORKRULECOLLECTIONS\/DELETE")
+index: filebeat-*
+name: 025c9fe7-db72-49f9-af0d-31341dd7dd57-Azure-Firewall-Rule-Collection-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

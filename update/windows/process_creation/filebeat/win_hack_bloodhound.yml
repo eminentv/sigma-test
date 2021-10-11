@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command line parameters used by Bloodhound and Sharphound hack tools
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\Bloodhound.exe* OR *\\SharpHound.exe*) OR CommandLine.keyword:(*\ \-CollectionMethod\ All\ * OR *.exe\ \-c\ All\ \-d\ * OR *Invoke\-Bloodhound* OR *Get\-BloodHoundData*) OR (CommandLine.keyword:*\ \-JsonFolder\ * AND CommandLine.keyword:*\ \-ZipFileName\ *) OR (CommandLine.keyword:*\ DCOnly\ * AND CommandLine.keyword:*\ \-\-NoSaveCache\ *))
+index: filebeat-*
+name: f376c8a7-a2d0-4ddc-aa0c-16c17236d962-Bloodhound-and-Sharphound-Hack-Tool
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific combinations of encoding methods in the PowerShell command lines
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\powershell.exe AND ((((CommandLine.keyword:(*ToInt* OR *ToDecimal* OR *ToByte* OR *ToUint* OR *ToSingle* OR *ToSByte*) AND CommandLine.keyword:(*ToChar* OR *ToString* OR *String*)) OR (CommandLine.keyword:*char* AND CommandLine.keyword:*join*)) OR (CommandLine.keyword:*split* AND CommandLine.keyword:*join*)) OR (CommandLine.keyword:*ForEach* AND CommandLine.keyword:*Xor*) OR CommandLine.keyword:*cOnvErTTO\-SECUreStRIng*))
+index: filebeat-*
+name: cdf05894-89e7-4ead-b2b0-0a5f97a90f2f-Encoded-PowerShell-Command-Line
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

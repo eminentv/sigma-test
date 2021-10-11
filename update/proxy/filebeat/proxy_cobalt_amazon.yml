@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Malleable Amazon Profile
+filter:
+- query:
+    query_string:
+      query: (c-useragent:"Mozilla\/5.0\ \(Windows\ NT\ 6.1;\ WOW64;\ Trident\/7.0;\ rv\:11.0\)\ like\ Gecko" AND cs-host:"www.amazon.com" AND ((cs-method:"GET" AND c-uri:"\/s\/ref\=nb_sb_noss_1\/167\-3294888\-0262949\/field\-keywords\=books" AND cs-cookie.keyword:*\=csm\-hit\=s\-24KU11BB82RZSYGJ3BDK|1419899012996) OR (cs-method:"POST" AND c-uri:"\/N4215\/adj\/amzn.us.sr.aps")))
+index: filebeat-*
+name: 953b895e-5cc9-454b-b183-7f3db555452e-CobaltStrike-Malleable-Amazon-Browsing-Traffic-Profile
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

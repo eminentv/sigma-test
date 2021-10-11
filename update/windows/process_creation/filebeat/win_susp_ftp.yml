@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects renamed ftp.exe, ftp.exe script execution and child processes ran by ftp.exe
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\-s\:* AND (Image.keyword:*ftp.exe OR OriginalFileName.keyword:*ftp.exe*)) OR (OriginalFileName.keyword:*ftp.exe* AND (NOT Image.keyword:*ftp.exe)) OR ParentImage.keyword:*ftp.exe)
+index: filebeat-*
+name: 06b401f4-107c-4ff9-947f-9ec1e7649f1e-Suspicious-ftp.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

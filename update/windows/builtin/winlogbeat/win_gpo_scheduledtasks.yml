@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect lateral movement using GPO scheduled task, usually used to deploy ransomware at scale
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:\\*\\SYSVOL AND winlog.event_data.RelativeTargetName.keyword:*ScheduledTasks.xml AND winlog.event_data.Accesses.keyword:(*WriteData* OR *%%4417*))
+index: winlogbeat-*
+name: a8f29a7b-b137-4446-80a0-b804272f3da2-Persistence-and-Execution-at-Scale-via-GPO-Scheduled-Task
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

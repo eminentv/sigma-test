@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a Azure Kubernetes network policy is modified or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.KUBERNETES\/CONNECTEDCLUSTERS\/NETWORKING.K8S.IO\/NETWORKPOLICIES\/WRITE" OR "MICROSOFT.KUBERNETES\/CONNECTEDCLUSTERS\/NETWORKING.K8S.IO\/NETWORKPOLICIES\/DELETE" OR "MICROSOFT.KUBERNETES\/CONNECTEDCLUSTERS\/EXTENSIONS\/NETWORKPOLICIES\/WRITE" OR "MICROSOFT.KUBERNETES\/CONNECTEDCLUSTERS\/EXTENSIONS\/NETWORKPOLICIES\/DELETE")
+index: winlogbeat-*
+name: 08d6ac24-c927-4469-b3b7-2e422d6e3c43-Azure-Kubernetes-Network-Policy-Change
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

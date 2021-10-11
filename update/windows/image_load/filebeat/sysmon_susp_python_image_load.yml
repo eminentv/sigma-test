@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the image load of Python Core indicative of a Python script bundled with Py2Exe.
+filter:
+- query:
+    query_string:
+      query: Description:"Python\ Core"
+index: filebeat-*
+name: cbb56d62-4060-40f7-9466-d8aaf3123f83-Python-Py2Exe-Image-Load
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

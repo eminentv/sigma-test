@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies usage of hh.exe executing recently modified .chm files.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\hh.exe AND winlog.event_data.CommandLine.keyword:*.chm*)
+index: winlogbeat-*
+name: 68c8acb4-1b60-4890-8e82-3ddf7a6dba84-HH.exe-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

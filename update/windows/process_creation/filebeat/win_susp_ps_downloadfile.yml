@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of powershell, a WebClient object creation and the invocation of DownloadFile in a single command line
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*powershell* AND CommandLine.keyword:*.DownloadFile* AND CommandLine.keyword:*System.Net.WebClient*)
+index: filebeat-*
+name: 8f70ac5f-1f6f-4f8e-b454-db19561216c5-PowerShell-DownloadFile
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

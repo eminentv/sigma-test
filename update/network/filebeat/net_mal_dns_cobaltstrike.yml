@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious DNS queries known from Cobalt Strike beacons
+filter:
+- query:
+    query_string:
+      query: dns.question.name.keyword:(aaa.stage.* OR post.1*)
+index: filebeat-*
+name: 2975af79-28c4-4d2f-a951-9095f229df29-Cobalt-Strike-DNS-Beaconing
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

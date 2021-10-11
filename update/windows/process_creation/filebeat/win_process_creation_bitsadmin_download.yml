@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of bitsadmin downloading a file
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\bitsadmin.exe AND ((CommandLine.keyword:(*\ \/create\ * OR *\ \/addfile\ *) AND CommandLine.keyword:*http*) OR CommandLine.keyword:*\ \/transfer\ *)) OR CommandLine.keyword:*copy\ bitsadmin.exe*)
+index: filebeat-*
+name: d059842b-6b9d-4ed1-b5c3-5b89143c6ede-Bitsadmin-Download
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

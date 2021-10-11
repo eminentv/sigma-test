@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects adversary creating screen capture of a desktop with Import Tool. Highly recommended using rule on servers, due to high usage of screenshot utilities on user workstations. ImageMagick must be installed.
+filter:
+- query:
+    query_string:
+      query: ((type:"EXECVE" AND a0:"import") AND ((a1:"\-window" AND a2:"root" AND a3.keyword:(*.png OR *.jpg OR *.jpeg)) OR a1.keyword:(*.png OR *.jpg OR *.jpeg)))
+index: filebeat-*
+name: dbe4b9c5-c254-4258-9688-d6af0b7967fd-Screen-Capture-with-Import-Tool
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

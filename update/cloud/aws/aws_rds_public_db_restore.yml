@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the recovery of a new public database instance from a snapshot. It may be a part of data exfiltration.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"rds.amazonaws.com" AND responseElements.publiclyAccessible:"true" AND event.action:"RestoreDBInstanceFromDBSnapshot")
+index: filebeat-*
+name: c3f265c7-ff03-4056-8ab2-d486227b4599-Restore-Public-AWS-RDS-Instance
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

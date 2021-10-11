@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local or remote network services.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:(*\/nc OR *\/netcat) AND (NOT CommandLine.keyword:*l*)) OR Image.keyword:(*\/nmap OR *\/telnet))
+index: filebeat-*
+name: 84bae5d4-b518-4ae0-b331-6d4afd34d00f-MacOS-Network-Service-Scanning
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

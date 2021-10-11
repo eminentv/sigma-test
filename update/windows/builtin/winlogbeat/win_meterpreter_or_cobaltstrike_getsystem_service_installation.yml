@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of getsystem Meterpreter/Cobalt Strike command by detecting a specific service installation
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"7045" AND ((winlog.event_data.ImagePath.keyword:*cmd* AND winlog.event_data.ImagePath.keyword:*\/c* AND winlog.event_data.ImagePath.keyword:*echo* AND winlog.event_data.ImagePath.keyword:*\\pipe\\*) OR (winlog.event_data.ImagePath.keyword:*%COMSPEC%* AND winlog.event_data.ImagePath.keyword:*\/c* AND winlog.event_data.ImagePath.keyword:*echo* AND winlog.event_data.ImagePath.keyword:*\\pipe\\*) OR (winlog.event_data.ImagePath.keyword:*cmd.exe* AND winlog.event_data.ImagePath.keyword:*\/c* AND winlog.event_data.ImagePath.keyword:*echo* AND winlog.event_data.ImagePath.keyword:*\\pipe\\*) OR (winlog.event_data.ImagePath.keyword:*rundll32* AND winlog.event_data.ImagePath.keyword:*.dll,a* AND winlog.event_data.ImagePath.keyword:*\/p\:*)))
+index: winlogbeat-*
+name: 843544a7-56e0-4dcc-a44f-5cc266dd97d6-Meterpreter-or-Cobalt-Strike-Getsystem-Service-Installation
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a Windows command line executable started from MSHTA
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\mshta.exe AND (Image.keyword:(*\\cmd.exe OR *\\powershell.exe OR *\\wscript.exe OR *\\cscript.exe OR *\\sh.exe OR *\\bash.exe OR *\\reg.exe OR *\\regsvr32.exe) OR Image.keyword:*\\BITSADMIN*))
+index: filebeat-*
+name: 03cc0c25-389f-4bf8-b48d-11878079f1ca-MSHTA-Spawning-Windows-Shell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

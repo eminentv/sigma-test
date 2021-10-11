@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Baby Shark C2 Framework communication patterns
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*momyshark?key\=*
+index: filebeat-*
+name: 304810ed-8853-437f-9e36-c4975c3dfd7e-BabyShark-Agent-Pattern
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

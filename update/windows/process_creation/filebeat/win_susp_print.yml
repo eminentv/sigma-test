@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Attackers can use print.exe for remote file copy
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\print.exe AND CommandLine.keyword:print* AND CommandLine.keyword:*\/D* AND CommandLine.keyword:*.exe*) AND (NOT CommandLine.keyword:*print.exe*))
+index: filebeat-*
+name: bafac3d6-7de9-4dd9-8874-4a1194b493ed-Abusing-Print-Executable
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious a certutil command that used to encode files, which is sometimes used for data exfiltration
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\certutil.exe AND CommandLine.keyword:*\-f* AND CommandLine.keyword:*\-encode*)
+index: filebeat-*
+name: e62a9f0c-ca1e-46b2-85d5-a6da77f86d1a-Certutil-Encode
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

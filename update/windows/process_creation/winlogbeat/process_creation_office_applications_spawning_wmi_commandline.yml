@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Initial execution of malicious document calls wmic to execute the file with regsvr32
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image:"\\wbem\\WMIC.exe" OR winlog.event_data.CommandLine.keyword:*wmic\ * OR winlog.event_data.OriginalFileName:"wmic.exe" OR winlog.event_data.Description:"WMI\ Commandline\ Utility") AND ParentPrcessName.keyword:(*winword.exe OR *excel.exe OR *powerpnt.exe))
+index: winlogbeat-*
+name: 518643ba-7d9c-4fa5-9f37-baed36059f6a-Office-Applications-Spawning-Wmi-Cli
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

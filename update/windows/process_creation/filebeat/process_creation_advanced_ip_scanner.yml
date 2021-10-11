@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Advanced IP Scanner. Seems to be a popular tool for ransomware groups.
+filter:
+- query:
+    query_string:
+      query: Image.keyword:*\\advanced_ip_scanner*
+index: filebeat-*
+name: bef37fa2-f205-4a7b-b484-0759bfd5f86f-Advanced-IP-Scanner
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

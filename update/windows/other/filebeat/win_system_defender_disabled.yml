@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling Windows Defender threat protection
+filter:
+- query:
+    query_string:
+      query: (EventID:"7036" AND "Windows\ Defender\ Antivirus\ Service" AND "stopped")
+index: filebeat-*
+name: 6c0a7755-6d31-44fa-80e1-133e57752680-Windows-Defender-Threat-Detection-Disabled
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

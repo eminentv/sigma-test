@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for sdclt being spawned as an elevated process. This could be an indicator of sdclt being used for bypass UAC techniques.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*sdclt.exe AND IntegrityLevel:"High")
+index: filebeat-*
+name: 40f9af16-589d-4984-b78d-8c2aec023197-High-Integrity-Sdclt-Process
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

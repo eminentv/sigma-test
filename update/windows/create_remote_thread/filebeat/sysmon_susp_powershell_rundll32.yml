@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects PowerShell remote thread creation in Rundll32.exe
+filter:
+- query:
+    query_string:
+      query: (EventID:"8" AND SourceImage.keyword:*\\powershell.exe AND TargetImage.keyword:*\\rundll32.exe)
+index: filebeat-*
+name: 99b97608-3e21-4bfe-8217-2a127c396a0e-PowerShell-Rundll32-Remote-Thread-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

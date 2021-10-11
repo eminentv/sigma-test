@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Windows PowerShell Web Access
+filter:
+- query:
+    query_string:
+      query: c-useragent.keyword:*\ WindowsPowerShell\/*
+index: filebeat-*
+name: c8557060-9221-4448-8794-96320e6f3e74-Windows-PowerShell-User-Agent
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

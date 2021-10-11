@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects processes loading modules related to PCRE.NET package
+filter:
+- query:
+    query_string:
+      query: ImageLoaded.keyword:*\\AppData\\Local\\Temp\\ba9ea7344a4a5f591d6e5dc32a13494b\\*
+index: filebeat-*
+name: 84b0a8f3-680b-4096-a45b-e9a89221727c-PCRE.NET-Package-Image-Load
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

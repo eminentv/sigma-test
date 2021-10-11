@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Service Principal Name Enumeration used for Kerberoasting
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\setspn.exe OR (Description.keyword:*Query\ or\ reset\ the\ computer* AND Description.keyword:*SPN\ attribute*)) AND CommandLine.keyword:*\-q*)
+index: filebeat-*
+name: 1eeed653-dbc8-4187-ad0c-eeebb20e6599-Possible-SPN-Enumeration
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

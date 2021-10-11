@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects MSHTA.EXE spwaned by SVCHOST as seen in LethalHTA and described in report
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\svchost.exe AND Image.keyword:*\\mshta.exe)
+index: filebeat-*
+name: ed5d72a6-f8f4-479d-ba79-02f6a80d7471-MSHTA-Spwaned-by-SVCHOST
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

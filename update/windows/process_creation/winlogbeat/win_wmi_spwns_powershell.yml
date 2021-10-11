@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMI spawning PowerShell
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.ParentImage.keyword:*\\wmiprvse.exe AND winlog.event_data.Image.keyword:*\\powershell.exe) AND (NOT winlog.event_data.CommandLine:"null")) AND (NOT NOT _exists_:winlog.event_data.CommandLine))
+index: winlogbeat-*
+name: 692f0bec-83ba-4d04-af7e-e884a96059b6-WMI-Spawning-Windows-PowerShell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

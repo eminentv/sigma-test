@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies the suspicious use of AssumeRole. Attackers could move laterally and escalate privileges.
+filter:
+- query:
+    query_string:
+      query: (aws.cloudtrail.user_identity.type:"AssumedRole" AND userIdentity.sessionContext.sessionIssuer.type:"Role")
+index: filebeat-*
+name: 905d389b-b853-46d0-9d3d-dea0d3a3cd49-AWS-STS-AssumeRole-Misuse
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

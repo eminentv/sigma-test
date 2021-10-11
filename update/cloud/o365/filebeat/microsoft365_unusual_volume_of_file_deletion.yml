@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported a user has deleted a unusual a large volume of files.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Unusual\ volume\ of\ file\ deletion" AND status:"success")
+index: filebeat-*
+name: 78a34b67-3c39-4886-8fb4-61c46dc18ecd-Microsoft-365---Unusual-Volume-of-File-Deletion
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

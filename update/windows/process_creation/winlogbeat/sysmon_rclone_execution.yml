@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of RClone utility for exfiltration as used by various ransomwares strains like REvil, Conti, FiveHands, etc
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Description:"Rsync\ for\ cloud\ storage" OR (winlog.event_data.CommandLine.keyword:*\-\-config\ * AND winlog.event_data.CommandLine.keyword:*\-\-no\-check\-certificate\ * AND winlog.event_data.CommandLine.keyword:*\ copy\ *) OR (winlog.event_data.Image.keyword:*\\rclone.exe AND winlog.event_data.CommandLine.keyword:(*mega* OR *pcloud* OR *ftp* OR *\-\-progress* OR *\-\-ignore\-existing* OR *\-\-auto\-confirm* OR *\-\-transfers* OR *\-\-multi\-thread\-streams*)))
+index: winlogbeat-*
+name: a0d63692-a531-4912-ad39-4393325b2a9c-RClone-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

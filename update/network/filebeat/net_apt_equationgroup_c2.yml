@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects communication to C2 servers mentioned in the operational notes of the ShadowBroker leak of EquationGroup C2 tools
+filter:
+- query:
+    query_string:
+      query: (destination.ip:("69.42.98.86" OR "89.185.234.145") OR source.ip:("69.42.98.86" OR "89.185.234.145"))
+index: filebeat-*
+name: 881834a4-6659-4773-821e-1c151789d873-Equation-Group-C2-Communication
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

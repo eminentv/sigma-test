@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when storage bucket is modified or deleted in Google Cloud.
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name:("storage.buckets.delete" OR "storage.buckets.insert" OR "storage.buckets.update" OR "storage.buckets.patch")
+index: filebeat-*
+name: 4d9f2ee2-c903-48ab-b9c1-8c0f474913d0-Google-Cloud-Storage-Buckets-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

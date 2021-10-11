@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process memory dump via comsvcs.dll and rundll32
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\rundll32.exe OR OriginalFileName:"RUNDLL32.EXE") AND (CommandLine.keyword:*comsvcs* AND CommandLine.keyword:*MiniDump* AND CommandLine.keyword:*full*))
+index: filebeat-*
+name: 09e6d5c0-05b8-4ff8-9eeb-043046ec774c-Process-Dump-via-Comsvcs-DLL
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious curl process start on Windows and outputs the requested document to a local file
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\curl.exe OR winlog.event_data.Product:"The\ curl\ executable") AND winlog.event_data.CommandLine.keyword:*\ \-O\ *)
+index: winlogbeat-*
+name: e218595b-bbe7-4ee5-8a96-f32a24ad3468-Suspicious-Curl-Usage-on-Windows
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

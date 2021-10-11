@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command line parameters used by ADCSPwn, a tool to escalate privileges in an active directory network by coercing authenticate from machine accounts and relaying to the certificate service
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*\ \-\-adcs\ * AND CommandLine.keyword:*\ \-\-port\ *)
+index: filebeat-*
+name: cd8c163e-a19b-402e-bdd5-419ff5859f12-ADCSPwn-Hack-Tool
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

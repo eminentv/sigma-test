@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious Django web application framework exceptions that could indicate exploitation attempts
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*SuspiciousOperation* OR *DisallowedHost* OR *DisallowedModelAdminLookup* OR *DisallowedModelAdminToField* OR *DisallowedRedirect* OR *InvalidSessionKey* OR *RequestDataTooBig* OR *SuspiciousFileOperation* OR *SuspiciousMultipartForm* OR *SuspiciousSession* OR *TooManyFieldsSent* OR *PermissionDenied*)
+index: filebeat-*
+name: fd435618-981e-4a7c-81f8-f78ce480d616-Django-Framework-Exceptions
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

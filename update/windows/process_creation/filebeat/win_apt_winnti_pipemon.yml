@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process characteristics of Winnti Pipemon malware reported by ESET
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*setup0.exe\ \-p* OR (CommandLine.keyword:*setup.exe* AND CommandLine.keyword:(*\-x\:0 OR *\-x\:1 OR *\-x\:2)))
+index: filebeat-*
+name: 73d70463-75c9-4258-92c6-17500fe972f2-Winnti-Pipemon-Characteristics
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

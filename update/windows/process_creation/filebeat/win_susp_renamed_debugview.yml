@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious renamed SysInternals DebugView execution
+filter:
+- query:
+    query_string:
+      query: (Product:("Sysinternals\ DebugView" OR "Sysinternals\ Debugview") AND (NOT (OriginalFileName:"Dbgview.exe" AND Image.keyword:*\\Dbgview.exe)))
+index: filebeat-*
+name: cd764533-2e07-40d6-a718-cfeec7f2da7f-Renamed-SysInternals-Debug-View
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

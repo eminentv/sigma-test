@@ -1,0 +1,17 @@
+alert:
+- debug
+description: RemoteFXvGPUDisablement.exe is an abusable, signed PowerShell host executable that was introduced in Windows 10 and Server 2019 (OS Build 17763.1339).
+filter:
+- query:
+    query_string:
+      query: (EventID:"4103" AND ContextInfo.keyword:*Invoke\-ATHRemoteFXvGPUDisablementCommand\ * AND ContextInfo.keyword:(*\-ModuleName\ * OR *\-ModulePath\ * OR *\-ScriptBlock\ * OR *\-RemoteFXvGPUDisablementFilePath*))
+index: filebeat-*
+name: 38a7625e-b2cb-485d-b83d-aff137d859f4-Abusable-Invoke-ATHRemoteFXvGPUDisablementCommand
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

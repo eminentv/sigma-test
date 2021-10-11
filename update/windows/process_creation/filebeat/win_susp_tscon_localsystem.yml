@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a tscon.exe start as LOCAL SYSTEM
+filter:
+- query:
+    query_string:
+      query: (User.keyword:(NT\ AUTHORITY\\SYSTEM* OR AUTORITE\ NT\\Sys*) AND Image.keyword:*\\tscon.exe)
+index: filebeat-*
+name: 9847f263-4a81-424f-970c-875dab15b79b-Suspicious-TSCON-Start
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

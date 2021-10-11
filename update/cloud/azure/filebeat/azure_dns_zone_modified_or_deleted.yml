@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when DNS zone is modified or deleted.
+filter:
+- query:
+    query_string:
+      query: (properties.message.keyword:MICROSOFT.NETWORK\/DNSZONES* AND properties.message.keyword:(*\/WRITE OR *\/DELETE))
+index: filebeat-*
+name: af6925b0-8826-47f1-9324-337507a0babd-Azure-DNS-Zone-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

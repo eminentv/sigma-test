@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process injection using ZOHO's dctask64.exe
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\dctask64.exe AND (NOT CommandLine.keyword:*DesktopCentral_Agent\\agent*))
+index: filebeat-*
+name: 6345b048-8441-43a7-9bed-541133633d7a-ZOHO-Dctask64-Process-Injection
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

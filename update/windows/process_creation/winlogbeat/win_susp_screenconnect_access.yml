@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects ScreenConnect program starts that establish a remote access to that system (not meeting, not remote support)
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*e\=Access&* AND winlog.event_data.CommandLine.keyword:*y\=Guest&* AND winlog.event_data.CommandLine.keyword:*&p\=* AND winlog.event_data.CommandLine.keyword:*&c\=* AND winlog.event_data.CommandLine.keyword:*&k\=*)
+index: winlogbeat-*
+name: 75bfe6e6-cd8e-429e-91d3-03921e1d7962-ScreenConnect-Remote-Access
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

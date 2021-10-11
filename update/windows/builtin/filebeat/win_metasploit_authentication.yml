@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Alerts on Metasploit host's authentications on the domain.
+filter:
+- query:
+    query_string:
+      query: ((EventID:("4625" OR "4624") AND LogonType:"3" AND AuthenticationPackageName:"NTLM" AND WorkstationName.keyword:/^[A-Za-z0-9]{16}$/) OR (NOT _exists_:ProcessName AND EventID:"4776" AND Workstation.keyword:/^[A-Za-z0-9]{16}$/))
+index: filebeat-*
+name: 72124974-a68b-4366-b990-d30e0b2a190d-Metasploit-SMB-Authentication
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

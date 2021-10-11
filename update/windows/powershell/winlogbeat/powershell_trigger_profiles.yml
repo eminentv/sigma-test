@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may gain persistence and elevate privileges by executing malicious content triggered by PowerShell profiles.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*Add\-Content* AND winlog.event_data.ScriptBlockText.keyword:*$profile* AND winlog.event_data.ScriptBlockText.keyword:*\-Value* AND winlog.event_data.ScriptBlockText.keyword:(*Start\-Process* OR *\"\"*))
+index: winlogbeat-*
+name: 05b3e303-faf0-4f4a-9b30-46cc13e69152-Powershell-Trigger-Profiles-by-Add_Content
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

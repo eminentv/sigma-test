@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may attempt to enumerate software for a variety of reasons, such as figuring out what security measures are present or if the compromised system has a version of software that is vulnerable.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\reg.exe AND CommandLine.keyword:*query* AND CommandLine.keyword:*\\software\\* AND CommandLine.keyword:*\/v* AND CommandLine.keyword:*svcversion*)
+index: filebeat-*
+name: e13f668e-7f95-443d-98d2-1816a7648a7b-Detected-Windows-Software-Discovery
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

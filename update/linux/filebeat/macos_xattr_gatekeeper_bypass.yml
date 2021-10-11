@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects macOS Gatekeeper bypass via xattr utility
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/xattr AND CommandLine.keyword:*\-r* AND CommandLine.keyword:*com.apple.quarantine*)
+index: filebeat-*
+name: f5141b6d-9f42-41c6-a7bf-2a780678b29b-Gatekeeper-Bypass-via-Xattr
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

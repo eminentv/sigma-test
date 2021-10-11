@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects  when a firewall rule is modified or deleted in Google Cloud Platform (GCP).
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name.keyword:(v*.Compute.Firewalls.Delete OR v*.Compute.Firewalls.Patch OR v*.Compute.Firewalls.Update OR v*.Compute.Firewalls.Insert)
+index: filebeat-*
+name: fe513c69-734c-4d4a-8548-ac5f609be82b-Google-Cloud-Firewall-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

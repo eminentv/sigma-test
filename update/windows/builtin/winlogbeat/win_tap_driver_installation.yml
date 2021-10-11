@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Well-known TAP software installation. Possible preparation for data exfiltration using tunnelling techniques
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"7045" AND winlog.event_data.ImagePath.keyword:*tap0901*)
+index: winlogbeat-*
+name: 8e4cf0e5-aa5d-4dc3-beff-dc26917744a9-Tap-Driver-Installation
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

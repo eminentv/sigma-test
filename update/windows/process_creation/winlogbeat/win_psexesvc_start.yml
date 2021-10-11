@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a PsExec service start
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine:"C\:\\Windows\\PSEXESVC.exe"
+index: winlogbeat-*
+name: 3ede524d-21cc-472d-a3ce-d21b568d8db7-PsExec-Service-Start
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

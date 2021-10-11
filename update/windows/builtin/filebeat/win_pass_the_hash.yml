@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the attack technique pass the hash which is used to move laterally inside the network
+filter:
+- query:
+    query_string:
+      query: ((EventID:("4624" OR "4625") AND LogonType:"3" AND LogonProcessName:"NtLmSsp" AND WorkstationName:"%Workstations%" AND ComputerName:"%Workstations%") AND (NOT AccountName:"ANONYMOUS\ LOGON"))
+index: filebeat-*
+name: f8d98d6c-7a07-4d74-b064-dd4a3c244528-Pass-the-Hash-Activity
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

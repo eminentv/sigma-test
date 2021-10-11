@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious child process of a mshta.exe process
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\mshta.exe AND Image.keyword:(*\\powershell.exe OR *\\cmd.exe OR *\\WScript.exe))
+index: filebeat-*
+name: 772bb24c-8df2-4be0-9157-ae4dfa794037-Mshta-Spawning-Windows-Shell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the usage of the direct syscall of NtOpenProcess which might be done from a CobaltStrike BOF.
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CallTrace.keyword:UNKNOWN*
+index: winlogbeat-*
+name: 3f3f3506-1895-401b-9cc3-e86b16e630d0-Direct-Syscall-of-NtOpenProcess
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

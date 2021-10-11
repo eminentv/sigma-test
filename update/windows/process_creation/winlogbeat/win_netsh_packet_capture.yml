@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects capture a network trace via netsh.exe trace functionality
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*netsh* AND winlog.event_data.CommandLine.keyword:*trace* AND winlog.event_data.CommandLine.keyword:*start*)
+index: winlogbeat-*
+name: d3c3861d-c504-4c77-ba55-224ba82d0118-Capture-a-Network-Trace-with-netsh.exe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

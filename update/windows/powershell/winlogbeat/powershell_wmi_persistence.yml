@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may establish persistence and elevate privileges by executing malicious content triggered by a Windows Management Instrumentation (WMI) event subscription.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*New\-CimInstance\ * AND winlog.event_data.ScriptBlockText.keyword:*\-Namespace\ root\/subscription\ * AND winlog.event_data.ScriptBlockText.keyword:*\-Property\ * AND (winlog.event_data.ScriptBlockText.keyword:*\-ClassName\ __EventFilter\ * OR winlog.event_data.ScriptBlockText.keyword:*\-ClassName\ CommandLineEventConsumer\ *))
+index: winlogbeat-*
+name: 9e07f6e7-83aa-45c6-998e-0af26efd0a85-Powershell-WMI-Persistence
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

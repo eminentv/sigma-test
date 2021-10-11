@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects activity as "net user administrator /domain" and "net group domain admins /domain"
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4661" AND winlog.event_data.ObjectType:("SAM_USER" OR "SAM_GROUP") AND winlog.event_data.ObjectName.keyword:S\-1\-5\-21\-* AND winlog.event_data.AccessMask:"0x2d" AND winlog.event_data.ObjectName.keyword:(*\-500 OR *\-512))
+index: winlogbeat-*
+name: 968eef52-9cff-4454-8992-1e74b9cbad6c-Reconnaissance-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

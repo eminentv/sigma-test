@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an image load pattern as seen when a tool named PRIVATELOG is used and rarely observed under legitimate circumstances
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\svchost.exe AND ImageLoaded.keyword:*\\clfsw32.dll)
+index: filebeat-*
+name: 33a2d1dd-f3b0-40bd-8baf-7974468927cc-APT-PRIVATELOG-Image-Load-Pattern
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

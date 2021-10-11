@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Netlogon Elevation of Privilege Vulnerability aka Zerologon (CVE-2020-1472)
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4742" AND SubjectUserName:"ANONYMOUS\ LOGON" AND TargetUserName:"%DC\-MACHINE\-NAME%") AND (NOT PasswordLastSet:"\-"))
+index: filebeat-*
+name: dd7876d8-0f09-11eb-adc1-0242ac120002-Possible-Zerologon-CVE-2020-1472-Exploitation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of findstr to identify and execute a lnk file as seen within the HHS redirect attack
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\findstr.exe AND winlog.event_data.CommandLine.keyword:*.lnk)
+index: winlogbeat-*
+name: 33339be3-148b-4e16-af56-ad16ec6c7e7b-Findstr-Launching-.lnk-File
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

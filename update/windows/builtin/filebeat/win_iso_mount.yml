@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the mount of ISO images on an endpoint
+filter:
+- query:
+    query_string:
+      query: (EventID:"4663" AND ObjectServer:"Security" AND ObjectType:"File" AND ObjectName.keyword:\\Device\\CdRom*)
+index: filebeat-*
+name: 0248a7bc-8a9a-4cd8-a57e-3ae8e073a073-ISO-Image-Mount
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a regedit started with TrustedInstaller privileges or by ProcessHacker.exe
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\regedit.exe AND ParentImage.keyword:(*\\TrustedInstaller.exe OR *\\ProcessHacker.exe))
+index: filebeat-*
+name: 883835a7-df45-43e4-bf1d-4268768afda4-Regedit-as-Trusted-Installer
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

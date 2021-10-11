@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Shadow Copies deletion using operating systems utilities via PowerShell
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Windows\ PowerShell" AND winlog.event_data.HostApplication.keyword:*Get\-WmiObject* AND winlog.event_data.HostApplication.keyword:*\ Win32_Shadowcopy* AND winlog.event_data.HostApplication.keyword:(*Delete\(\)* OR *Remove\-WmiObject*) AND winlog.event_id:"400")
+index: winlogbeat-*
+name: 87df9ee1-5416-453a-8a08-e8d4a51e9ce1-Delete-Volume-Shadow-Copies-Via-WMI-With-PowerShell
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

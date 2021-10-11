@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects nltest commands that can be used for information discovery
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\nltest.exe AND ((CommandLine.keyword:*\/server* AND CommandLine.keyword:*\/query*) OR CommandLine.keyword:(*\/dclist\:* OR *\/parentdomain* OR *\/domain_trusts* OR *\/trusted_domains* OR *\/user*)))
+index: filebeat-*
+name: 5cc90652-4cbd-4241-aa3b-4b462fa5a248-Recon-Activity-with-NLTEST
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

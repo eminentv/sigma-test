@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a process memory dump performed via ordinal function 24 in comsvcs.dll
+filter:
+- query:
+    query_string:
+      query: CommandLine.keyword:(*comsvcs.dll,#24* OR *comsvcs.dll,MiniDump* OR *comsvcs.dll\ MiniDump*)
+index: filebeat-*
+name: 646ea171-dded-4578-8a4d-65e9822892e3-Process-Dump-via-Rundll32-and-Comsvcs.dll
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

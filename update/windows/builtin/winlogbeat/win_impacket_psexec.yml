@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of Impacket's psexec.py.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"5145" AND winlog.event_data.ShareName.keyword:\\*\\IPC$ AND winlog.event_data.RelativeTargetName.keyword:(*RemCom_stdint* OR *RemCom_stdoutt* OR *RemCom_stderrt*))
+index: winlogbeat-*
+name: 32d56ea1-417f-44ff-822b-882873f5f43b-Impacket-PsExec-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

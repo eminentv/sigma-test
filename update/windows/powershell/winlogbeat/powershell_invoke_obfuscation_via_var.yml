@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via VAR++ LAUNCHER
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND ((winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:/(?i).*&&set.*(\{\d\}){2,}\\\"\s+?\-f.*&&.*cmd.*\/c/) OR (winlog.event_id:"4103" AND winlog.event_data.Payload.keyword:/(?i).*&&set.*(\{\d\}){2,}\\\"\s+?\-f.*&&.*cmd.*\/c/)))
+index: winlogbeat-*
+name: e54f5149-6ba3-49cf-b153-070d24679126-Invoke-Obfuscation-VAR++-LAUNCHER-OBFUSCATION
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

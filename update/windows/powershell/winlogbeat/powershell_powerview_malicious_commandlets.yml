@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Commandlet names from PowerView of PowerSploit exploitation framework.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:(*Export\-PowerViewCSV* OR *Get\-IPAddress* OR *Resolve\-IPAddress* OR *Convert\-NameToSid* OR *ConvertTo\-SID* OR *Convert\-ADName* OR *ConvertFrom\-UACValue* OR *Add\-RemoteConnection* OR *Remove\-RemoteConnection* OR *Invoke\-UserImpersonation* OR *Invoke\-RevertToSelf* OR *Request\-SPNTicket* OR *Get\-DomainSPNTicket* OR *Invoke\-Kerberoast* OR *Get\-PathAcl* OR *Get\-DNSZone* OR *Get\-DomainDNSZone* OR *Get\-DNSRecord* OR *Get\-DomainDNSRecord* OR *Get\-NetDomain* OR *Get\-Domain* OR *Get\-NetDomainController* OR *Get\-DomainController* OR *Get\-NetForest* OR *Get\-Forest* OR *Get\-NetForestDomain* OR *Get\-ForestDomain* OR *Get\-NetForestCatalog* OR *Get\-ForestGlobalCatalog* OR *Find\-DomainObjectPropertyOutlier* OR *Get\-NetUser* OR *Get\-DomainUser* OR *New\-DomainUser* OR *Set\-DomainUserPassword* OR *Get\-UserEvent* OR *Get\-DomainUserEvent* OR *Get\-NetComputer* OR *Get\-DomainComputer* OR *Get\-ADObject* OR *Get\-DomainObject* OR *Set\-ADObject* OR *Set\-DomainObject* OR *Get\-ObjectAcl* OR *Get\-DomainObjectAcl* OR *Add\-ObjectAcl* OR *Add\-DomainObjectAcl* OR *Invoke\-ACLScanner* OR *Find\-InterestingDomainAcl* OR *Get\-NetOU* OR *Get\-DomainOU* OR *Get\-NetSite* OR *Get\-DomainSite* OR *Get\-NetSubnet* OR *Get\-DomainSubnet* OR *Get\-DomainSID* OR *Get\-NetGroup* OR *Get\-DomainGroup* OR *New\-DomainGroup* OR *Find\-ManagedSecurityGroups* OR *Get\-DomainManagedSecurityGroup* OR *Get\-NetGroupMember* OR *Get\-DomainGroupMember* OR *Add\-DomainGroupMember* OR *Get\-NetFileServer* OR *Get\-DomainFileServer* OR *Get\-DFSshare* OR *Get\-DomainDFSShare* OR *Get\-NetGPO* OR *Get\-DomainGPO* OR *Get\-NetGPOGroup* OR *Get\-DomainGPOLocalGroup* OR *Find\-GPOLocation* OR *Get\-DomainGPOUserLocalGroupMapping* OR *Find\-GPOComputerAdmin* OR *Get\-DomainGPOComputerLocalGroupMapping* OR *Get\-DomainPolicy* OR *Get\-NetLocalGroup* OR *Get\-NetLocalGroupMember* OR *Get\-NetShare* OR *Get\-NetLoggedon* OR *Get\-NetSession* OR *Get\-LoggedOnLocal* OR *Get\-RegLoggedOn* OR *Get\-NetRDPSession* OR *Invoke\-CheckLocalAdminAccess* OR *Test\-AdminAccess* OR *Get\-SiteName* OR *Get\-NetComputerSiteName* OR *Get\-Proxy* OR *Get\-WMIRegProxy* OR *Get\-LastLoggedOn* OR *Get\-WMIRegLastLoggedOn* OR *Get\-CachedRDPConnection* OR *Get\-WMIRegCachedRDPConnection* OR *Get\-RegistryMountedDrive* OR *Get\-WMIRegMountedDrive* OR *Get\-NetProcess* OR *Get\-WMIProcess* OR *Find\-InterestingFile* OR *Invoke\-UserHunter* OR *Find\-DomainUserLocation* OR *Invoke\-ProcessHunter* OR *Find\-DomainProcess* OR *Invoke\-EventHunter* OR *Find\-DomainUserEvent* OR *Invoke\-ShareFinder* OR *Find\-DomainShare* OR *Invoke\-FileFinder* OR *Find\-InterestingDomainShareFile* OR *Find\-LocalAdminAccess* OR *Invoke\-EnumerateLocalAdmin* OR *Find\-DomainLocalGroupMember* OR *Get\-NetDomainTrust* OR *Get\-DomainTrust* OR *Get\-NetForestTrust* OR *Get\-ForestTrust* OR *Find\-ForeignUser* OR *Get\-DomainForeignUser* OR *Find\-ForeignGroup* OR *Get\-DomainForeignGroupMember* OR *Invoke\-MapDomainTrust* OR *Get\-DomainTrustMapping*))
+index: winlogbeat-*
+name: dcd74b95-3f36-4ed9-9598-0490951643aa-Malicious-PowerView-PowerShell-Commandlets
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

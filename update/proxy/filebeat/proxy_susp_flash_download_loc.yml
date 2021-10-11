@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a flashplayer update from an unofficial location
+filter:
+- query:
+    query_string:
+      query: ((c-uri-query.keyword:*\/flash_install.php* OR c-uri-query.keyword:*\/install_flash_player.exe) AND (NOT c-uri-stem.keyword:*.adobe.com\/*))
+index: filebeat-*
+name: 4922a5dd-6743-4fc2-8e81-144374280997-Flash-Player-Update-from-Suspicious-Location
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects code execution via Pester.bat (Pester - Powershell Modulte for testing)
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\powershell.exe AND CommandLine.keyword:*Pester* AND CommandLine.keyword:*Get\-Help*) OR (Image.keyword:*\\cmd.exe AND CommandLine.keyword:*pester* AND CommandLine.keyword:*;* AND CommandLine.keyword:(*help* OR *?*)))
+index: filebeat-*
+name: 59e938ff-0d6d-4dc3-b13f-36cc28734d4e-Execute-Code-with-Pester.bat
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

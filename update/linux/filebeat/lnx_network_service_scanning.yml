@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local or remote network services.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:(*\/nc OR *\/netcat) AND (NOT CommandLine.keyword:*l*)) OR Image.keyword:(*\/telnet OR *\/nmap))
+index: filebeat-*
+name: 3e102cd9-a70d-4a7a-9508-403963092f31-Linux-Network-Service-Scanning
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

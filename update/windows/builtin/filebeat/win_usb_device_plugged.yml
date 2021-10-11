@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects plugged USB devices
+filter:
+- query:
+    query_string:
+      query: EventID:("2003" OR "2100" OR "2102")
+index: filebeat-*
+name: 1a4bd6e3-4c6e-405d-a9a3-53a116e341d4-USB-Device-Plugged
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

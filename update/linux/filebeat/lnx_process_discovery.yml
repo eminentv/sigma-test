@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process discovery commands
+filter:
+- query:
+    query_string:
+      query: Image.keyword:(*\/ps OR *\/top)
+index: filebeat-*
+name: 4e2f5868-08d4-413d-899f-dc2f1508627b-Process-Discovery
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

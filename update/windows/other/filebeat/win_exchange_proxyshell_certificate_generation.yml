@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a write of an Exchange CSR to an untypical directory or with aspx name suffix which can be used to place a webshell
+filter:
+- query:
+    query_string:
+      query: (\*.keyword:(*New\-ExchangeCertificate* AND *\ \-GenerateRequest* AND *\ \-BinaryEncoded* AND *\ \-RequestFile*) AND \*.keyword:(*\\\\localhost\\C$* OR *\\\\127.0.0.1\\C$* OR *C\:\\inetpub* OR *.aspx*))
+index: filebeat-*
+name: b7bc7038-638b-4ffd-880c-292c692209ef-Certificate-Request-Export-to-Exchange-Webserver
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

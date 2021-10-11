@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects clear logs
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\/rm OR *\/shred) AND CommandLine.keyword:(*\/var\/log* OR *\/var\/spool\/mail*))
+index: filebeat-*
+name: 80915f59-9b56-4616-9de0-fd0dea6c12fe-Clear-Linux-Logs
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Netsh commands that allows a suspcious application location on Windows Firewall
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\netsh.exe AND winlog.event_data.CommandLine.keyword:*firewall* AND winlog.event_data.CommandLine.keyword:*add* AND (winlog.event_data.CommandLine.keyword:*allowedprogram* OR (winlog.event_data.CommandLine.keyword:*advfirewall* AND winlog.event_data.CommandLine.keyword:*rule* AND winlog.event_data.CommandLine.keyword:*action\=allow* AND winlog.event_data.CommandLine.keyword:*program\=*))) AND (winlog.event_data.CommandLine.keyword:(*%TEMP%* OR *\:\\RECYCLER\\* OR *C\:\\$Recycle.bin\\* OR *\:\\SystemVolumeInformation\\* OR *C\:\\Windows\\Temp\\* OR *C\:\\Temp\\* OR *C\:\\Users\\Public\\* OR *C\:\\Users\\Default\\* OR *C\:\\Users\\Desktop\\* OR *\\Downloads\\* OR *\\Temporary\ Internet\ Files\\Content.Outlook\\* OR *\\Local\ Settings\\Temporary\ Internet\ Files\\*) OR winlog.event_data.CommandLine.keyword:(C\:\\Windows\\Tasks\\* OR C\:\\Windows\\debug\\* OR C\:\\Windows\\fonts\\* OR C\:\\Windows\\help\\* OR C\:\\Windows\\drivers\\* OR C\:\\Windows\\addins\\* OR C\:\\Windows\\cursors\\* OR C\:\\Windows\\system32\\tasks\\* OR %Public%\\*)))
+index: winlogbeat-*
+name: a35f5a72-f347-4e36-8895-9869b0d5fc6d-Netsh-Program-Allowed-with-Suspcious-Location
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

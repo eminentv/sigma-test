@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects access to DEWMODE webshell as described in FIREEYE report
+filter:
+- query:
+    query_string:
+      query: (c-uri.keyword:*.html?* AND ((c-uri.keyword:*?dwn\=* AND c-uri.keyword:*&fn\=*) OR (c-uri.keyword:*&dwn\=* AND c-uri.keyword:*?fn\=*)))
+index: filebeat-*
+name: fdf96c90-42d5-4406-8a9c-14a2c9a016b5-DEWMODE-Webshell-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

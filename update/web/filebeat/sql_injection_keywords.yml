@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects sql injection that use GET requests by keyword searches in URL strings
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*\=select* OR *\=union* OR *\=concat*)
+index: filebeat-*
+name: 5513deaf-f49a-46c2-a6c8-3f111b5cb453-Detect-Sql-Injection-By-Keywords
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

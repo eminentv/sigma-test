@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  seconds: 30
+description: Detects multiple file rename or delete events occurrence within a specified period of time by a same user (these events may signalize about ransomware activity).
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4663" AND winlog.event_data.ObjectType:"File" AND winlog.event_data.AccessList:"%%1537" AND Keywords:"0x8020000000000000")
+index: winlogbeat-*
+max_threshold: 10
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 97919310-06a7-482c-9639-92b67ed63cf8-Suspicious-Multiple-File-Rename-Or-Delete-Occurred
+priority: 3
+query_key: winlog.event_data.SubjectLogonId.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: An adversary may compress or encrypt data that is collected prior to exfiltration using 3rd party utilities
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*winzip.exe* OR *winzip64.exe*) AND CommandLine.keyword:*\-s\"* AND CommandLine.keyword:(*\ \-min\ * OR *\ \-a\ *))
+index: filebeat-*
+name: e2e80da2-8c66-4e00-ae3c-2eebd29f6b6d-Compress-Data-and-Lock-With-Password-for-Exfiltration-With-WINZIP
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

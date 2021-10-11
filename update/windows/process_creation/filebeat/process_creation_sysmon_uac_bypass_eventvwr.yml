@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects UAC bypass method using Windows event viewer
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\eventvwr.exe AND (NOT Image.keyword:*\\mmc.exe))
+index: filebeat-*
+name: be344333-921d-4c4d-8bb8-e584cf584780-UAC-Bypass-via-Event-Viewer
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

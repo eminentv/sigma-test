@@ -1,0 +1,17 @@
+alert:
+- debug
+description: When IIS uses an old .Net Framework it's possible to enumeration folder with the symbol ~.
+filter:
+- query:
+    query_string:
+      query: (c-uri.keyword:*\~1* AND c-uri.keyword:*a.aspx AND cs-method:("GET" OR "OPTIONS") AND sc-status:("200" OR "301"))
+index: filebeat-*
+name: 7cb02516-6d95-4ffc-8eee-162075e111ac-Successful-IIS-Shortname-Fuzzing-Scan
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

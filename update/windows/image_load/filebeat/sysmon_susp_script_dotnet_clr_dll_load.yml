@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects CLR DLL being loaded by an scripting applications
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\wscript.exe OR *\\cscript.exe OR *\\mshta.exe) AND ImageLoaded.keyword:(*\\clr.dll OR *\\mscoree.dll OR *\\mscorlib.dll))
+index: filebeat-*
+name: 4508a70e-97ef-4300-b62b-ff27992990ea-CLR-DLL-Loaded-Via-Scripting-Applications
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

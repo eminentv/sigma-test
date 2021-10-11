@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects removal of an exported Exchange mailbox which could be to cover tracks from ProxyShell exploit
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*Remove\-MailboxExportRequest* AND *\ \-Identity\ * AND *\ \-Confirm\ \"False\"*)
+index: filebeat-*
+name: 09570ae5-889e-43ea-aac0-0e1221fb3d95-Remove-Exported-Mailbox-from-Exchange-Webserver
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

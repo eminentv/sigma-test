@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation or patching of potential malicious RoleBinding. This includes RoleBindings and ClusterRoleBinding.
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name.keyword:(io.k8s.authorization.rbac.v*.clusterrolebindings.create OR io.k8s.authorization.rbac.v*.rolebindings.create OR io.k8s.authorization.rbac.v*.clusterrolebindings.patch OR io.k8s.authorization.rbac.v*.rolebindings.patch OR io.k8s.authorization.rbac.v*.clusterrolebindings.update OR io.k8s.authorization.rbac.v*.rolebindings.update OR io.k8s.authorization.rbac.v*.clusterrolebindings.delete OR io.k8s.authorization.rbac.v*.rolebindings.delete)
+index: filebeat-*
+name: 0322d9f2-289a-47c2-b5e1-b63c90901a3e-Google-Cloud-Kubernetes-RoleBinding
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

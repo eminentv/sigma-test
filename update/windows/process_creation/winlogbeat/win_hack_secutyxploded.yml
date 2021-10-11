@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of SecurityXploded Tools
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Company:"SecurityXploded" OR winlog.event_data.Image.keyword:*PasswordDump.exe OR winlog.event_data.OriginalFileName.keyword:*PasswordDump.exe)
+index: winlogbeat-*
+name: 7679d464-4f74-45e2-9e01-ac66c5eb041a-SecurityXploded-Tool
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

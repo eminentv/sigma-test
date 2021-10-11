@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious shell spawn from WinRM host process
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\wsmprovhost.exe AND Image.keyword:(*\\cmd.exe OR *\\sh.exe OR *\\bash.exe OR *\\powershell.exe OR *\\schtasks.exe OR *\\certutil.exe OR *\\whoami.exe OR *\\bitsadmin.exe))
+index: filebeat-*
+name: 5cc2cda8-f261-4d88-a2de-e9e193c86716-Suspicious-Shells-Spawn-by-WinRM
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

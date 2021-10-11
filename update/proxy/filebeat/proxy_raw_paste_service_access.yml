@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects direct access to raw pastes in different paste services often used by malware in their second stages to download malicious code in encrypted or encoded form
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:(*.paste.ee\/r\/* OR *.pastebin.com\/raw\/* OR *.hastebin.com\/raw\/* OR *.ghostbin.co\/paste\/*\/raw\/*)
+index: filebeat-*
+name: 5468045b-4fcc-4d1a-973c-c9c9578edacb-Raw-Paste-Service-Access
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

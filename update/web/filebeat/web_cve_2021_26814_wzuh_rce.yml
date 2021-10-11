@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the exploitation of the Wazuh RCE vulnerability described in CVE-2021-26814
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*\/manager\/files?path\=etc\/lists\/..\/..\/..\/..\/..*
+index: filebeat-*
+name: b9888738-29ed-4c54-96a4-f38c57b84bb3-Exploitation-of-CVE-2021-26814-in-Wazuh
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

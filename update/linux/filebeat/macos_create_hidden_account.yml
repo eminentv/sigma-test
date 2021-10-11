@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation of a hidden user account on macOS (UserID < 500) or with IsHidden option
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/dscl AND CommandLine.keyword:*create* AND ((CommandLine.keyword:*UniqueID* AND CommandLine.keyword:/([0-9]|[1-9][0-9]|[1-4][0-9]{2})/) OR (CommandLine.keyword:*IsHidden* AND CommandLine.keyword:(*true* OR *yes* OR *1*))))
+index: filebeat-*
+name: b22a5b36-2431-493a-8be1-0bae56c28ef3-Hidden-User-Creation
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

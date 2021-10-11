@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  seconds: 15
+description: Detects a set of commands often used in recon stages by different attack groups
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine:("tasklist" OR "net\ time" OR "systeminfo" OR "whoami" OR "nbtstat" OR "net\ start" OR "qprocess" OR "nslookup" OR "hostname.exe" OR "netstat\ \-an") OR winlog.event_data.CommandLine.keyword:(*\\net1\ start OR *\\net1\ user\ \/domain OR *\\net1\ group\ \/domain OR *\\net1\ group\ \"domain\ admins\"\ \/domain OR *\\net1\ group\ \"Exchange\ Trusted\ Subsystem\"\ \/domain OR *\\net1\ accounts\ \/domain OR *\\net1\ user\ net\ localgroup\ administrators))
+index: winlogbeat-*
+max_threshold: 4
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 2887e914-ce96-435f-8105-593937e90757-Reconnaissance-Activity-with-Net-Command
+priority: 3
+query_key: winlog.event_data.CommandLine.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

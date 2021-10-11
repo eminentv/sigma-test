@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a Firewall Rule Configuration is Modified or Deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/FIREWALLPOLICIES\/RULECOLLECTIONGROUPS\/WRITE" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/RULECOLLECTIONGROUPS\/DELETE" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/RULEGROUPS\/WRITE" OR "MICROSOFT.NETWORK\/FIREWALLPOLICIES\/RULEGROUPS\/DELETE")
+index: filebeat-*
+name: 2a7d64cf-81fa-4daf-ab1b-ab80b789c067-Azure-Firewall-Rule-Configuration-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

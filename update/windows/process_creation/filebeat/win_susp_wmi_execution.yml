@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMI executing suspicious commands
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\wmic.exe AND ((CommandLine.keyword:*process* AND CommandLine.keyword:*call* AND CommandLine.keyword:*create\ *) OR (CommandLine.keyword:*\ path\ * AND CommandLine.keyword:(*AntiVirus* OR *Firewall*) AND CommandLine.keyword:*Product* AND CommandLine.keyword:*\ get\ *)))
+index: filebeat-*
+name: 526be59f-a573-4eea-b5f7-f0973207634d-Suspicious-WMI-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

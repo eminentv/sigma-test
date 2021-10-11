@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects local user creation on windows servers, which shouldn't happen in an Active Directory environment. Apply this Sigma Use Case on your windows server logs and not on your DC logs.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:"4720")
+index: winlogbeat-*
+name: 66b6be3d-55d0-4f47-9855-d69df21740ea-Local-User-Creation
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

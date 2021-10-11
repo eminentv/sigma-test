@@ -1,0 +1,21 @@
+alert:
+- debug
+buffer_time:
+  seconds: 600
+description: Detects many authentication failures from one source to one destination which is may indicate Brute Force activity
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: event.action:"failure"
+index: filebeat-*
+max_threshold: 30
+metric_agg_key: category.keyword
+metric_agg_type: cardinality
+name: 53c7cca0-2901-493a-95db-d00d6fcf0a37-Brute-Force
+priority: 3
+query_key: destination.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+

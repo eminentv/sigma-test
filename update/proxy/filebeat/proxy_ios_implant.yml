@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects URL pattern used by iOS Implant
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*\/list\/suc?name\=*
+index: filebeat-*
+name: e06ac91d-b9e6-443d-8e5b-af749e7aa6b6-iOS-Implant-URL-Pattern
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

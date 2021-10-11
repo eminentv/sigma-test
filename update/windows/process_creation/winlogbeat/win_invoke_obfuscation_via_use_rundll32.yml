@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via use Rundll32 in Scripts
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:/(?i).*&&.*rundll32.*shell32\.dll.*shellexec_rundll.*(value|invoke|comspec|iex).*"/
+index: winlogbeat-*
+name: 36c5146c-d127-4f85-8e21-01bf62355d5a-Invoke-Obfuscation-Via-Use-Rundll32
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious process related to rundll32 based on command line that includes a *.sys file as seen being used by UNC2452
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*rundll32.exe* AND winlog.event_data.CommandLine.keyword:(*.sys,* OR *.sys\ *))
+index: winlogbeat-*
+name: 731231b9-0b5d-4219-94dd-abb6959aa7ea-Suspicious-Rundll32-Activity-Invoking-Sys-File
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects indicators of a UAC bypass method by mocking directories
+filter:
+- query:
+    query_string:
+      query: Image.keyword:*C\:\\Windows\ \\System32\\*
+index: filebeat-*
+name: 4ac47ed3-44c2-4b1f-9d51-bf46e8914126-TrustedPath-UAC-Bypass-Pattern
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

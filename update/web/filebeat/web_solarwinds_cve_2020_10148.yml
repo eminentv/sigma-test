@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects CVE-2020-10148 SolarWinds Orion API authentication bypass attempts
+filter:
+- query:
+    query_string:
+      query: ((c-uri.keyword:(*WebResource.axd* OR *ScriptResource.axd* OR *i18n.ashx* OR *Skipi18n*) AND (NOT c-uri.keyword:*Orion\/Skipi18n\/Profiler\/*)) AND (NOT c-uri.keyword:(*css.i18n.ashx* OR *js.i18n.ashx*)))
+index: filebeat-*
+name: 5a35116f-43bc-4901-b62d-ef131f42a9af-CVE-2020-10148-SolarWinds-Orion-API-Auth-Bypass
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

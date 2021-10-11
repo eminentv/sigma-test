@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect various execution methods of the CrackMapExec pentesting framework
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*cmd.exe\ \/Q\ \/c\ *\ 1>\ \\\\*\\*\\*\ 2>&1 OR *cmd.exe\ \/C\ *\ >\ \\\\*\\*\\*\ 2>&1 OR *cmd.exe\ \/C\ *\ >\ *\\Temp\\*\ 2>&1) AND CommandLine.keyword:(*powershell.exe\ \-exec\ bypass\ \-noni\ \-nop\ \-w\ 1\ \-C\ \"* OR *powershell.exe\ \-noni\ \-nop\ \-w\ 1\ \-enc\ *))
+index: filebeat-*
+name: 058f4380-962d-40a5-afce-50207d36d7e2-CrackMapExec-Command-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command lines used in Covenant luanchers
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\-Sta* AND CommandLine.keyword:*\-Nop* AND CommandLine.keyword:*\-Window* AND CommandLine.keyword:*Hidden* AND CommandLine.keyword:(*\-Command* OR *\-EncodedCommand*)) OR CommandLine.keyword:(*sv\ o\ \(New\-Object\ IO.MemorySteam\);sv\ d\ * OR *mshta\ file.hta* OR *GruntHTTP* OR *\-EncodedCommand\ cwB2ACAAbwAgA*))
+index: filebeat-*
+name: c260b6db-48ba-4b4a-a76f-2f67644e99d2-Covenant-Launcher-Indicators
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

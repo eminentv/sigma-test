@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of scheduled tasks in user session
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\schtasks.exe AND CommandLine.keyword:*\ \/create\ *) AND (NOT User.keyword:(NT\ AUTHORITY\\SYSTEM* OR AUTORITE\ NT\\Sys*)))
+index: filebeat-*
+name: 92626ddd-662c-49e3-ac59-f6535f12d189-Scheduled-Task-Creation
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

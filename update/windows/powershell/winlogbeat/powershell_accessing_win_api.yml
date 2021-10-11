@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting use WinAPI Functions in PowerShell
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:(*WaitForSingleObject* OR *QueueUserApc* OR *RtlCreateUserThread* OR *OpenProcess* OR *VirtualAlloc* OR *VirtualFree* OR *WriteProcessMemory* OR *CreateUserThread* OR *CloseHandle* OR *GetDelegateForFunctionPointer* OR *CreateThread* OR *memcpy* OR *LoadLibrary* OR *GetModuleHandle* OR *GetProcAddress* OR *VirtualProtect* OR *FreeLibrary* OR *ReadProcessMemory* OR *CreateRemoteThread* OR *AdjustTokenPrivileges* OR *WriteByte* OR *WriteInt32* OR *OpenThreadToken* OR *PtrToString* OR *FreeHGlobal* OR *ZeroFreeGlobalAllocUnicode* OR *OpenProcessToken* OR *GetTokenInformation* OR *SetThreadToken* OR *ImpersonateLoggedOnUser* OR *RevertToSelf* OR *GetLogonSessionData* OR *CreateProcessWithToken* OR *DuplicateTokenEx* OR *OpenWindowStation* OR *OpenDesktop* OR *MiniDumpWriteDump* OR *AddSecurityPackage* OR *EnumerateSecurityPackages* OR *GetProcessHandle* OR *DangerousGetHandle* OR *kernel32* OR *Advapi32* OR *msvcrt* OR *ntdll* OR *user32* OR *secur32*))
+index: winlogbeat-*
+name: 03d83090-8cba-44a0-b02f-0b756a050306-Accessing-WinAPI-in-PowerShell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

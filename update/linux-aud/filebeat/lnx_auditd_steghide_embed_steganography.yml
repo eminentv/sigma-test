@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects embeding of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"steghide" AND a1:"embed" AND a2:("\-cf" OR "\-ef") AND a4:("\-cf" OR "\-ef"))
+index: filebeat-*
+name: ce446a9e-30b9-4483-8e38-d2c9ad0a2280-Steganography-Hide-Files-with-Steghide
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

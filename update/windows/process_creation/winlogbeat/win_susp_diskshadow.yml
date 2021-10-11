@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects using Diskshadow.exe to execute arbitrary code in text file
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\diskshadow.exe AND winlog.event_data.CommandLine.keyword:(*\/s* OR *\-s*))
+index: winlogbeat-*
+name: 0c2f8629-7129-4a8a-9897-7e0768f13ff2-Execution-via-Diskshadow.exe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

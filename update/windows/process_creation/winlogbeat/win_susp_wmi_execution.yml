@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects WMI executing suspicious commands
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\wmic.exe AND ((winlog.event_data.CommandLine.keyword:*process* AND winlog.event_data.CommandLine.keyword:*call* AND winlog.event_data.CommandLine.keyword:*create\ *) OR (winlog.event_data.CommandLine.keyword:*\ path\ * AND winlog.event_data.CommandLine.keyword:(*AntiVirus* OR *Firewall*) AND winlog.event_data.CommandLine.keyword:*Product* AND winlog.event_data.CommandLine.keyword:*\ get\ *)))
+index: winlogbeat-*
+name: 526be59f-a573-4eea-b5f7-f0973207634d-Suspicious-WMI-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

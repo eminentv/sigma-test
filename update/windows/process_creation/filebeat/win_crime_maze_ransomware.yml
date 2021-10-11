@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process characteristics of Maze ransomware word document droppers
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:*\\WINWORD.exe AND Image.keyword:*.tmp) OR (Image.keyword:*\\wmic.exe AND ParentImage.keyword:*\\Temp\\* AND CommandLine.keyword:*shadowcopy\ delete) OR (CommandLine.keyword:*shadowcopy\ delete AND CommandLine.keyword:*\\..\\..\\system32*))
+index: filebeat-*
+name: 29fd07fc-9cfd-4331-b7fd-cc18dfa21052-Maze-Ransomware
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

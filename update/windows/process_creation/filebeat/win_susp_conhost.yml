@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the conhost execution as parent process. Can be used to evaded defense mechanism.
+filter:
+- query:
+    query_string:
+      query: ParentImage.keyword:*\\conhost.exe
+index: filebeat-*
+name: 7dc2dedd-7603-461a-bc13-15803d132355-Conhost-Parent-Process-Executions
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

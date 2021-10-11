@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific patterns found after a successful ProxyLogon exploitation in relation to a Commandlet invocation of Set-OabVirtualDirectory
+filter:
+- query:
+    query_string:
+      query: (\*.keyword:(*OabVirtualDirectory* AND *\ \-ExternalUrl\ *) AND \*.keyword:(*eval\(request* OR *http\:\/\/f\/<script* OR *\"unsafe\"\};* OR *function\ Page_Load\(\)*))
+index: winlogbeat-*
+name: 550d3350-bb8a-4ff3-9533-2ba533f4a1c0-ProxyLogon-MSExchange-OabVirtualDirectory
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

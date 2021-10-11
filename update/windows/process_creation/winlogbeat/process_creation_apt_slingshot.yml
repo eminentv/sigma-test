@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the deactivation and disabling of the Scheduled defragmentation task as seen by Slingshot APT group
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\schtasks.exe AND winlog.event_data.CommandLine.keyword:(*\/delete* OR *\/change*) AND winlog.event_data.CommandLine.keyword:*\/TN* AND winlog.event_data.CommandLine.keyword:*\\Microsoft\\Windows\\Defrag\\ScheduledDefrag*)
+index: winlogbeat-*
+name: 958d81aa-8566-4cea-a565-59ccd4df27b0-Defrag-Deactivation
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

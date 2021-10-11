@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may modify file time attributes to hide new or changes to existing files. Timestomping is a technique that modifies the timestamps of a file (the modify, access, create, and change times), often to mimic files that are in the same folder.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:(*.CreationTime\ \=* OR *.LastWriteTime\ \=* OR *.LastAccessTime\ \=* OR *\[IO.File\]\:\:SetCreationTime* OR *\[IO.File\]\:\:SetLastAccessTime* OR *\[IO.File\]\:\:SetLastWriteTime*))
+index: winlogbeat-*
+name: c6438007-e081-42ce-9483-b067fbef33c3-Powershell-Timestomp
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

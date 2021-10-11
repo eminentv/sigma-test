@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Pingback backdoor that creates ICMP tunnel for C2 as described in the trustwave report
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*msdtc.exe AND winlog.event_data.ImageLoaded:"C\:\\Windows\\oci.dll")
+index: winlogbeat-*
+name: 35a7dc42-bc6f-46e0-9f83-81f8e56c8d4b-Pingback-Backdoor
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

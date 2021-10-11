@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Executes arbitrary PowerShell code using SyncAppvPublishingServer.exe.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\SyncAppvPublishingServer.exe AND winlog.event_data.CommandLine.keyword:*\"n;\ *)
+index: winlogbeat-*
+name: fbd7c32d-db2a-4418-b92c-566eb8911133-SyncAppvPublishingServer-Execute-Arbitrary-PowerShell-Code
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

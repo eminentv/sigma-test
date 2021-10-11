@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspect access to svchost process memory such as that used by Invoke-Phantom to kill the winRM windows event logging service.
+filter:
+- query:
+    query_string:
+      query: (TargetImage.keyword:*\\windows\\system32\\svchost.exe AND GrantedAccess:"0x1f3fff" AND CallTrace.keyword:*unknown*)
+index: filebeat-*
+name: 166e9c50-8cd9-44af-815d-d1f0c0e90dde-Suspect-Svchost-Memory-Asccess
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a new user account. Such accounts may be used for persistence that do not require persistent remote access tools to be deployed on the system.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/dscl AND CommandLine.keyword:*create*)
+index: filebeat-*
+name: 51719bf5-e4fd-4e44-8ba8-b830e7ac0731-Creation-Of-A-Local-User-Account
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

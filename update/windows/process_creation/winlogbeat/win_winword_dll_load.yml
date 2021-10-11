@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Winword.exe loading of custmom dll via /l cmd switch
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\winword.exe AND winlog.event_data.CommandLine.keyword:*\/l*)
+index: winlogbeat-*
+name: 2621b3a6-3840-4810-ac14-a02426086171-Winword.exe-Loads-Suspicious-DLL
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

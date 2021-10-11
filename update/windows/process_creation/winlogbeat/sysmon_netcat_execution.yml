@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may use a non-application layer protocol for communication between host and C2 server or among infected hosts within a network
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\ncat.exe OR winlog.event_data.CommandLine.keyword:(*\ \-lvp\ * OR *\ \-l\ \-\-proxy\-type\ http\ * OR *\ \-\-exec\ cmd.exe\ * OR *\ \-vnl\ \-\-exec\ *))
+index: winlogbeat-*
+name: e31033fc-33f0-4020-9a16-faf9b31cbf08-Ncat-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects known malicious service installs that appear in cases in which a Cobalt Strike beacon elevates privileges or lateral movement
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:"7045" AND ((winlog.event_data.ImagePath.keyword:*ADMIN$* AND winlog.event_data.ImagePath.keyword:*.exe*) OR (winlog.event_data.ImagePath.keyword:*%COMSPEC%* AND winlog.event_data.ImagePath.keyword:*start* AND winlog.event_data.ImagePath.keyword:*powershell*) OR winlog.event_data.ImagePath.keyword:*powershell\ \-nop\ \-w\ hidden\ \-encodedcommand* OR winlog.event_data.ImagePath.keyword:(*SUVYIChOZXctT2JqZWN0IE5ldC5XZWJjbGllbnQpLkRvd25sb2FkU3RyaW5nKCdodHRwOi8vMTI3LjAuMC4xO* OR *lFWCAoTmV3LU9iamVjdCBOZXQuV2ViY2xpZW50KS5Eb3dubG9hZFN0cmluZygnaHR0cDovLzEyNy4wLjAuMT* OR *JRVggKE5ldy1PYmplY3QgTmV0LldlYmNsaWVudCkuRG93bmxvYWRTdHJpbmcoJ2h0dHA6Ly8xMjcuMC4wLjE6*)))
+index: winlogbeat-*
+name: 5a105d34-05fc-401e-8553-272b45c1522d-CobaltStrike-Service-Installations
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

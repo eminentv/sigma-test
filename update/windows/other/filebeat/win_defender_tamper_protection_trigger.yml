@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects block of attempt to disable real time protection of Microsoft Defender by tamper protection
+filter:
+- query:
+    query_string:
+      query: (EventID:"5013" AND Value.keyword:(*\\Windows\ Defender\\DisableAntiSpyware\ \=\ 0x1\(\) OR *\\Real\-Time\ Protection\\DisableRealtimeMonitoring\ \=\ \(Current\)))
+index: filebeat-*
+name: 49e5bc24-8b86-49f1-b743-535f332c2856-Microsoft-Defender-Tamper-Protection-Trigger
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

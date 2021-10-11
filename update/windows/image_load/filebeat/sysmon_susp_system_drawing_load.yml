@@ -1,0 +1,17 @@
+alert:
+- debug
+description: A General detection for processes loading System.Drawing.ni.dll. This could be an indicator of potential Screen Capture.
+filter:
+- query:
+    query_string:
+      query: (ImageLoaded.keyword:*\\System.Drawing.ni.dll AND (NOT Image.keyword:*\\WmiPrvSE.exe))
+index: filebeat-*
+name: 666ecfc7-229d-42b8-821e-1a8f8cb7057c-Suspicious-System.Drawing-Load
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

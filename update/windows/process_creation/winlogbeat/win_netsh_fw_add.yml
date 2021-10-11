@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Allow Incoming Connections by Port or Application on Windows Firewall
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\netsh.exe AND winlog.event_data.CommandLine.keyword:*firewall* AND winlog.event_data.CommandLine.keyword:*add*)
+index: winlogbeat-*
+name: cd5cfd80-aa5f-44c0-9c20-108c4ae12e3c-Netsh-Port-or-Application-Allowed
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

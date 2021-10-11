@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a virtual network device is being modified or deleted. This can be a network interface, network virtual appliance, virtual hub, or virtual router.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/NETWORKINTERFACES\/TAPCONFIGURATIONS\/WRITE" OR "MICROSOFT.NETWORK\/NETWORKINTERFACES\/TAPCONFIGURATIONS\/DELETE" OR "MICROSOFT.NETWORK\/NETWORKINTERFACES\/WRITE" OR "MICROSOFT.NETWORK\/NETWORKINTERFACES\/JOIN\/ACTION" OR "MICROSOFT.NETWORK\/NETWORKINTERFACES\/DELETE" OR "MICROSOFT.NETWORK\/NETWORKVIRTUALAPPLIANCES\/DELETE" OR "MICROSOFT.NETWORK\/NETWORKVIRTUALAPPLIANCES\/WRITE" OR "MICROSOFT.NETWORK\/VIRTUALHUBS\/DELETE" OR "MICROSOFT.NETWORK\/VIRTUALHUBS\/WRITE" OR "MICROSOFT.NETWORK\/VIRTUALROUTERS\/WRITE" OR "MICROSOFT.NETWORK\/VIRTUALROUTERS\/DELETE")
+index: winlogbeat-*
+name: 15ef3fac-f0f0-4dc4-ada0-660aa72980b3-Azure-Virtual-Network-Device-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

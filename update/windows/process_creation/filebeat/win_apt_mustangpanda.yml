@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects specific process parameters as used by Mustang Panda droppers
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*Temp\\wtask.exe\ \/create* OR *%windir\:\~\-3,1%%PUBLIC\:\~\-9,1%* OR *\/tn\ \"Security\ Script\ * OR *%windir\:\~\-1,1%*) OR (CommandLine.keyword:*\/E\:vbscript* AND CommandLine.keyword:*C\:\\Users\\* AND CommandLine.keyword:*.txt* AND CommandLine.keyword:*\/F*) OR Image.keyword:*Temp\\winwsh.exe)
+index: filebeat-*
+name: 2d87d610-d760-45ee-a7e6-7a6f2a65de00-Mustang-Panda-Dropper
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

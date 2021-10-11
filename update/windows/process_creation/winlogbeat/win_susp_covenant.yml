@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command lines used in Covenant luanchers
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*\-Sta* AND winlog.event_data.CommandLine.keyword:*\-Nop* AND winlog.event_data.CommandLine.keyword:*\-Window* AND winlog.event_data.CommandLine.keyword:*Hidden* AND winlog.event_data.CommandLine.keyword:(*\-Command* OR *\-EncodedCommand*)) OR winlog.event_data.CommandLine.keyword:(*sv\ o\ \(New\-Object\ IO.MemorySteam\);sv\ d\ * OR *mshta\ file.hta* OR *GruntHTTP* OR *\-EncodedCommand\ cwB2ACAAbwAgA*))
+index: winlogbeat-*
+name: c260b6db-48ba-4b4a-a76f-2f67644e99d2-Covenant-Launcher-Indicators
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

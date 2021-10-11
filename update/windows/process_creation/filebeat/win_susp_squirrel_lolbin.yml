@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Possible Squirrel Packages Manager as Lolbin
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\update.exe AND CommandLine.keyword:(*\-\-processStart* OR *\-\-processStartAndWait* OR *\-\-createShortcut*) AND CommandLine.keyword:*.exe*)
+index: filebeat-*
+name: fa4b21c9-0057-4493-b289-2556416ae4d7-Squirrel-Lolbin
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

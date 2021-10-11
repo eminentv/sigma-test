@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects deinstallation of security products using WMIC utility
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*wmic* AND winlog.event_data.CommandLine.keyword:*product\ where\ name\=* AND winlog.event_data.CommandLine.keyword:*call\ uninstall* AND winlog.event_data.CommandLine.keyword:*\/nointeractive* AND winlog.event_data.CommandLine.keyword:(*Antivirus* OR *Endpoint\ Security* OR *Endpoint\ Detection* OR *Crowdstrike\ Sensor* OR *Windows\ Defender* OR *VirusScan* OR *Threat\ Protection* OR *Endpoint\ Sensor*))
+index: winlogbeat-*
+name: 847d5ff3-8a31-4737-a970-aeae8fe21765-Wmic-Uninstall-Security-Product
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

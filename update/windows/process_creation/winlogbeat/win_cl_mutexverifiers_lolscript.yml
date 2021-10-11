@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Execution via runAfterCancelProcess in CL_Mutexverifiers.ps1 module
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*CL_Mutexverifiers.ps1* AND winlog.event_data.CommandLine.keyword:*runAfterCancelProcess*)
+index: winlogbeat-*
+name: 99465c8f-f102-4157-b11c-b0cddd53b79a-Execution-via-CL_Mutexverifiers.ps1
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

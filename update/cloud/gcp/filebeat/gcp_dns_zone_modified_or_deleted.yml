@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a DNS Zone is modified or deleted in Google Cloud.
+filter:
+- query:
+    query_string:
+      query: gcp.audit.method_name:("Dns.ManagedZones.Delete" OR "Dns.ManagedZones.Update" OR "Dns.ManagedZones.Patch")
+index: filebeat-*
+name: 28268a8f-191f-4c17-85b2-f5aa4fa829c3-Google-Cloud-DNS-Zone-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

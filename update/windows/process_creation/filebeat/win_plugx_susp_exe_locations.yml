@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of an executable that is typically used by PlugX for DLL side loading started from an uncommon location
+filter:
+- query:
+    query_string:
+      query: ((((((((((((Image.keyword:*\\CamMute.exe AND (NOT Image.keyword:(*\\Lenovo\\Communication\ Utility\\* OR *\\Lenovo\\Communications\ Utility\\*))) OR (Image.keyword:*\\chrome_frame_helper.exe AND (NOT Image.keyword:*\\Google\\Chrome\\application\\*))) OR (Image.keyword:*\\dvcemumanager.exe AND (NOT Image.keyword:*\\Microsoft\ Device\ Emulator\\*))) OR (Image.keyword:*\\Gadget.exe AND (NOT Image.keyword:*\\Windows\ Media\ Player\\*))) OR (Image.keyword:*\\hcc.exe AND (NOT Image.keyword:*\\HTML\ Help\ Workshop\\*))) OR (Image.keyword:*\\hkcmd.exe AND (NOT Image.keyword:(*\\System32\\* OR *\\SysNative\\* OR *\\SysWowo64\\*)))) OR (Image.keyword:*\\Mc.exe AND (NOT Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit*)))) OR (Image.keyword:*\\MsMpEng.exe AND (NOT Image.keyword:(*\\Microsoft\ Security\ Client\\* OR *\\Windows\ Defender\\* OR *\\AntiMalware\\*)))) OR (Image.keyword:*\\msseces.exe AND (NOT Image.keyword:(*\\Microsoft\ Security\ Center\\* OR *\\Microsoft\ Security\ Client\\* OR *\\Microsoft\ Security\ Essentials\\*)))) OR (Image.keyword:*\\OInfoP11.exe AND (NOT Image.keyword:*\\Common\ Files\\Microsoft\ Shared\\*))) OR (Image.keyword:*\\OleView.exe AND (NOT Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit* OR *\\Windows\ Resource\ Kit\\*)))) OR (Image.keyword:*\\rc.exe AND (NOT Image.keyword:(*\\Microsoft\ Visual\ Studio* OR *\\Microsoft\ SDK* OR *\\Windows\ Kit* OR *\\Windows\ Resource\ Kit\\* OR *\\Microsoft.NET\\*))))
+index: filebeat-*
+name: aeab5ec5-be14-471a-80e8-e344418305c2-Executable-Used-by-PlugX-in-Uncommon-Location
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

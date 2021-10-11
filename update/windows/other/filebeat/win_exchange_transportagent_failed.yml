@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a failed installation of a Exchange Transport Agent
+filter:
+- query:
+    query_string:
+      query: (EventID:"6" AND "Install\-TransportAgent")
+index: filebeat-*
+name: c7d16cae-aaf3-42e5-9c1c-fb8553faa6fa-Failed-MSExchange-Transport-Agent-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

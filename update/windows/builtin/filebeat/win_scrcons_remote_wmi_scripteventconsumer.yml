@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect potential adversaries leveraging WMI ActiveScriptEventConsumers remotely to move laterally in a network
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4624" AND LogonType:"3" AND ProcessName.keyword:*scrcons.exe) AND (NOT TargetLogonId:"0x3e7"))
+index: filebeat-*
+name: 9599c180-e3a8-4743-8f92-7fb96d3be648-Remote-WMI-ActiveScriptEventConsumers
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

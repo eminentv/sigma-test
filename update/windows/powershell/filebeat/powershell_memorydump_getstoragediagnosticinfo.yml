@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of a PowerShell command to dump the live memory of a Windows machine
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*Get\-StorageDiagnosticInfo* AND ScriptBlockText.keyword:*\-IncludeLiveDump*)
+index: filebeat-*
+name: cd185561-4760-45d6-a63e-a51325112cae-Live-Memory-Dump-Using-Powershell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

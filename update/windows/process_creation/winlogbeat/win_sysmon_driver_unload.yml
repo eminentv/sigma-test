@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect possible Sysmon driver unload
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\fltmc.exe AND winlog.event_data.CommandLine.keyword:*unload* AND winlog.event_data.CommandLine.keyword:*sys*)
+index: winlogbeat-*
+name: 4d7cda18-1b12-4e52-b45c-d28653210df8-Sysmon-Driver-Unload
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

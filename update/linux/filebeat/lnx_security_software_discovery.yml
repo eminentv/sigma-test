@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of system utilities (only grep for now) to discover security software discovery
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/grep AND CommandLine.keyword:(*nessusd* OR *td\-agent* OR *packetbeat* OR *filebeat* OR *auditbeat* OR *osqueryd* OR *cbagentd* OR *falcond*))
+index: filebeat-*
+name: c9d8b7fd-78e4-44fe-88f6-599135d46d60-Security-Software-Discovery
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Ngrok, a utility used for port forwarding and tunneling, often used by threat actors to make local protected services publicly available. Involved domains are bin.equinox.io for download and *.ngrok.io for connections.
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:(*\ tcp\ 139* OR *\ tcp\ 445* OR *\ tcp\ 3389* OR *\ tcp\ 5985* OR *\ tcp\ 5986*) OR (CommandLine.keyword:*\ start\ * AND CommandLine.keyword:*\-\-all* AND CommandLine.keyword:*\-\-config* AND CommandLine.keyword:*.yml*) OR (Image.keyword:*ngrok.exe AND CommandLine.keyword:(*\ tcp\ * OR *\ http\ * OR *\ authtoken\ *)))
+index: filebeat-*
+name: ee37eb7c-a4e7-4cd5-8fa4-efa27f1c3f31-Ngrok-Usage
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

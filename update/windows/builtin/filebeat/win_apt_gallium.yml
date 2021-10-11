@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects artefacts associated with activity group GALLIUM - Microsoft Threat Intelligence Center indicators released in December 2019.
+filter:
+- query:
+    query_string:
+      query: (EventID:"257" AND QNAME:("asyspy256.ddns.net" OR "hotkillmail9sddcc.ddns.net" OR "rosaf112.ddns.net" OR "cvdfhjh1231.myftp.biz" OR "sz2016rose.ddns.net" OR "dffwescwer4325.myftp.biz" OR "cvdfhjh1231.ddns.net"))
+index: filebeat-*
+name: 3db10f25-2527-4b79-8d4b-471eb900ee29-GALLIUM-Artefacts
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a named pipe with a pattern found in CobaltStrike malleable C2 profiles
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.PipeName.keyword:(\\mojo.5688.8052.183894939787088877* OR \\mojo.5688.8052.35780273329370473* OR \\mypipe\-f* OR \\mypipe\-h* OR \\ntsvcs* OR \\scerpc* OR \\win_svc* OR \\spoolss* OR \\msrpc_* OR \\win\\msrpc_* OR \\wkssvc* OR \\f53f* OR \\windows.update.manager* OR \\SearchTextHarvester* OR \\DserNamePipe* OR \\PGMessagePipe* OR \\MsFteWds* OR \\f4c3* OR \\fullduplex_* OR \\rpc_*) OR winlog.event_data.PipeName:("\\demoagent_11" OR "\\demoagent_22")) OR (winlog.event_data.PipeName.keyword:\\Winsock2\\CatalogChangeListener\-* AND winlog.event_data.PipeName.keyword:*\-0,)) AND (NOT winlog.event_data.PipeName:("\\wkssvc" OR "\\spoolss" OR "\\scerpc" OR "\\ntsvcs" OR "\\SearchTextHarvester" OR "\\PGMessagePipe" OR "\\MsFteWds")))
+index: winlogbeat-*
+name: 85adeb13-4fc9-4e68-8a4a-c7cb2c336eb7-CobaltStrike-Named-Pipe-Patterns
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

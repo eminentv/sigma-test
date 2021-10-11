@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious Plink tunnel remote forarding to a local port
+filter:
+- query:
+    query_string:
+      query: (Description:"Command\-line\ SSH,\ Telnet,\ and\ Rlogin\ client" AND CommandLine.keyword:*\ \-R\ *)
+index: filebeat-*
+name: 48a61b29-389f-4032-b317-b30de6b95314-Suspicious-Plink-Remote-Forwarding
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

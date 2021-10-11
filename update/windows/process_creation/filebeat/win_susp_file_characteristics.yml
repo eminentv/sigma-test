@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Executables in the Downloads folder without FileVersion,Description,Product,Company likely created with py2exe
+filter:
+- query:
+    query_string:
+      query: (Description:"\?" AND (FileVersion:"\?" OR Product:"\?" OR Company:"\?") AND Image.keyword:*\\Downloads\\*)
+index: filebeat-*
+name: 9637e8a5-7131-4f7f-bdc7-2b05d8670c43-Suspicious-File-Characteristics-Due-to-Missing-Fields
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

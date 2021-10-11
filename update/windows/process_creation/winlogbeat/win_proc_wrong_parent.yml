@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect suspicious parent processes of well-known Windows processes
+filter:
+- query:
+    query_string:
+      query: (((winlog.event_data.Image.keyword:(*\\svchost.exe OR *\\taskhost.exe OR *\\lsm.exe OR *\\lsass.exe OR *\\services.exe OR *\\lsaiso.exe OR *\\csrss.exe OR *\\wininit.exe OR *\\winlogon.exe) AND (NOT (winlog.event_data.ParentImage.keyword:*\\SavService.exe OR winlog.event_data.ParentImage.keyword:(*\\System32\\* OR *\\SysWOW64\\*)))) AND (NOT (winlog.event_data.ParentImage.keyword:(*\\Windows\ Defender\\* OR *\\Microsoft\ Security\ Client\\*) AND winlog.event_data.ParentImage.keyword:*\\MsMpEng.exe))) AND (NOT NOT _exists_:winlog.event_data.ParentImage))
+index: winlogbeat-*
+name: 96036718-71cc-4027-a538-d1587e0006a7-Windows-Processes-Suspicious-Parent-Directory
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

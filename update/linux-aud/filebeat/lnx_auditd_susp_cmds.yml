@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects relevant commands often related to malware or hacking activity
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND ((a0:"chmod" AND a1:"777") OR (a0:"chmod" AND a1:"u\+s") OR (a0:"cp" AND a1:"\/bin\/ksh") OR (a0:"cp" AND a1:"\/bin\/sh")))
+index: filebeat-*
+name: 1543ae20-cbdf-4ec1-8d12-7664d667a825-Suspicious-Commands-Linux
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

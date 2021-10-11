@@ -1,0 +1,17 @@
+alert:
+- debug
+description: The 'LsaRegisterLogonProcess' function verifies that the application making the function call is a logon process by checking that it has the SeTcbPrivilege privilege set. Possible Rubeus tries to get a handle to LSA.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4673" AND Service:"LsaRegisterLogonProcess\(\)" AND Keywords:"0x8010000000000000")
+index: filebeat-*
+name: 6daac7fc-77d1-449a-a71a-e6b4d59a0e54-User-Couldn't-Call-a-Privileged-Service-'LsaRegisterLogonProcess'
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

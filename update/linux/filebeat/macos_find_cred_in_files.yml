@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting attempts to extract passwords with grep and laZagne
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\/grep AND CommandLine.keyword:*password*) OR CommandLine.keyword:*laZagne*)
+index: filebeat-*
+name: 53b1b378-9b06-4992-b972-dde6e423d2b4-Credentials-In-Files
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

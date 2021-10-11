@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Search for usage of reg or Powershell by non-priveleged users to modify service configuration in registry
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.IntegrityLevel:"Medium" AND ((winlog.event_data.CommandLine.keyword:*reg* AND winlog.event_data.CommandLine.keyword:*add*) OR (winlog.event_data.CommandLine.keyword:*powershell* AND winlog.event_data.CommandLine.keyword:(*set\-itemproperty* OR *\ sp\ * OR *new\-itemproperty*))) AND (winlog.event_data.CommandLine.keyword:*ControlSet* AND winlog.event_data.CommandLine.keyword:*Services*) AND winlog.event_data.CommandLine.keyword:(*ImagePath* OR *FailureCommand* OR *ServiceDLL*))
+index: winlogbeat-*
+name: 8f02c935-effe-45b3-8fc9-ef8696a9e41d-Non-privileged-Usage-of-Reg-or-Powershell
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

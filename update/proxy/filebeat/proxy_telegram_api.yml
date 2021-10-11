@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious requests to Telegram API without the usual Telegram User-Agent
+filter:
+- query:
+    query_string:
+      query: (dns.question.name:"api.telegram.org" AND (NOT c-useragent.keyword:(*Telegram* OR *Bot*)))
+index: filebeat-*
+name: b494b165-6634-483d-8c47-2026a6c52372-Telegram-API-Access
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

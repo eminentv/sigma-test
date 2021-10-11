@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the malicious use of a control panel item
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*.cpl AND (NOT winlog.event_data.CommandLine.keyword:(*\\System32\\* OR *%System%*))) OR (winlog.event_data.Image.keyword:*\\reg.exe AND winlog.event_data.CommandLine.keyword:*add* AND winlog.event_data.CommandLine.keyword:*CurrentVersion\\Control\ Panel\\CPLs*))
+index: winlogbeat-*
+name: 0ba863e6-def5-4e50-9cea-4dd8c7dc46a4-Control-Panel-Items
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

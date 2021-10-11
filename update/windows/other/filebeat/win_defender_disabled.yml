@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects disabling Windows Defender threat protection
+filter:
+- query:
+    query_string:
+      query: EventID:("5001" OR "5010" OR "5012" OR "5101")
+index: filebeat-*
+name: fe34868f-6e0e-4882-81f6-c43aa8f15b62-Windows-Defender-Threat-Detection-Disabled
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

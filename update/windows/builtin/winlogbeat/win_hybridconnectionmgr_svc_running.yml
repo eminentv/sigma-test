@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Rule to detect the Hybrid Connection Manager service running on an endpoint.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_id:("40300" OR "40301" OR "40302") AND \*.keyword:(*HybridConnection* OR *sb\:\/\/* OR *servicebus.windows.net* OR *HybridConnectionManage*))
+index: winlogbeat-*
+name: b55d23e5-6821-44ff-8a6e-67218891e49f-HybridConnectionManager-Service-Running
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

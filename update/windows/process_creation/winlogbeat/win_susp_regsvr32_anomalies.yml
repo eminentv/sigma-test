@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects various anomalies in relation to regsvr32.exe
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\regsvr32.exe AND winlog.event_data.CommandLine.keyword:*\\Temp\\*) OR (winlog.event_data.Image.keyword:*\\regsvr32.exe AND winlog.event_data.ParentImage.keyword:*\\powershell.exe) OR (winlog.event_data.Image.keyword:*\\regsvr32.exe AND winlog.event_data.ParentImage.keyword:*\\cmd.exe) OR (winlog.event_data.Image.keyword:*\\regsvr32.exe AND winlog.event_data.CommandLine.keyword:*\/i\:* AND winlog.event_data.CommandLine.keyword:(*http* OR *ftp*) AND winlog.event_data.CommandLine.keyword:*scrobj.dll) OR (winlog.event_data.Image.keyword:*\\wscript.exe AND winlog.event_data.ParentImage.keyword:*\\regsvr32.exe) OR (winlog.event_data.Image.keyword:*\\EXCEL.EXE AND winlog.event_data.CommandLine.keyword:*..\\..\\..\\Windows\\System32\\regsvr32.exe\ *) OR (winlog.event_data.ParentImage.keyword:*\\mshta.exe AND winlog.event_data.Image.keyword:*\\regsvr32.exe) OR (winlog.event_data.Image.keyword:*\\regsvr32.exe AND winlog.event_data.CommandLine.keyword:(*\\AppData\\Local* OR *C\:\\Users\\Public*)))
+index: winlogbeat-*
+name: 8e2b24c9-4add-46a0-b4bb-0057b4e6187d-Regsvr32-Anomaly
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

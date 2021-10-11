@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Launch 64-bit shellcode from a debugger script file using cdb.exe.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\cdb.exe AND CommandLine.keyword:*\-cf*)
+index: filebeat-*
+name: b5c7395f-e501-4a08-94d4-57fe7a9da9d2-Possible-App-Whitelisting-Bypass-via-WinDbg/CDB-as-a-Shellcode-Runner
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

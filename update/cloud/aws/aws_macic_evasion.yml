@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 10
+description: Detects evade to Macie detection.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: event.action:("ArchiveFindings" OR "CreateFindingsFilter" OR "DeleteMember" OR "DisassociateFromMasterAccount" OR "DisassociateMember" OR "DisableMacie" OR "DisableOrganizationAdminAccount" OR "UpdateFindingsFilter" OR "UpdateMacieSession" OR "UpdateMemberSession" OR "UpdateClassificationJob")
+index: filebeat-*
+max_threshold: 5
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: 91f6a16c-ef71-437a-99ac-0b070e3ad221-AWS-Macie-Evasion
+priority: 3
+query_key: source.address.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

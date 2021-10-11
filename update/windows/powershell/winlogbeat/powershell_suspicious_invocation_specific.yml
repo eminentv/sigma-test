@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious PowerShell invocation command parameters
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND (((("\ \-w\ " AND "hidden" AND (("\-nop" AND "\ \-c\ " AND ("\[Convert\]\:\:FromBase64String" OR \*.keyword:(*\-noni* AND *iex* AND *New\-Object*))) OR \*.keyword:(*\-ep* AND *bypass* AND *\-Enc*))) OR \*.keyword:(*powershell* AND *reg* AND *add* AND *HKCU\\software\\microsoft\\windows\\currentversion\\run*)) OR \*.keyword:(*bypass* AND *\-noprofile* AND *\-windowstyle* AND *hidden* AND *new\-object* AND *system.net.webclient* AND *.download*)) OR \*.keyword:(*iex* AND *New\-Object* AND *Net.WebClient* AND *.Download*)))
+index: winlogbeat-*
+name: fce5f582-cc00-41e1-941a-c6fabf0fdb8c-Suspicious-PowerShell-Invocations---Specific
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

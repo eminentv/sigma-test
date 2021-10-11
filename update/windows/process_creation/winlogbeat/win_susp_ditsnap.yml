@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of Ditsnap tool. Seems to be a tool for ransomware groups.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\ditsnap.exe OR winlog.event_data.CommandLine.keyword:*ditsnap.exe*)
+index: winlogbeat-*
+name: d3b70aad-097e-409c-9df2-450f80dc476b-DIT-Snapshot-Viewer-Use
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

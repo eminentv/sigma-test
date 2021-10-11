@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass via WSReset usable by default sysmon-config
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\wsreset.exe AND winlog.event_data.IntegrityLevel:("High" OR "System"))
+index: winlogbeat-*
+name: 89a9a0e0-f61a-42e5-8957-b1479565a658-UAC-Bypass-WSReset
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

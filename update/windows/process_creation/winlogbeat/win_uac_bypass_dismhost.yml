@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using DismHost DLL hijacking (UACMe 63)
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*C\:\\Users\\* AND winlog.event_data.ParentImage.keyword:*\\AppData\\Local\\Temp\\* AND winlog.event_data.ParentImage.keyword:*\\DismHost.exe* AND winlog.event_data.IntegrityLevel:("High" OR "System"))
+index: winlogbeat-*
+name: 853e74f9-9392-4935-ad3b-2e8c040dae86-UAC-Bypass-Using-DismHost
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

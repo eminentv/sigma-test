@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect file time attribute change to hide new or changes to existing files.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/touch AND CommandLine.keyword:(*\-t* OR *\-acmr* OR *\-d* OR *\-r*))
+index: filebeat-*
+name: 88c0f9d8-30a8-4120-bb6b-ebb54abcf2a0-File-Time-Attribute-Change
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

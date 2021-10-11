@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a process memory dump performed by RdrLeakDiag.exe
+filter:
+- query:
+    query_string:
+      query: (OriginalFileName:"RdrLeakDiag.exe" AND CommandLine.keyword:*fullmemdmp*)
+index: filebeat-*
+name: edadb1e5-5919-4e4c-8462-a9e643b02c4b-Process-Dump-via-RdrLeakDiag.exe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

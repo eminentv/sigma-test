@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a request has been made to transfer a Route 53 domain to another AWS account.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"route53.amazonaws.com" AND event.action:"TransferDomainToAnotherAwsAccount")
+index: filebeat-*
+name: b056de1a-6e6e-4e40-a67e-97c9808cf41b-AWS-Route-53-Domain-Transferred-to-Another-Account
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

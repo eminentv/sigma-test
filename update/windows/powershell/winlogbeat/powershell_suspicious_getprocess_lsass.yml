@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a Get-Process command on lsass process, which is in almost all cases a sign of malicious activity
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*Get\-Process\ lsass*)
+index: winlogbeat-*
+name: 84c174ab-d3ef-481f-9c86-a50d0b8e3edb-PowerShell-Get-Process-LSASS-in-ScriptBlock
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

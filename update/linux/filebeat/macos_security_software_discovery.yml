@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects usage of system utilities (only grep for now) to discover security software discovery
+filter:
+- query:
+    query_string:
+      query: (Image:"\/usr\/bin\/grep" AND (CommandLine.keyword:(*nessusd* OR *santad* OR *CbDefense* OR *falcond* OR *td\-agent* OR *packetbeat* OR *filebeat* OR *auditbeat* OR *osqueryd* OR *BlockBlock* OR *LuLu*) OR (CommandLine.keyword:*Little* AND CommandLine.keyword:*Snitch*)))
+index: filebeat-*
+name: 0ed75b9c-c73b-424d-9e7d-496cd565fbe0-Security-Software-Discovery
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

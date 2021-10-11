@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule will looks for Windows Installer service (msiexec.exe) spawned command line and/or powershell
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\cmd.exe OR *\\powershell.exe) AND winlog.event_data.ParentImage.keyword:*\\Windows\\Installer\\* AND winlog.event_data.ParentImage.keyword:*msi* AND winlog.event_data.ParentImage.keyword:*tmp)
+index: winlogbeat-*
+name: 1e53dd56-8d83-4eb4-a43e-b790a05510aa-Always-Install-Elevated-MSI-Spawned-Cmd-And-Powershell
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

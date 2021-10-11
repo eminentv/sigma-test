@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Masquerading occurs when the name or location of an executable, legitimate or malicious, is manipulated or abused for the sake of evading defenses and observation. Several different variations of this technique have been observed.
+filter:
+- query:
+    query_string:
+      query: (type:"execve" AND a0:"cp" AND a1:"\-i" AND a2:"\/bin\/sh" AND a3.keyword:*\/crond)
+index: filebeat-*
+name: 9d4548fa-bba0-4e88-bd66-5d5bf516cda0-Masquerading-as-Linux-Crond-Process
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

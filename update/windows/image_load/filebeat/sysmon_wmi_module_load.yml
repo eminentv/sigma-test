@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects non wmiprvse loading WMI modules
+filter:
+- query:
+    query_string:
+      query: (ImageLoaded.keyword:(*\\wmiclnt.dll OR *\\WmiApRpl.dll OR *\\wmiprov.dll OR *\\wmiutils.dll OR *\\wbemcomn.dll OR *\\wbemprox.dll OR *\\WMINet_Utils.dll OR *\\wbemsvc.dll OR *\\fastprox.dll) AND (NOT Image.keyword:(*\\WmiPrvSE.exe OR *\\WmiApSrv.exe OR *\\svchost.exe OR *\\DeviceCensus.exe OR *\\CompatTelRunner.exe OR *\\sdiagnhost.exe OR *\\SIHClient.exe OR *\\ngentask.exe OR *\\windows\\system32\\taskhostw.exe OR *\\windows\\system32\\MoUsoCoreWorker.exe OR *\\windows\\system32\\wbem\\WMIADAP.exe)))
+index: filebeat-*
+name: 671bb7e3-a020-4824-a00e-2ee5b55f385e-WMI-Modules-Loaded
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

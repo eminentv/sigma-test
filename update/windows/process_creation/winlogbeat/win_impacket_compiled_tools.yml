@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of different compiled Windows binaries of the impacket toolset (based on names or part of their names - could lead to false positives)
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\goldenPac* OR *\\karmaSMB* OR *\\kintercept* OR *\\ntlmrelayx* OR *\\rpcdump* OR *\\samrdump* OR *\\secretsdump* OR *\\smbexec* OR *\\smbrelayx* OR *\\wmiexec* OR *\\wmipersist*) OR winlog.event_data.Image.keyword:(*\\atexec_windows.exe OR *\\dcomexec_windows.exe OR *\\dpapi_windows.exe OR *\\findDelegation_windows.exe OR *\\GetADUsers_windows.exe OR *\\GetNPUsers_windows.exe OR *\\getPac_windows.exe OR *\\getST_windows.exe OR *\\getTGT_windows.exe OR *\\GetUserSPNs_windows.exe OR *\\ifmap_windows.exe OR *\\mimikatz_windows.exe OR *\\netview_windows.exe OR *\\nmapAnswerMachine_windows.exe OR *\\opdump_windows.exe OR *\\psexec_windows.exe OR *\\rdp_check_windows.exe OR *\\sambaPipe_windows.exe OR *\\smbclient_windows.exe OR *\\smbserver_windows.exe OR *\\sniffer_windows.exe OR *\\sniff_windows.exe OR *\\split_windows.exe OR *\\ticketer_windows.exe))
+index: winlogbeat-*
+name: 4627c6ae-6899-46e2-aa0c-6ebcb1becd19-Impacket-Tool-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

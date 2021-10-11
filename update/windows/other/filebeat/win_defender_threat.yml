@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects all actions taken by Windows Defender malware detection engines
+filter:
+- query:
+    query_string:
+      query: EventID:("1006" OR "1116" OR "1015" OR "1117")
+index: filebeat-*
+name: 57b649ef-ff42-4fb0-8bf6-62da243a1708-Windows-Defender-Threat-Detected
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

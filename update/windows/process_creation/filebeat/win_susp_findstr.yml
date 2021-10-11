@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Attackers can use findstr to hide their artifacts or search specific strings and evade defense mechanism
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*findstr* AND ((CommandLine.keyword:*\/V* AND CommandLine.keyword:*\/L*) OR (CommandLine.keyword:*\/S* AND CommandLine.keyword:*\/I*)))
+index: filebeat-*
+name: bf6c39fc-e203-45b9-9538-05397c1b4f3f-Abusing-Findstr-for-Defense-Evasion
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

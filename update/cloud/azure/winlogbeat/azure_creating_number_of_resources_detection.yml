@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Number of VM creations or deployment activities occur in Azure via the AzureActivity log.
+filter:
+- query:
+    query_string:
+      query: \*.keyword:(*Microsoft.Compute\/virtualMachines\/write* OR *Microsoft.Resources\/deployments\/write*)
+index: winlogbeat-*
+name: d2d901db-7a75-45a1-bc39-0cbf00812192-Number-Of-Resource-Creation-Or-Deployment-Activities
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

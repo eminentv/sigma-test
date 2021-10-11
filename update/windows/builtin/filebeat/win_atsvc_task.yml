@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects remote task creation via at.exe or API interacting with ATSVC namedpipe
+filter:
+- query:
+    query_string:
+      query: (EventID:"5145" AND ShareName.keyword:\\*\\IPC$ AND RelativeTargetName:"atsvc" AND Accesses.keyword:*WriteData*)
+index: filebeat-*
+name: f6de6525-4509-495a-8a82-1f8b0ed73a00-Remote-Task-Creation-via-ATSVC-Named-Pipe
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

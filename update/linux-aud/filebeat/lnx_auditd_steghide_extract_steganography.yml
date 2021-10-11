@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects extraction of files with usage of steghide binary, the adversaries may use this technique to prevent the detection of hidden information.
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND a0:"steghide" AND a1:"extract" AND a2:"\-sf" AND a3.keyword:(*.jpg OR *.png))
+index: filebeat-*
+name: a5a827d9-1bbe-4952-9293-c59d897eb41b-Steganography-Extract-Files-with-Steghide
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects enumeration of local system groups
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/groups OR (Image.keyword:*\/cat AND CommandLine.keyword:*\/etc\/group*))
+index: filebeat-*
+name: 676381a6-15ca-4d73-a9c8-6a22e970b90d-Local-Groups-Discovery
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

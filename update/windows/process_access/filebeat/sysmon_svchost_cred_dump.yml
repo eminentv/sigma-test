@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a process, such as mimikatz, accesses the memory of svchost to dump credentials
+filter:
+- query:
+    query_string:
+      query: ((TargetImage.keyword:*\\svchost.exe AND GrantedAccess:"0x143a") AND (NOT SourceImage.keyword:(*\\services.exe OR *\\msiexec.exe)))
+index: filebeat-*
+name: 174afcfa-6e40-4ae9-af64-496546389294-SVCHOST-Credential-Dump
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

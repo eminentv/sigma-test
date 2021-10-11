@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Once established within a system or network, an adversary may use automated techniques for collecting internal data.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:(*.doc* OR *.docx* OR *.xls* OR *.xlsx* OR *.ppt* OR *.pptx* OR *.rtf* OR *.pdf* OR *.txt*) AND ScriptBlockText.keyword:*Get\-ChildItem* AND ScriptBlockText.keyword:*\ \-Recurse\ * AND ScriptBlockText.keyword:*\ \-Include\ *)
+index: filebeat-*
+name: c1dda054-d638-4c16-afc8-53e007f3fbc5-Automated-Collection-Command-PowerShell
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

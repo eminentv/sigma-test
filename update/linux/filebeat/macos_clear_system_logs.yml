@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects deletion of local audit logs
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\/rm AND (CommandLine.keyword:*\/var\/log* OR (Commandline.keyword:*\/Users\/* AND Commandline.keyword:*\/Library\/Logs\/*)))
+index: filebeat-*
+name: acf61bd8-d814-4272-81f0-a7a269aa69aa-Indicator-Removal-on-Host---Clear-Mac-System-Logs
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

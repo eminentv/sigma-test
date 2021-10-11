@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects actions that clear the local ShimCache and remove forensic evidence
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*rundll32* AND ((winlog.event_data.CommandLine.keyword:*apphelp.dll* AND winlog.event_data.CommandLine.keyword:(*ShimFlushCache* OR *#250*)) OR (winlog.event_data.CommandLine.keyword:*kernel32.dll* AND winlog.event_data.CommandLine.keyword:(*BaseFlushAppcompatCache* OR *#46*))))
+index: winlogbeat-*
+name: b0524451-19af-4efa-a46f-562a977f792e-ShimCache-Flush
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

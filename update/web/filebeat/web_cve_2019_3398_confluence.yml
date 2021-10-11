@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the exploitation of the Confluence vulnerability described in CVE-2019-3398
+filter:
+- query:
+    query_string:
+      query: (cs-method:"POST" AND c-uri.keyword:*\/upload.action* AND c-uri.keyword:*filename\=..\/..\/..\/..\/*)
+index: filebeat-*
+name: e9bc39ae-978a-4e49-91ab-5bd481fc668b-Confluence-Exploitation-CVE-2019-3398
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

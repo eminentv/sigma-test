@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious child process of a Windows shell
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:(*\\mshta.exe OR *\\powershell.exe OR *\\rundll32.exe OR *\\cscript.exe OR *\\wscript.exe OR *\\wmiprvse.exe) AND Image.keyword:(*\\schtasks.exe OR *\\nslookup.exe OR *\\certutil.exe OR *\\bitsadmin.exe OR *\\mshta.exe)) AND (NOT CurrentDirectory.keyword:*\\ccmcache\\*))
+index: filebeat-*
+name: 3a6586ad-127a-4d3b-a677-1e6eacdf8fde-Windows-Shell-Spawning-Suspicious-Program
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

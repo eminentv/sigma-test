@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Malleable OneDrive Profile
+filter:
+- query:
+    query_string:
+      query: ((cs-method:"GET" AND c-uri.keyword:*?manifest\=wac AND cs-host:"onedrive.live.com") AND (NOT (c-uri.keyword:http* AND c-uri.keyword:*\:\/\/onedrive.live.com\/*)))
+index: filebeat-*
+name: c9b33401-cc6a-4cf6-83bb-57ddcb2407fc-CobaltStrike-Malleable-OneDrive-Browsing-Traffic-Profile
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

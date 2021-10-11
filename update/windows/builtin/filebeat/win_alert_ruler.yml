@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This events that are generated when using the hacktool Ruler by Sensepost
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4776" AND Workstation:"RULER") OR (EventID:("4624" OR "4625") AND WorkstationName:"RULER"))
+index: filebeat-*
+name: 24549159-ac1b-479c-8175-d42aea947cae-Hacktool-Ruler
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects executable downloads from suspicious remote systems
+filter:
+- query:
+    query_string:
+      query: (c-uri-extension:("exe" OR "vbs" OR "bat" OR "rar" OR "ps1" OR "doc" OR "docm" OR "xls" OR "xlsm" OR "pptm" OR "rtf" OR "hta" OR "dll" OR "ws" OR "wsf" OR "sct" OR "zip") AND (NOT dns.question.name.keyword:(*.com OR *.org OR *.net OR *.edu OR *.gov OR *.uk OR *.ca OR *.de OR *.jp OR *.fr OR *.au OR *.us OR *.ch OR *.it OR *.nl OR *.se OR *.no OR *.es)))
+index: filebeat-*
+name: b5de2919-b74a-4805-91a7-5049accbaefe-Download-EXE-from-Suspicious-TLD
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

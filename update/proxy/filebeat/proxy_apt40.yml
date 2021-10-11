@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious user agent string of APT40 Dropbox tool
+filter:
+- query:
+    query_string:
+      query: (c-useragent:"Mozilla\/5.0\ \(Windows\ NT\ 6.1;\ WOW64\)\ AppleWebKit\/537.36\ \(KHTML,\ like\ Gecko\)\ Chrome\/36.0.1985.143\ Safari\/537.36" AND dns.question.name:"api.dropbox.com")
+index: filebeat-*
+name: 5ba715b6-71b7-44fd-8245-f66893e81b3d-APT40-Dropbox-Tool-User-Agent
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

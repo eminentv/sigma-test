@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects downloads from PwnDrp web servers developed for red team testing and most likely also used for criminal activity
+filter:
+- query:
+    query_string:
+      query: c-uri.keyword:*\/pwndrop\/*
+index: filebeat-*
+name: 2b1ee7e4-89b6-4739-b7bb-b811b6607e5e-PwnDrp-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

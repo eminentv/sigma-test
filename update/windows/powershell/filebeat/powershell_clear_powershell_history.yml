@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects keywords that could indicate clearing PowerShell history
+filter:
+- query:
+    query_string:
+      query: "((EventID:\"4104\" AND ((ScriptBlockText.keyword:(*del* OR *Remove\\-Item* OR *rm*) AND ScriptBlockText.keyword:*\\(Get\\-PSReadlineOption\\).HistorySavePath*) OR (ScriptBlockText.keyword:*Set\\-PSReadlineOption* AND ScriptBlockText.keyword:*\u2013HistorySaveStyle* AND ScriptBlockText.keyword:*SaveNothing*))) OR (EventID:\"4103\" AND ((Payload.keyword:(*del* OR *Remove\\-Item* OR *rm*) AND Payload.keyword:*\\(Get\\-PSReadlineOption\\).HistorySavePath*) OR (Payload.keyword:*Set\\-PSReadlineOption* AND Payload.keyword:*\u2013HistorySaveStyle* AND Payload.keyword:*SaveNothing*))))"
+index: filebeat-*
+name: dfba4ce1-e0ea-495f-986e-97140f31af2d-Clear-PowerShell-History
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

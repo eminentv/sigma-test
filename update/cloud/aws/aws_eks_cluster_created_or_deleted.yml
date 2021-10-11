@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when an EKS cluster is created or deleted.
+filter:
+- query:
+    query_string:
+      query: (event.provider:"eks.amazonaws.com" AND event.action:("CreateCluster" OR "DeleteCluster"))
+index: filebeat-*
+name: 33d50d03-20ec-4b74-a74e-1e65a38af1c0-AWS-EKS-Cluster-Created-or-Deleted
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects alternate PowerShell hosts potentially bypassing detections looking for powershell.exe
+filter:
+- query:
+    query_string:
+      query: ((Description:"System.Management.Automation" AND ImageLoaded.keyword:*System.Management.Automation*) AND (NOT Image.keyword:*\\powershell.exe))
+index: filebeat-*
+name: fe6e002f-f244-4278-9263-20e4b593827f-Alternate-PowerShell-Hosts
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

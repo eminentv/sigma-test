@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting attempts to extract passwords with grep
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND "grep" AND "password")
+index: filebeat-*
+name: df3fcaea-2715-4214-99c5-0056ea59eb35-Credentials-In-Files
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

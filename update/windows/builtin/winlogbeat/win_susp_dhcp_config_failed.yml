@@ -1,0 +1,17 @@
+alert:
+- debug
+description: This rule detects a DHCP server error in which a specified Callout DLL (in registry) could not be loaded
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_id:("1031" OR "1032" OR "1034") AND winlog.event_data.Source:"Microsoft\-Windows\-DHCP\-Server")
+index: winlogbeat-*
+name: 75edd3fd-7146-48e5-9848-3013d7f0282c-DHCP-Server-Error-Failed-Loading-the-CallOut-DLL
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

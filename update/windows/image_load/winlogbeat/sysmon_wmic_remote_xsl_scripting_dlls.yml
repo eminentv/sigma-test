@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects threat actors proxy executing code and bypassing application controls by leveraging wmic and the `/FORMAT` argument switch to download and execute an XSL file (i.e js, vbs, etc).
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\wmic.exe AND winlog.event_data.ImageLoaded.keyword:(*\\jscript.dll OR *\\vbscript.dll))
+index: winlogbeat-*
+name: 06ce37c2-61ab-4f05-9ff5-b1a96d18ae32-WMIC-Loading-Scripting-Libraries
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

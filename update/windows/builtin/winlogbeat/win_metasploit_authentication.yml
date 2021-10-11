@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Alerts on Metasploit host's authentications on the domain.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND ((winlog.event_id:("4625" OR "4624") AND winlog.event_data.LogonType:"3" AND winlog.event_data.AuthenticationPackageName:"NTLM" AND winlog.event_data.WorkstationName.keyword:/^[A-Za-z0-9]{16}$/) OR (NOT _exists_:winlog.event_data.ProcessName AND winlog.event_id:"4776" AND winlog.event_data.Workstation.keyword:/^[A-Za-z0-9]{16}$/)))
+index: winlogbeat-*
+name: 72124974-a68b-4366-b990-d30e0b2a190d-Metasploit-SMB-Authentication
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

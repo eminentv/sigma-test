@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects execution of UACMe (a tool used for UAC bypass) via default PE metadata
+filter:
+- query:
+    query_string:
+      query: (Product:"UACMe" OR Company:"REvol\ Corp" OR OriginalFileName:"Akagi.exe")
+index: filebeat-*
+name: d38d2fa4-98e6-4a24-aff1-410b0c9ad177-UAC-Bypass-Tool-UACMe
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

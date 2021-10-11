@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of scheduled tasks that involves a temporary folder and runs only once
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\schtasks.exe AND winlog.event_data.CommandLine.keyword:*\ \/create\ * AND winlog.event_data.CommandLine.keyword:*\ \/sc\ once\ * AND winlog.event_data.CommandLine.keyword:*\\Temp\\*)
+index: winlogbeat-*
+name: 39019a4e-317f-4ce3-ae63-309a8c6b53c5-Suspicious-Scheduled-Task-Creation-Involving-Temp-Folder
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

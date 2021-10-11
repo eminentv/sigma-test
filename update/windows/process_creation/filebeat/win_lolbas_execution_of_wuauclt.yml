@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries can abuse wuauclt.exe (Windows Update client) to run code execution by specifying an arbitrary DLL.
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:/(?i)wuauclt\.exe.*\/UpdateDeploymentProvider.*\/Runhandlercomserver/ AND (NOT CommandLine.keyword:(*wuaueng.dll* OR *UpdateDeploymentProvider.dll\ \/ClassId*)))
+index: filebeat-*
+name: ba1bb0cb-73da-42de-ad3a-de10c643a5d0-Monitoring-Wuauclt.exe-For-Lolbas-Execution-Of-DLL
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

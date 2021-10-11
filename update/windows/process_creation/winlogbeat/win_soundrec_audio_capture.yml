@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect attacker collecting audio via SoundRecorder application.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\SoundRecorder.exe AND winlog.event_data.CommandLine.keyword:*\/FILE*)
+index: winlogbeat-*
+name: 83865853-59aa-449e-9600-74b9d89a6d6e-Audio-Capture-via-SoundRecorder
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the pattern of UAC Bypass using consent.exe and comctl32.dll (UACMe 22)
+filter:
+- query:
+    query_string:
+      query: (ParentImage.keyword:*\\consent.exe AND Image.keyword:*\\werfault.exe AND IntegrityLevel:("High" OR "System"))
+index: filebeat-*
+name: 1ca6bd18-0ba0-44ca-851c-92ed89a61085-UAC-Bypass-Using-Consent-and-Comctl32---Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

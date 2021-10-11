@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects command lines that indicate unwanted modifications to registry keys that disable important Internet Explorer security features
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*\ \-name\ IEHarden\ * AND CommandLine.keyword:*\ \-value\ 0\ *) OR (CommandLine.keyword:*\ \-name\ DEPOff\ * AND CommandLine.keyword:*\ \-value\ 1\ *) OR (CommandLine.keyword:*\ \-name\ DisableFirstRunCustomize\ * AND CommandLine.keyword:*\ \-value\ 2\ *))
+index: filebeat-*
+name: fb50eb7a-5ab1-43ae-bcc9-091818cb8424-Disabled-IE-Security-Features
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

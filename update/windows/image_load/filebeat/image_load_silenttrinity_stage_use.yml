@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects SILENTTRINITY stager use
+filter:
+- query:
+    query_string:
+      query: Description.keyword:*st2stager*
+index: filebeat-*
+name: 75c505b1-711d-4f68-a357-8c3fe37dbf2d-SILENTTRINITY-Stager-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

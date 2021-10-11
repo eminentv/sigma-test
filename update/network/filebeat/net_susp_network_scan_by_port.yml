@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  hours: 24
+description: Detects many failed connection attempts to different ports or hosts
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: event.action:"denied"
+index: filebeat-*
+max_threshold: 10
+metric_agg_key: destination.port.keyword
+metric_agg_type: cardinality
+name: fab0ddf0-b8a9-4d70-91ce-a20547209afb-Network-Scans-Count-By-Destination-Port
+priority: 3
+query_key: source.ip.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

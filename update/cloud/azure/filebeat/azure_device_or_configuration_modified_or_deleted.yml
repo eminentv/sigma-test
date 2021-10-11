@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a device or device configuration in azure is modified or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("Delete\ device" OR "Delete\ device\ configuration" OR "Update\ device" OR "Update\ device\ configuration")
+index: filebeat-*
+name: 46530378-f9db-4af9-a9e5-889c177d3881-Azure-Device-or-Configuration-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

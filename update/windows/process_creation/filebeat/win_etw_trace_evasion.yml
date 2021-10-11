@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a command that clears or disables any ETW trace log which could indicate a logging evasion.
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*cl* AND CommandLine.keyword:*\/Trace*) OR (CommandLine.keyword:*clear\-log* AND CommandLine.keyword:*\/Trace*) OR (CommandLine.keyword:*sl* AND CommandLine.keyword:*\/e\:false*) OR (CommandLine.keyword:*set\-log* AND CommandLine.keyword:*\/e\:false*) OR (CommandLine.keyword:*Remove\-EtwTraceProvider* AND CommandLine.keyword:*EventLog\-Microsoft\-Windows\-WMI\-Activity\-Trace* AND CommandLine.keyword:*\{1418ef04\-b0b4\-4623\-bf7e\-d74ab47bbdaa\}*) OR (CommandLine.keyword:*Set\-EtwTraceProvider* AND CommandLine.keyword:*\{1418ef04\-b0b4\-4623\-bf7e\-d74ab47bbdaa\}* AND CommandLine.keyword:*EventLog\-Microsoft\-Windows\-WMI\-Activity\-Trace* AND CommandLine.keyword:*0x11*) OR (CommandLine.keyword:*logman* AND CommandLine.keyword:*update* AND CommandLine.keyword:*trace* AND CommandLine.keyword:*\-\-p* AND CommandLine.keyword:*\-ets*))
+index: filebeat-*
+name: a238b5d0-ce2d-4414-a676-7a531b3d13d6-Disable-of-ETW-Trace
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects external diskdrives or plugged in USB devices , EventID 6416 on windows 10 or later
+filter:
+- query:
+    query_string:
+      query: ((EventID:"6416" AND ClassName:"DiskDrive") OR DeviceDescription:"USB\ Mass\ Storage\ Device")
+index: filebeat-*
+name: f69a87ea-955e-4fb4-adb2-bb9fd6685632-External-Disk-Drive-Or-USB-Storage-Device
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

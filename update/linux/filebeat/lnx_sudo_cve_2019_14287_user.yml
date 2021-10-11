@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects users trying to exploit sudo vulnerability reported in CVE-2019-14287
+filter:
+- query:
+    query_string:
+      query: 'USER.keyword:(#\-* OR #*4294967295)'
+index: filebeat-*
+name: 7fcc54cb-f27d-4684-84b7-436af096f858-Sudo-Privilege-Escalation-CVE-2019-14287
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

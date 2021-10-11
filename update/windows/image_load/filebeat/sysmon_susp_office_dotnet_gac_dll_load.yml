@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects any GAC DLL being loaded by an Office Product
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\winword.exe OR *\\powerpnt.exe OR *\\excel.exe OR *\\outlook.exe) AND ImageLoaded.keyword:C\:\\Windows\\Microsoft.NET\\assembly\\GAC_MSIL*)
+index: filebeat-*
+name: 90217a70-13fc-48e4-b3db-0d836c5824ac-GAC-DLL-Loaded-Via-Office-Applications
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via Stdin in Scripts
+filter:
+- query:
+    query_string:
+      query: (ServiceFileName.keyword:/(?i).*(set).*&&\s?set.*(environment|invoke|\${?input).*&&.*"/ AND EventID:"4697")
+index: filebeat-*
+name: 80b708f3-d034-40e4-a6c8-d23b7a7db3d1-Invoke-Obfuscation-Via-Stdin
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

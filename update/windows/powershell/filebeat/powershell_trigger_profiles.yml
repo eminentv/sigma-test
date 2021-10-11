@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may gain persistence and elevate privileges by executing malicious content triggered by PowerShell profiles.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4104" AND ScriptBlockText.keyword:*Add\-Content* AND ScriptBlockText.keyword:*$profile* AND ScriptBlockText.keyword:*\-Value* AND ScriptBlockText.keyword:(*Start\-Process* OR *\"\"*))
+index: filebeat-*
+name: 05b3e303-faf0-4f4a-9b30-46cc13e69152-Powershell-Trigger-Profiles-by-Add_Content
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

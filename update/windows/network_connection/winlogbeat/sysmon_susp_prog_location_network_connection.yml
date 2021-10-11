@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects programs with network connections running in suspicious files system locations
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:(*\\Users\\All\ Users\\* OR *\\Users\\Default\\* OR *\\Users\\Public\\* OR *\\Users\\Contacts\\* OR *\\Users\\Searches\\* OR *\\config\\systemprofile\\* OR *\\Windows\\Fonts\\* OR *\\Windows\\IME\\* OR *\\Windows\\addins\\*) OR winlog.event_data.Image.keyword:*\\$Recycle.bin OR winlog.event_data.Image.keyword:C\:\\Perflogs\\*)
+index: winlogbeat-*
+name: 7b434893-c57d-4f41-908d-6a17bf1ae98f-Suspicious-Program-Location-with-Network-Connections
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

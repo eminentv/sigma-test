@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an executable in the Windows folder accessing github.com
+filter:
+- query:
+    query_string:
+      query: (Initiated:"true" AND DestinationHostname.keyword:(*.github.com OR *.githubusercontent.com) AND Image.keyword:C\:\\Windows\\*)
+index: filebeat-*
+name: 635dbb88-67b3-4b41-9ea5-a3af2dd88153-Microsoft-Binary-Github-Communication
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

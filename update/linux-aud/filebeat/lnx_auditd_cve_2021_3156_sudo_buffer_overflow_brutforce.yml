@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  minutes: 30
+description: Detects exploitation attempt of vulnerability described in CVE-2021-3156. | Alternative approach might be to look for flooding of auditd logs due to bruteforcing | required to trigger the heap-based buffer overflow.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: (type:"SYSCALL" AND exe:"\/usr\/bin\/sudoedit")
+index: filebeat-*
+max_threshold: 50
+metric_agg_key: _id
+metric_agg_type: cardinality
+name: b9748c98-9ea7-4fdb-80b6-29bed6ba71d2-CVE-2021-3156-Exploitation-Attempt
+priority: 1
+query_key: host.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

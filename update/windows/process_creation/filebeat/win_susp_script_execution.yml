@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious file execution by wscript and cscript
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\wscript.exe OR *\\cscript.exe) AND CommandLine.keyword:(*.jse* OR *.vbe* OR *.js* OR *.vba*))
+index: filebeat-*
+name: 1e33157c-53b1-41ad-bbcc-780b80b58288-WSF/JSE/JS/VBA/VBE-File-Execution
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

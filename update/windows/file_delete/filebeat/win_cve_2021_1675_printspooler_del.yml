@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detect DLL deletions from Spooler Service driver folder
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*spoolsv.exe AND TargetFilename.keyword:*C\:\\Windows\\System32\\spool\\drivers\\x64\\3\\*)
+index: filebeat-*
+name: 5b2bbc47-dead-4ef7-8908-0cf73fcbecbf-Windows-Spooler-Service-Suspicious-File-Deletion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

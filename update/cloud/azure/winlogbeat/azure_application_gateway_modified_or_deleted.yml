@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a application gateway is modified or deleted.
+filter:
+- query:
+    query_string:
+      query: properties.message:("MICROSOFT.NETWORK\/APPLICATIONGATEWAYS\/WRITE" OR "MICROSOFT.NETWORK\/APPLICATIONGATEWAYS\/DELETE")
+index: winlogbeat-*
+name: ad87d14e-7599-4633-ba81-aeb60cfe8cd6-Azure-Application-Gateway-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

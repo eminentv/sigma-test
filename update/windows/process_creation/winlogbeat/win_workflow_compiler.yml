@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects invocation of Microsoft Workflow Compiler, which may permit the execution of arbitrary unsigned code.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\Microsoft.Workflow.Compiler.exe OR (winlog.event_data.OriginalFileName:"Microsoft.Workflow.Compiler.exe" AND winlog.event_data.CommandLine.keyword:*.xml*))
+index: winlogbeat-*
+name: 419dbf2b-8a9b-4bea-bf99-7544b050ec8d-Microsoft-Workflow-Compiler
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

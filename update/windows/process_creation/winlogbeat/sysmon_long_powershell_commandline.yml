@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Too long PowerShell command lines
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:(*powershell* OR *pwsh*) OR winlog.event_data.Description:"Windows\ Powershell" OR winlog.event_data.Product:"PowerShell\ Core\ 6") AND winlog.event_data.CommandLine.keyword:/.{1000,}/)
+index: winlogbeat-*
+name: d0d28567-4b9a-45e2-8bbc-fb1b66a1f7f6-Too-Long-PowerShell-Commandlines
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

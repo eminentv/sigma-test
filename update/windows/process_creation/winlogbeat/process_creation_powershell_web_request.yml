@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the use of various web request methods (including aliases) via Windows PowerShell command
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:(*Invoke\-WebRequest* OR *iwr\ * OR *wget\ * OR *curl\ * OR *Net.WebClient* OR *Start\-BitsTransfer*)
+index: winlogbeat-*
+name: 9fc51a3c-81b3-4fa7-b35f-7c02cf10fd2d-Windows-PowerShell-Web-Request
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies execution of nltest.exe and dsquery.exe for domain trust discovery. This technique is used by attackers to enumerate Active Directory trusts.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*\\nltest.exe AND winlog.event_data.CommandLine.keyword:(*domain_trusts* OR *all_trusts* OR *\/trusted_domains* OR *\/dclist*)) OR (winlog.event_data.Image.keyword:*\\dsquery.exe AND winlog.event_data.CommandLine.keyword:*trustedDomain*) OR (winlog.event_data.Image.keyword:*\\dsquery.exe AND winlog.event_data.CommandLine.keyword:*\-filter* AND winlog.event_data.CommandLine.keyword:*trustedDomain*))
+index: winlogbeat-*
+name: 3bad990e-4848-4a78-9530-b427d854aac0-Domain-Trust-Discovery
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

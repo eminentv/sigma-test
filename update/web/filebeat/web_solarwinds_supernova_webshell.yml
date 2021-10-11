@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects access to SUPERNOVA webshell as described in Guidepoint report
+filter:
+- query:
+    query_string:
+      query: (c-uri.keyword:*logoimagehandler.ashx* AND (c-uri.keyword:*clazz* OR sc-status:"500"))
+index: filebeat-*
+name: a2cee20b-eacc-459f-861d-c02e5d12f1db-Solarwinds-SUPERNOVA-Webshell-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

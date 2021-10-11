@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Rule to detect the Hybrid Connection Manager service installation.
+filter:
+- query:
+    query_string:
+      query: (EventID:"4697" AND ServiceName:"HybridConnectionManager" AND ServiceFileName.keyword:*HybridConnectionManager*)
+index: filebeat-*
+name: 0ee4d8a5-4e67-4faf-acfa-62a78457d1f2-HybridConnectionManager-Service-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

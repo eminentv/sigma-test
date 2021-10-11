@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a process spawned by the terminal service server process (this could be an indicator for an exploitation of CVE-2019-0708)
+filter:
+- query:
+    query_string:
+      query: ((ParentCommandLine.keyword:*\\svchost.exe* AND ParentCommandLine.keyword:*termsvcs*) AND (NOT Image.keyword:*\\rdpclip.exe))
+index: filebeat-*
+name: 1012f107-b8f1-4271-af30-5aed2de89b39-Terminal-Service-Process-Spawn
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

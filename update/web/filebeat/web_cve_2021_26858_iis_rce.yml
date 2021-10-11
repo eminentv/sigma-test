@@ -1,0 +1,17 @@
+alert:
+- debug
+description: "When exploiting this vulnerability with CVE-2021\u201326858, an SSRF attack is used to manipulate virtual directories"
+filter:
+- query:
+    query_string:
+      query: ((cs-method:"POST" AND sc-status:"200" AND cs-uri-stem:"\/ecp\/DDI\/DDIService.svc\/SetObject" AND cs-uri-query.keyword:*schema\=Reset* AND cs-uri-query.keyword:*VirtualDirectory* AND cs-username.keyword:*$) OR \*.keyword:(*POST* AND *200* AND *\/ecp\/DDI\/DDIService.svc\/SetObject* AND *schema\=Reset* AND *VirtualDirectory* AND *$*))
+index: filebeat-*
+name: effee1f6-a932-4297-a81f-acb44064fa3a-ProxyLogon-Reset-Virtual-Directories-Based-On-IIS-Log
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

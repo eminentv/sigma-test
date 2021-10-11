@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Emulates attack via documents through protocol handler in Microsoft Office. On successful execution you should see Microsoft Word launch a blank file.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\protocolhandler.exe AND CommandLine.keyword:*\"ms\-word* AND CommandLine.keyword:*.docx\"*)
+index: filebeat-*
+name: 104cdb48-a7a8-4ca7-a453-32942c6e5dcb-ProtocolHandler.exe-Downloaded-Suspicious-File
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

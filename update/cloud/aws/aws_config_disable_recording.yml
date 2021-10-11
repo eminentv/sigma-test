@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects AWS Config Service disabling
+filter:
+- query:
+    query_string:
+      query: (event.provider:"config.amazonaws.com" AND event.action:("DeleteDeliveryChannel" OR "StopConfigurationRecorder"))
+index: filebeat-*
+name: 07330162-dba1-4746-8121-a9647d49d297-AWS-Config-Disabling-Channel/Recorder
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

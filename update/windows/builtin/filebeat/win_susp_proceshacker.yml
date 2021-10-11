@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a ProcessHacker tool that elevated privileges to a very high level
+filter:
+- query:
+    query_string:
+      query: (EventID:"7045" AND ServiceName.keyword:ProcessHacker* AND AccountName:"LocalSystem")
+index: filebeat-*
+name: c4ff1eac-84ad-44dd-a6fb-d56a92fc43a9-ProcessHacker-Privilege-Elevation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

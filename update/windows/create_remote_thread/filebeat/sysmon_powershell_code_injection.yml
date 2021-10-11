@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting Code injection with PowerShell in another process
+filter:
+- query:
+    query_string:
+      query: SourceImage.keyword:*\\powershell.exe
+index: filebeat-*
+name: eeb2e3dc-c1f4-40dd-9bd5-149ee465ad50-Accessing-WinAPI-in-PowerShell.-Code-Injection.
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

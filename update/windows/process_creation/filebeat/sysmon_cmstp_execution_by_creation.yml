@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects various indicators of Microsoft Connection Manager Profile Installer execution
+filter:
+- query:
+    query_string:
+      query: ParentImage.keyword:*\\cmstp.exe
+index: filebeat-*
+name: 7d4cdc5a-0076-40ca-aac8-f7e714570e47-CMSTP-Execution-Process-Creation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

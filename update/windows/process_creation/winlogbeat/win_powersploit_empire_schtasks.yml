@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the creation of a schtask via PowerSploit or Empire Default Configuration.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.ParentImage.keyword:*\\powershell.exe AND winlog.event_data.Image.keyword:*\\schtasks.exe AND winlog.event_data.CommandLine.keyword:*\/Create* AND winlog.event_data.CommandLine.keyword:*\/SC* AND winlog.event_data.CommandLine.keyword:(*ONLOGON* OR *DAILY* OR *ONIDLE* OR *Updater*) AND winlog.event_data.CommandLine.keyword:*\/TN* AND winlog.event_data.CommandLine.keyword:*Updater* AND winlog.event_data.CommandLine.keyword:*\/TR* AND winlog.event_data.CommandLine.keyword:*powershell*)
+index: winlogbeat-*
+name: 56c217c3-2de2-479b-990f-5c109ba8458f-Default-PowerSploit-and-Empire-Schtasks-Persistence
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies creation of local users via the net.exe command.
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:(*\\net.exe OR *\\net1.exe) AND CommandLine.keyword:*user* AND CommandLine.keyword:*add*)
+index: filebeat-*
+name: cd219ff3-fa99-45d4-8380-a7d15116c6dc-Net.exe-User-Account-Creation
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious parents of powershell.exe
+filter:
+- query:
+    query_string:
+      query: ((ParentImage.keyword:(*\\mshta.exe OR *\\rundll32.exe OR *\\regsvr32.exe OR *\\services.exe OR *\\winword.exe OR *\\wmiprvse.exe OR *\\powerpnt.exe OR *\\excel.exe OR *\\msaccess.exe OR *\\mspub.exe OR *\\visio.exe OR *\\outlook.exe OR *\\amigo.exe OR *\\chrome.exe OR *\\firefox.exe OR *\\iexplore.exe OR *\\microsoftedgecp.exe OR *\\microsoftedge.exe OR *\\browser.exe OR *\\vivaldi.exe OR *\\safari.exe OR *\\sqlagent.exe OR *\\sqlserver.exe OR *\\sqlservr.exe OR *\\w3wp.exe OR *\\httpd.exe OR *\\nginx.exe OR *\\php\-cgi.exe OR *\\jbosssvc.exe OR *MicrosoftEdgeSH.exe) OR ParentImage.keyword:*tomcat*) AND (CommandLine.keyword:(*powershell* OR *pwsh*) OR Description:"Windows\ PowerShell" OR Product:"PowerShell\ Core\ 6"))
+index: filebeat-*
+name: 754ed792-634f-40ae-b3bc-e0448d33f695-Suspicious-PowerShell-Parent-Process
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

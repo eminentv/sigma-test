@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects non-system users failing to get a handle of the SCM database.
+filter:
+- query:
+    query_string:
+      query: ((EventID:"4656" AND ObjectType:"SC_MANAGER\ OBJECT" AND ObjectName:"servicesactive" AND Keywords:"Audit\ Failure") AND (NOT SubjectLogonId:"0x3e4"))
+index: filebeat-*
+name: 13addce7-47b2-4ca0-a98f-1de964d1d669-SCM-Database-Handle-Failure
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

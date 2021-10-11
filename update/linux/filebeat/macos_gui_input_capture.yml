@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects attempts to use system dialog prompts to capture user credentials
+filter:
+- query:
+    query_string:
+      query: (Image:"\/usr\/sbin\/osascript" AND Commandline.keyword:*\-e* AND Commandline.keyword:*display* AND Commandline.keyword:*dialog* AND Commandline.keyword:*answer* AND Commandline.keyword:(*admin* OR *administrator* OR *authenticate* OR *authentication* OR *credentials* OR *pass* OR *password* OR *unlock*))
+index: filebeat-*
+name: 60f1ce20-484e-41bd-85f4-ac4afec2c541-GUI-Input-Capture---macOS
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

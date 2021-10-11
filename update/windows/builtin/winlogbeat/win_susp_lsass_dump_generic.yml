@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects process handle on LSASS process with certain access mask
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND ((winlog.channel:"Security" AND winlog.event_data.ObjectName.keyword:*\\lsass.exe AND ((winlog.event_id:"4656" AND winlog.event_data.AccessMask.keyword:(*0x40* OR *0x1400* OR *0x1000* OR *0x100000* OR *0x1410* OR *0x1010* OR *0x1438* OR *0x143a* OR *0x1418* OR *0x1f0fff* OR *0x1f1fff* OR *0x1f2fff* OR *0x1f3fff*)) OR (winlog.event_id:"4663" AND winlog.event_data.AccessList.keyword:(*4484* OR *4416*)))) AND (NOT (winlog.event_data.ProcessName.keyword:(*\\wmiprvse.exe OR *\\taskmgr.exe OR *\\procexp64.exe OR *\\procexp.exe OR *\\lsm.exe OR *\\csrss.exe OR *\\wininit.exe OR *\\vmtoolsd.exe OR *\\minionhost.exe OR *\\VsTskMgr.exe OR *\\thor64.exe) AND winlog.event_data.ProcessName.keyword:(C\:\\Windows\\System32\\* OR C\:\\Windows\\SysWow64\\* OR C\:\\Windows\\SysNative\\* OR C\:\\Program\ Files\\* OR C\:\\Windows\\Temp\\asgard2\-agent\\*)))) AND (NOT winlog.event_data.ProcessName.keyword:C\:\\Program\ Files*))
+index: winlogbeat-*
+name: 4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76-Generic-Password-Dumper-Activity-on-LSASS
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

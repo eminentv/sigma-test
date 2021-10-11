@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Hurricane Panda Activity
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*localgroup* AND winlog.event_data.CommandLine.keyword:*admin* AND winlog.event_data.CommandLine.keyword:*\/add*) OR winlog.event_data.CommandLine.keyword:*\\Win64.exe*)
+index: winlogbeat-*
+name: 0eb2107b-a596-422e-b123-b389d5594ed7-Hurricane-Panda-Activity
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious network connection by Notepad
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.Image.keyword:*\\notepad.exe AND (NOT winlog.event_data.DestinationPort:"9100"))
+index: winlogbeat-*
+name: e81528db-fc02-45e8-8e98-4e84aba1f10b-Notepad-Making-Network-Connection
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects commandline operations on shell history files
+filter:
+- query:
+    query_string:
+      query: (type:"EXECVE" AND \*.keyword:(*.bash_history* OR *.zsh_history* OR *.zhistory* OR *.history* OR *.sh_history* OR *fish_history*))
+index: filebeat-*
+name: eae8ce9f-bde9-47a6-8e79-f20d18419910-Suspicious-History-File-Operations
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

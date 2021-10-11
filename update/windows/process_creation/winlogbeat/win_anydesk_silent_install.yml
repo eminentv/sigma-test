@@ -1,0 +1,17 @@
+alert:
+- debug
+description: AnyDesk Remote Desktop silent installation can be used by attacker to gain remote access.
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\-\-install* AND winlog.event_data.CommandLine.keyword:*\-\-start\-with\-win* AND winlog.event_data.CommandLine.keyword:*\-\-silent*)
+index: winlogbeat-*
+name: 114e7f1c-f137-48c8-8f54-3088c24ce4b9-AnyDesk-Silent-Installation
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

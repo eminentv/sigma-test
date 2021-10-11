@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may disable security tools to avoid possible detection of their tools and activities by uninstalling Crowdstrike Falcon
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*\\WindowsSensor.exe* AND winlog.event_data.CommandLine.keyword:*\ \/uninstall* AND winlog.event_data.CommandLine.keyword:*\ \/quiet*)
+index: winlogbeat-*
+name: f0f7be61-9cf5-43be-9836-99d6ef448a18-Uninstall-Crowdstrike-Falcon
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

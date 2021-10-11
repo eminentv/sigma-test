@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detecting use PsExec via Pipe Creation/Access to pipes
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.PipeName.keyword:(psexec* OR paexec* OR remcom* OR csexec*)
+index: winlogbeat-*
+name: 9e77ed63-2ecf-4c7b-b09d-640834882028-PsExec-Pipes-Artifacts
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects creation of a new service.
+filter:
+- query:
+    query_string:
+      query: ((Image.keyword:*\\sc.exe AND CommandLine.keyword:*create* AND CommandLine.keyword:*binpath*) OR (Image.keyword:*\\powershell.exe AND CommandLine.keyword:*new\-service*))
+index: filebeat-*
+name: 7fe71fc9-de3b-432a-8d57-8c809efc10ab-New-Service-Creation
+priority: 4
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

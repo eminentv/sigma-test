@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the image load of vss_ps.dll by uncommon executables using OriginalFileName datapoint
+filter:
+- query:
+    query_string:
+      query: (ImageLoaded.keyword:*\\vss_ps.dll AND (NOT (Image.keyword:(*\\svchost.exe OR *\\msiexec.exe OR *\\vssvc.exe OR *\\srtasks.exe OR *\\tiworker.exe OR *\\dllhost.exe OR *\\searchindexer.exe OR *dismhost.exe OR *taskhostw.exe OR *\\clussvc.exe) AND Image.keyword:*c\:\\windows\\*)))
+index: filebeat-*
+name: 333cdbe8-27bb-4246-bf82-b41a0dca4b70-Image-Load-of-VSS_PS.dll-by-Uncommon-Executable
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

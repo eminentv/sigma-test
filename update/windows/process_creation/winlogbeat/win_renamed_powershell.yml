@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the execution of a renamed PowerShell often used by attackers or malware
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Description.keyword:(Windows\ PowerShell* OR pwsh*) AND winlog.event_data.Company:"Microsoft\ Corporation") AND (NOT winlog.event_data.Image.keyword:(*\\powershell.exe OR *\\powershell_ise.exe OR *\\pwsh.exe)))
+index: winlogbeat-*
+name: d178a2d7-129a-4ba4-8ee6-d6e1fecd5d20-Renamed-PowerShell
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

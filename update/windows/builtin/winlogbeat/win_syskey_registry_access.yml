@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects handle requests and access operations to specific registry keys to calculate the SysKey
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("4656" OR "4663") AND winlog.event_data.ObjectType:"key" AND winlog.event_data.ObjectName.keyword:(*lsa\\JD OR *lsa\\GBG OR *lsa\\Skew1 OR *lsa\\Data))
+index: winlogbeat-*
+name: 9a4ff3b8-6187-4fd2-8e8b-e0eae1129495-SysKey-Registry-Keys-Access
+priority: 1
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

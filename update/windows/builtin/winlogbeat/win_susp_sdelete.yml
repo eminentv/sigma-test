@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects renaming of file while deletion with SDelete tool.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Security" AND winlog.event_id:("4656" OR "4663" OR "4658") AND winlog.event_data.ObjectName.keyword:(*.AAA OR *.ZZZ))
+index: winlogbeat-*
+name: 39a80702-d7ca-4a83-b776-525b1f86a36d-Secure-Deletion-with-SDelete
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Injects arbitrary DLL into running process specified by process ID. Requires Windows 10.
+filter:
+- query:
+    query_string:
+      query: (CommandLine.keyword:*\ \/INJECTRUNNING* AND CommandLine.keyword:*.dll* AND OriginalFileName.keyword:*mavinject*)
+index: filebeat-*
+name: 4f73421b-5a0b-4bbf-a892-5a7fb99bea66-Mavinject-Inject-DLL-Into-Running-Process
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

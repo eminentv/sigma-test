@@ -1,0 +1,17 @@
+alert:
+- debug
+description: COM interface (EditionUpgradeManager) that is not used by standard executables.
+filter:
+- query:
+    query_string:
+      query: CallTrace.keyword:*editionupgrademanagerobj.dll*
+index: filebeat-*
+name: fb3722e4-1a06-46b6-b772-253e2e7db933-Load-Undocumented-Autoelevated-COM-Interface
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects RDP session hijacking by using MSTSC shadowing
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*noconsentprompt* AND winlog.event_data.CommandLine.keyword:*shadow\:*)
+index: winlogbeat-*
+name: 6ba5a05f-b095-4f0a-8654-b825f4f16334-MSTSC-Shadowing
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

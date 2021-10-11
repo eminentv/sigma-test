@@ -1,0 +1,24 @@
+alert:
+- debug
+buffer_time:
+  days: 7
+description: This rule detects rare scheduled task creations. Typically software gets installed on multiple systems and not only on a few. The aggregation and count function selects tasks with rare names.
+doc_type: doc
+filter:
+- query:
+    query_string:
+      query: winlog.event_id:"106"
+index: winlogbeat-*
+metric_agg_key: _id
+metric_agg_type: cardinality
+min_threshold: 5
+name: b20f6158-9438-41be-83da-a5a16ac90c2b-Rare-Scheduled-Task-Creations
+priority: 4
+query_key: winlog.event_data.TaskName.keyword
+realert:
+  minutes: 0
+type: metric_aggregation
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

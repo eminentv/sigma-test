@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated Powershell via COMPRESS OBFUSCATION
+filter:
+- query:
+    query_string:
+      query: winlog.event_data.CommandLine.keyword:/(?i).*new-object.*(?:system\.io\.compression\.deflatestream|system\.io\.streamreader).*text\.encoding\]::ascii.*readtoend/
+index: winlogbeat-*
+name: 7eedcc9d-9fdb-4d94-9c54-474e8affc0c7-Invoke-Obfuscation-COMPRESS-OBFUSCATION
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects Obfuscated use of Environment Variables to execute PowerShell
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND ((winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:/.*cmd.{0,5}(?:\/c|\/r)(?:\s|)\"set\s[a-zA-Z]{3,6}.*(?:\{\d\}){1,}\\\"\s+?\-f(?:.*\)){1,}.*\"/) OR (winlog.event_id:"4103" AND winlog.event_data.Payload.keyword:/.*cmd.{0,5}(?:\/c|\/r)(?:\s|)\"set\s[a-zA-Z]{3,6}.*(?:\{\d\}){1,}\\\"\s+?\-f(?:.*\)){1,}.*\"/)))
+index: winlogbeat-*
+name: 0adfbc14-0ed1-11eb-adc1-0242ac120002-Invoke-Obfuscation-VAR+-Launcher
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

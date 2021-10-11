@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a command that clears or disables any ETW trace log which could indicate a logging evasion.
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.CommandLine.keyword:*cl* AND winlog.event_data.CommandLine.keyword:*\/Trace*) OR (winlog.event_data.CommandLine.keyword:*clear\-log* AND winlog.event_data.CommandLine.keyword:*\/Trace*) OR (winlog.event_data.CommandLine.keyword:*sl* AND winlog.event_data.CommandLine.keyword:*\/e\:false*) OR (winlog.event_data.CommandLine.keyword:*set\-log* AND winlog.event_data.CommandLine.keyword:*\/e\:false*) OR (winlog.event_data.CommandLine.keyword:*Remove\-EtwTraceProvider* AND winlog.event_data.CommandLine.keyword:*EventLog\-Microsoft\-Windows\-WMI\-Activity\-Trace* AND winlog.event_data.CommandLine.keyword:*\{1418ef04\-b0b4\-4623\-bf7e\-d74ab47bbdaa\}*) OR (winlog.event_data.CommandLine.keyword:*Set\-EtwTraceProvider* AND winlog.event_data.CommandLine.keyword:*\{1418ef04\-b0b4\-4623\-bf7e\-d74ab47bbdaa\}* AND winlog.event_data.CommandLine.keyword:*EventLog\-Microsoft\-Windows\-WMI\-Activity\-Trace* AND winlog.event_data.CommandLine.keyword:*0x11*) OR (winlog.event_data.CommandLine.keyword:*logman* AND winlog.event_data.CommandLine.keyword:*update* AND winlog.event_data.CommandLine.keyword:*trace* AND winlog.event_data.CommandLine.keyword:*\-\-p* AND winlog.event_data.CommandLine.keyword:*\-ets*))
+index: winlogbeat-*
+name: a238b5d0-ce2d-4414-a676-7a531b3d13d6-Disable-of-ETW-Trace
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

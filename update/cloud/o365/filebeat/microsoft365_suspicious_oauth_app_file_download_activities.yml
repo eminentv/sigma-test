@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects when a Microsoft Cloud App Security reported when an app downloads multiple files from Microsoft SharePoint or Microsoft OneDrive in a manner that is unusual for the user.
+filter:
+- query:
+    query_string:
+      query: (eventSource:"SecurityComplianceCenter" AND eventName:"Suspicious\ OAuth\ app\ file\ download\ activities" AND status:"success")
+index: filebeat-*
+name: ee111937-1fe7-40f0-962a-0eb44d57d174-Suspicious-OAuth-App-File-Download-Activities
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

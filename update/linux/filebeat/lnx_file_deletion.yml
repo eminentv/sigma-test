@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects file deletion commands
+filter:
+- query:
+    query_string:
+      query: Image.keyword:(*\/rm OR *\/shred)
+index: filebeat-*
+name: 30aed7b6-d2c1-4eaf-9382-b6bc43e50c57-File-Deletion
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

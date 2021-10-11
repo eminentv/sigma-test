@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Atbroker executing non-deafualt Assistive Technology applications
+filter:
+- query:
+    query_string:
+      query: ((winlog.event_data.Image.keyword:*AtBroker.exe AND winlog.event_data.CommandLine.keyword:*start*) AND (NOT winlog.event_data.CommandLine.keyword:(*animations* OR *audiodescription* OR *caretbrowsing* OR *caretwidth* OR *colorfiltering* OR *cursorscheme* OR *filterkeys* OR *focusborderheight* OR *focusborderwidth* OR *highcontrast* OR *keyboardcues* OR *keyboardpref* OR *magnifierpane* OR *messageduration* OR *minimumhitradius* OR *mousekeys* OR *Narrator* OR *osk* OR *overlappedcontent* OR *showsounds* OR *soundsentry* OR *stickykeys* OR *togglekeys* OR *windowarranging* OR *windowtracking* OR *windowtrackingtimeout* OR *windowtrackingzorder*)))
+index: winlogbeat-*
+name: f24bcaea-0cd1-11eb-adc1-0242ac120002-Suspicious-Atbroker-Execution
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

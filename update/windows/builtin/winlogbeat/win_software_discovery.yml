@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may attempt to enumerate software for a variety of reasons, such as figuring out what security measures are present or if the compromised system has a version of software that is vulnerable.
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"Microsoft\-Windows\-PowerShell\/Operational" AND winlog.event_id:"4104" AND winlog.event_data.ScriptBlockText.keyword:*get\-itemProperty* AND winlog.event_data.ScriptBlockText.keyword:*\\software\\* AND winlog.event_data.ScriptBlockText.keyword:*select\-object* AND winlog.event_data.ScriptBlockText.keyword:*format\-table*)
+index: winlogbeat-*
+name: 2650dd1a-eb2a-412d-ac36-83f06c4f2282-Detected-Windows-Software-Discovery
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects an issue in apache logs that reports threading related errors
+filter:
+- query:
+    query_string:
+      query: __pthread_tpp_change_priority\:\ Assertion\ `new_prio\ \=\=\ \-1\ \||\ \(new_prio\ >\=\ fifo_min_prio\ \&&\ new_prio\ <\=\ fifo_max_prio\)
+index: filebeat-*
+name: e9a2b582-3f6a-48ac-b4a1-6849cdc50b3c-Apache-Threading-Error
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

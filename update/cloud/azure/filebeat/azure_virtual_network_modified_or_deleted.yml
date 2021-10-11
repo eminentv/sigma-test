@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Identifies when a Virtual Network is modified or deleted in Azure.
+filter:
+- query:
+    query_string:
+      query: (properties.message.keyword:(MICROSOFT.NETWORK\/VIRTUALNETWORKGATEWAYS\/* OR MICROSOFT.NETWORK\/VIRTUALNETWORKS\/*) AND properties.message.keyword:(*\/WRITE OR *\/DELETE))
+index: filebeat-*
+name: bcfcc962-0e4a-4fd9-84bb-a833e672df3f-Azure-Virtual-Network-Modified-or-Deleted
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

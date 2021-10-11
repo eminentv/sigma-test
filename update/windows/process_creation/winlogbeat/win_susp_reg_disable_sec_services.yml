@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects a suspicious reg.exe invocation that looks as if it would disable an important security service
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*reg* AND winlog.event_data.CommandLine.keyword:*add* AND winlog.event_data.CommandLine.keyword:*\ \/d\ 4* AND winlog.event_data.CommandLine.keyword:*\ \/v\ Start* AND winlog.event_data.CommandLine.keyword:(*\\Sense\ * OR *\\WinDefend* OR *\\MsMpSvc* OR *\\NisSrv* OR *\\WdBoot\ * OR *\\WdNisDrv* OR *\\WdNisSvc* OR *\\wscsvc\ * OR *\\SecurityHealthService* OR *\\wuauserv* OR *\\UsoSvc\ *))
+index: winlogbeat-*
+name: 5e95028c-5229-4214-afae-d653d573d0ec-Reg-Disable-Security-Service
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

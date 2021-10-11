@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects the PowerShell command lines with special characters
+filter:
+- query:
+    query_string:
+      query: (Image.keyword:*\\powershell.exe AND (CommandLine.keyword:/.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*\+.*/ OR CommandLine.keyword:/.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*\{.*/ OR CommandLine.keyword:/.*{.*{.*{.*{.*{.*/ OR CommandLine.keyword:/.*\^.*\^.*\^.*\^.*\^.*/ OR CommandLine.keyword:/.*`.*`.*`.*`.*`.*/))
+index: filebeat-*
+name: d7bcd677-645d-4691-a8d4-7a5602b780d1-Suspicious-PowerShell-Command-Line
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

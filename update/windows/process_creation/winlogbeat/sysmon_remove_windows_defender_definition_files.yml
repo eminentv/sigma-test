@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Adversaries may disable security tools to avoid possible detection of their tools and activities by removing Windows Defender Definition Files
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.OriginalFileName:"MpCmdRun.exe" AND winlog.event_data.CommandLine.keyword:*\ \-RemoveDefinitions* AND winlog.event_data.CommandLine.keyword:*\ \-All*)
+index: winlogbeat-*
+name: 9719a8aa-401c-41af-8108-ced7ec9cd75c-Remove-Windows-Defender-Definition-Files
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

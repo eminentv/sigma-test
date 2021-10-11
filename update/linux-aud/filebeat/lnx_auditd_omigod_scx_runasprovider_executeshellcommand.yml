@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Rule to detect the use of the SCX RunAsProvider Invoke_ExecuteShellCommand to execute any UNIX/Linux command using the /bin/sh shell. SCXcore, started as the Microsoft Operations Manager UNIX/Linux Agent, is now used in a host of products including Microsoft Operations Manager. Microsoft Azure, and Microsoft Operations Management Suite.
+filter:
+- query:
+    query_string:
+      query: (type:"SYSCALL" AND SYSCALL:"execve" AND uid:"0" AND cwd:"\/var\/opt\/microsoft\/scx\/tmp" AND comm:"sh")
+index: filebeat-*
+name: 045b5f9c-49f7-4419-a236-9854fb3c827a-OMIGOD-SCX-RunAsProvider-ExecuteShellCommand
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

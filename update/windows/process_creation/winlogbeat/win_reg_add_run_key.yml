@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious command line reg.exe tool adding key to RUN key in Registry
+filter:
+- query:
+    query_string:
+      query: (winlog.event_data.CommandLine.keyword:*reg* AND winlog.event_data.CommandLine.keyword:*\ ADD\ * AND winlog.event_data.CommandLine.keyword:*Software\\Microsoft\\Windows\\CurrentVersion\\Run*)
+index: winlogbeat-*
+name: de587dce-915e-4218-aac4-835ca6af6f70-Reg-Add-RUN-Key
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects suspicious inline VBScript keywords as used by UNC2452
+filter:
+- query:
+    query_string:
+      query: ((CommandLine.keyword:*Execute* AND CommandLine.keyword:*CreateObject* AND CommandLine.keyword:*RegRead* AND CommandLine.keyword:*window.close* AND CommandLine.keyword:*\\Microsoft\\Windows\\CurrentVersion*) AND (NOT CommandLine.keyword:*\\Software\\Microsoft\\Windows\\CurrentVersion\\Run*))
+index: filebeat-*
+name: 20c3f09d-c53d-4e85-8b74-6aa50e2f1b61-Suspicious-VBScript-UN2452-Pattern
+priority: 2
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config

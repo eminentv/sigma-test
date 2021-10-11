@@ -1,0 +1,17 @@
+alert:
+- debug
+description: Detects volume shadow copy mount
+filter:
+- query:
+    query_string:
+      query: (winlog.channel:"System" AND winlog.event_data.Source:"Microsoft\-Windows\-Ntfs" AND winlog.event_id:"98" AND winlog.event_data.DeviceName.keyword:*HarddiskVolumeShadowCopy*)
+index: winlogbeat-*
+name: f512acbf-e662-4903-843e-97ce4652b740-Volume-Shadow-Copy-Mount
+priority: 3
+realert:
+  minutes: 0
+type: any
+
+import: BaseHive.config
+import: BaseTeams.config
+import: BaseRule.config
